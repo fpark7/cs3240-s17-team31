@@ -5,6 +5,7 @@ import psycopg2
 # E.g. for the values of the constants below, you'd type:
 #     createdb -U postgres mydb1
 # and give the password: wombat
+#new Comment
 
 PG_USER = "postgres"
 PG_USER_PASS = "qwerty"
