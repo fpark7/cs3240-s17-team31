@@ -1,7 +1,7 @@
 import psycopg2
 
 # NOTE: before running this program, you must create the database named below from
-# the command-line (i.e. outside of Python or psql).
+# aydsfkjsdafkl;sd fskflsjdkf the command-line (i.e. outside of Python or psql).
 # E.g. for the values of the constants below, you'd type:
 #     createdb -U postgres mydb1
 # and give the password: wombat
