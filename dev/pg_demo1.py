@@ -9,12 +9,12 @@ import psycopg2
 
 PG_USER = "postgres"
 PG_USER_PASS = "qwerty"
-PG_DATABASE = "mydb1"
+PG_DATABASE = "ddh3jw"#mydb1
 PG_HOST_INFO = " host=/tmp/" # use "" for OS X or Windows
 
 # Connect to an existing database
 conn = psycopg2.connect("dbname=" + PG_DATABASE + " user=" + PG_USER + " password=" + PG_USER_PASS + PG_HOST_INFO)
-print("** Connected to database.")
+print("** Connected to databasessss.")
 
 # Open a cursor to perform database operations
 cur = conn.cursor()
