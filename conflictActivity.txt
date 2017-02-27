@@ -1,4 +1,4 @@
-Make a conflict success!
+There is a conflict
 
 CS 3240
 
