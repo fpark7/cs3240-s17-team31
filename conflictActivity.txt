@@ -1,4 +1,4 @@
-Make a conflict
+Conflict Resolution Success
 
 CS 3240
 
@@ -7,5 +7,6 @@ University of Virginia
 Computer Science
 
 Adv Software Dev
+
 
 More Comments

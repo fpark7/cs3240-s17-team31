@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Results</title>
+    <link rel="stylesheet" type="text/css" href="{%  static 'main.css' %}" />
+</head>
+<body>
+    <h4>Thanks for Signing Up</h4>
+    <table>
+        <tr>
+            <th>Username:</th>
+            <td>{{ username }}</td>
+        </tr>
+        <tr>
+            <th>Email:</th>
+            <td>{{ email }}</td>
+        </tr>
+
+    </table>
+</body>
+</html>
