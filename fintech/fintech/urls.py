@@ -9,4 +9,5 @@ urlpatterns = [
 
     url(r'^signup/', newsletter_views.signupform),
     url(r'^admin/', include(admin.site.urls)),
+    url(r'^newsletter/', include('newsletter.urls')),
 ]

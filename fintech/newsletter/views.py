@@ -2,7 +2,8 @@ from django.shortcuts import render
 from django.contrib.auth.models import User
 from django.contrib.auth import login, authenticate
 from .forms import SignupForm
-
+from django.db import models
+from newsletter.forms import ReportForm
 
 
 def signupform (request):
@@ -23,3 +24,21 @@ def signupform (request):
         form = SignupForm()
 
     return render(request, 'signupform.html', {'form': form})
+
+#-----------------newReport---view-------------------------------
+
+def newReport (request):
+    
+    if request.method == 'POST':
+        form = ReportForm(request.POST)
+        if form.is_valid():
+            form.save()
+            render()
+
+        else:
+            form = ReportForm()
+    else:
+       form = ReportForm()
+    return render(request, 'newReport.html', {'form': form})
+    
+          
