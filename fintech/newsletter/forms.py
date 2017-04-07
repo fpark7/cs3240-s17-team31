@@ -17,6 +17,8 @@ class SignupForm(forms.Form): #forms.Form
             fields=('username','email','password')
 
 
+#------------------------Report--Form------------------------------------
+            
 class ReportForm(forms.ModelForm):
 
     COUNTRIES= (('US', 'United States'),
@@ -34,8 +36,14 @@ class ReportForm(forms.ModelForm):
     sector = forms.CharField(required=True, help_text="Enter Company sector")
     is_private = forms.ChoiceField(required=True, widget=forms.RadioSelect(), choices=OPTIONS, help_text="Is this report private?")
     project = forms.CharField(required=True, help_text="Enter project name")
+    files = forms.FileField(label="Upload a file here",required=False)
+
     
     class Meta:
         model = Report
-        fields = ("sector", "company_name", "company_Phone", "company_location","company_country", "is_private", "project")
-    
+        fields = ("sector", "company_name", "company_Phone", "company_location","company_country", "is_private", "project", "files")
+
+
+#----------------------SignIn/Home-Page----------------------------------
+
+#class SignIn(forms.

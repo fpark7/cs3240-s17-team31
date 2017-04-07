@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+    {% load static %}
+    <meta charset="UTF-8">
+    <link rel="Stylesheet" type="text/css" href="{% static 'main.css' %}" />
+    
+    {% block title %}Reports{% endblock %}
+    
+    {% block body_block %}
+    {% for field in reports %}
+    {{ field.company_name }}
+    <br>
+    {% endfor %}
+
+    {% endblock %}
+
+</html>

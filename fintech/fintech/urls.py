@@ -4,7 +4,7 @@ from newsletter import views as newsletter_views
 
 urlpatterns = [
     # Examples:
-    # url(r'^$', 'fintech.views.home', name='home'),
+     #url(r'^$', views.home, name='home'),
     # url(r'^blog/', include('blog.urls')),
 
     url(r'^signup/', newsletter_views.signupform),
