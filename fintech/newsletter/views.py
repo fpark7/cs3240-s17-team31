@@ -4,7 +4,7 @@ from django.contrib.auth import login, authenticate
 from .forms import SignupForm
 from django.db import models
 from newsletter.forms import ReportForm
-
+from django.contrib.auth.decorators import user_passes_test
 
 def signupform (request):
     if request.method == 'POST':
@@ -42,3 +42,16 @@ def newReport (request):
     return render(request, 'newReport.html', {'form': form})
     
           
+# ---------------------------------------------------------------------------
+
+@user_passes_test(lambda u: u.is_superuser)
+def siteManagerActions(request):
+    #give others SM status
+    #suspend or restore other access to other user's accounts
+    if request.method=='POST':
+        # request.POST.get('')
+        users = User.objects.all()
+        for user in users:
+
+
+    return render(request, 'signupform.html')

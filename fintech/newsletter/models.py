@@ -23,16 +23,16 @@ class Report(models.Model):
     company_country = models.CharField(max_length=2, choices=COUNTRIES)
     sector = models.CharField(max_length=45)
 
-    class Meta:
-        order_with_respect_to = 'company_name'
+    #class Meta:
+     #   order_with_respect_to = 'company_name'
 
 
 class Projects(models.Model):
     project_name = models.CharField(max_length=45)
     report = models.ForeignKey(Report, on_delete=models.CASCADE)
 
-    class Meta:
-        order_with_respect_to = 'project_name'
+    #class Meta:
+     #   order_with_respect_to = 'project_name'
 
     def __str__(self):
         return self.project_name
@@ -48,8 +48,8 @@ class Files(models.Model):
     document= models.FileField(upload_to='documents/')
     report = models.ForeignKey(Report, on_delete=models.CASCADE, blank=True)
 
-    class Meta:
-        order_with_respect_to = 'file_name'
+    #class Meta:
+     #   order_with_respect_to = 'file_name'
     
     def __str__(self):
         return self.file_name
