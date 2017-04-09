@@ -4,14 +4,16 @@ from django.contrib.auth import login, authenticate
 from .forms import SignupForm
 from django.db import models
 from newsletter.forms import ReportForm
-
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth.decorators import user_passes_test
 from newsletter.models import *
 from django.http import HttpResponseRedirect, HttpResponse
 
 #------------------Home------View-----------------------------------
-
-#def homeView (request):
+@login_required
+def homeView(request):
+    user = request.user
+    return render(request, 'home.html', {'user': user})
  #   if request.method == 'POST':
   #      form = 
 
