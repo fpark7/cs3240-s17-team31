@@ -45,12 +45,13 @@
                             <form method="post">
                                 {%  csrf_token %}
                                 {{ form }}
+                                <br>
                                 <button value="Submit">SUBMIT</button>
                             </form>
 
                         </section>
                         <p> </p>
-                        <!--<p class="message">Already registered? <a href="">Sign In</a></p>-->
+                        <p class="message">Already registered? <a href="{% url 'login' %}">Sign In</a></p>
                     </div>
 
                 </section>
@@ -59,13 +60,19 @@
     </div>
 
 		<!-- Scripts -->
-			<script src="static/js/jquery.min.js"></script>
-			<script src="static/js/jquery.scrollex.min.js"></script>
-			<script src="static/js/jquery.scrolly.min.js"></script>
-			<script src="static/js/skel.min.js"></script>
-			<script src="static/js/util.js"></script>
+			<!--<script src="static/js/jquery.min.js"></script>-->
+            <script src = "{%  static 'js/jquery.min.js' %}"></script>
+			<!--<script src="static/js/jquery.scrollex.min.js"></script>-->
+            <script src = "{%  static 'js/jquery.scrollex.min.js' %}"></script>
+			<!--<script src="static/js/jquery.scrolly.min.js"></script>-->
+            <script src = "{%  static 'js/jquery.scrolly.min.js' %}"></script>
+			<!--<script src="static/js/skel.min.js"></script>-->
+            <script src = "{%  static 'js/skel.min.js' %}"></script>
+			<!--<script src="static/js/util.js"></script>-->
+            <script src = "{%  static 'js/util.js' %}"></script>
 			<!--[if lte IE 8]><script src="static/js/ie/respond.min.js"></script><![endif]-->
-			<script src="static/js/main.js"></script>
+			<!--<script src="static/js/main.js"></script>-->
+            <script src = "{%  static 'js/main.js' %}"></script>
 			<!--<script type="text/javascript">
 				var password = document.getElementById("password")
 				var confirm_password = document.getElementById("password_verify");

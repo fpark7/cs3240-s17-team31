@@ -50,14 +50,14 @@ def register(request):
     return render(request, 'signup.html', {'form': form})
 
 #-------------------ViewReports----view------------------------------
-
+@login_required
 def viewReports (request):
     view = Report.objects.all()
     return render(request, 'viewReport.html', {'reports': view})
         
 
 #-----------------newReport---view-------------------------------
-
+@login_required
 def newReport (request):
     #Report.objects.get(pk=id)
     #Report.object.all()
