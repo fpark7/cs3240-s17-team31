@@ -9,14 +9,20 @@ class SignupForm(forms.Form): #forms.Form
     # CharField and EmailField are only two of them
     # go through the official docs for more field details
     #model = User
+    USERTYPES = (('i', 'Investor User'),
+                 ('c', 'Company User'),)
+    
     username = forms.CharField(label='Enter your username', max_length=100)
     email = forms.EmailField(label='Enter your email', max_length=100)
     password = forms.CharField(widget=forms.PasswordInput())
+    '''usertype = forms.ChoiceField(required=True, choices=USERTYPES, label="Select Your Desired User Type")'''
     class Meta:
             model=User
             fields=('username','email','password')
 
 
+#------------------------Report--Form------------------------------------
+            
 class ReportForm(forms.ModelForm):
 
     COUNTRIES= (('US', 'United States'),
@@ -34,8 +40,14 @@ class ReportForm(forms.ModelForm):
     sector = forms.CharField(required=True, help_text="Enter Company sector")
     is_private = forms.ChoiceField(required=True, widget=forms.RadioSelect(), choices=OPTIONS, help_text="Is this report private?")
     project = forms.CharField(required=True, help_text="Enter project name")
+    files = forms.FileField(label="Upload a file here",required=False)
+
     
     class Meta:
         model = Report
-        fields = ("sector", "company_name", "company_Phone", "company_location","company_country", "is_private", "project")
-    
+        fields = ("sector", "company_name", "company_Phone", "company_location","company_country", "is_private", "project", "files")
+
+
+#----------------------SignIn/Home-Page----------------------------------
+
+#class SignIn(forms.

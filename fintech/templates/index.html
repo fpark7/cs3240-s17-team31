@@ -1,0 +1,177 @@
+<!DOCTYPE HTML>
+<?php
+session_start();
+?>
+<!--
+	Spectral by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+	<head>
+		<title>P.C.Tingles</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
+		<link rel="stylesheet" href="assets/css/main.css" />
+		<!--[if lte IE 8]><link rel="stylesheet" href="assets/css/ie8.css" /><![endif]-->
+		<!--[if lte IE 9]><link rel="stylesheet" href="assets/css/ie9.css" /><![endif]-->
+	</head>
+	<body class="landing">
+
+		<!-- Page Wrapper -->
+			<div id="page-wrapper">
+
+				<!-- Header -->
+					<header id="header" class="alt">
+						<h1><a href="index.html">P.C.Tingles</a></h1>
+						<nav id="nav">
+							<ul>
+								<li class="special">
+									<a href="#menu" class="menuToggle"><span>Menu</span></a>
+									<div id="menu">
+										<ul>
+											<li><a href="about.html">About Us</a></li>
+											<li><a href="signup.html">Sign Up</a></li>
+											<li><?php if(!isset($_SESSION["name"])) { echo "<a href=\"login.html\">Log In</a>"; } else { echo "<a href=\"mem_index.php\">Member Home</a>";} ?></li>
+										</ul>
+									</div>
+								</li>
+							</ul>
+						</nav>
+					</header>
+
+				<!-- Banner -->
+					<section id="banner">
+						<div class="inner">
+							<h2>P.C.Tingles</h2>
+							<p>A tech rental company<br />
+							for students : by students<br />
+							
+							<ul class="actions">
+								<li><a href="login.html" class="button special">Log In</a></li>
+							</ul>
+						</div>
+						<a href="#one" class="more scrolly">Learn More</a>
+					</section>
+
+				<!-- One -->
+					<section id="one" class="wrapper style1 special">
+						<div class="inner">
+							<header class="major">
+								<h2>Whether you're in need of the latest<br />
+								laptop or tablet, we got you covered</h2>
+								<p>At P.C.Tingles, we offer a cheap, alternative solution to buying new tech every<br />
+								semester. Laptops and tablets for rent starting from $50 per month.</p>
+							</header>
+							<ul class="icons major">
+								<li><span class="icon fa-windows major style1"><span class="label">Windows</span></span></li>
+								<li><span class="icon fa-apple major style2"><span class="label">Mac</span></span></li>
+								<li><span class="icon fa-linux major style3"><span class="label">Linux</span></span></li>
+							</ul>
+						</div>
+					</section>
+
+				<!-- Two -->
+					<section id="two" class="wrapper alt style2">
+						<section class="spotlight">
+							<div class="image"><img src="images/pic01.png" alt="" /></div><div class="content">
+								<h2>Windows 10 operating<br />
+								laptops and tablets</h2>
+								<p>Explore from classic brands like acer, DELL, HP, and Lenovo. Delve deeper with gaming focused laptops like Asus, Razorblade, and Alienware.</p>
+							</div>
+						</section>
+						<section class="spotlight">
+							<div class="image"><img src="images/pic02.jpg" alt="" /></div><div class="content">
+								<h2>mac OS Macbook<br />
+								and iPad</h2>
+								<p>Rent the new Macbook Pro and try its functionalities or stick with the classic Macbook or Macbook Air for maximum portability.</p>
+							</div>
+						</section>
+						<section class="spotlight">
+							<div class="image"><img src="images/pic03.png" alt="" /></div><div class="content">
+								<h2>Linux operating<br />
+								system laptops</h2>
+								<p>Expand your OS knowledge by trying a Linux computer. Distributions include archLinux, Fedora, Ubuntu, and even Chrome OS.</p>
+							</div>
+						</section>
+					</section>
+
+				<!-- Three -->
+					<section id="three" class="wrapper style3 special">
+						<div class="inner">
+							<header class="major">
+								<h2>Customized Rentals made Easy</h2>
+								<p>We understand the busy life as students. That's why we simplified the whole<br />
+								process for you. Easy sign ups to easy customizations to easy checkouts.</p>
+							</header>
+							<ul class="features">
+								<li class="icon fa-laptop">
+									<h3>Latest Technology</h3>
+									<p>Choose from professionally refurbished to the latest technologies to rent from.</p>
+								</li>
+								<li class="icon fa-inbox">
+									<h3>Customized Programs</h3>
+									<p>Skip the tedious installation process. Give us a list of your courses and we'll install the respective programs for you.</p>
+								</li>
+								<li class="icon fa-paper-plane-o">
+									<h3>Door Delivery</h3>
+									<p>To ensure your rental arrives to you safe and sound, we have a door delivery policy: at your most convenient time.</p>
+								</li>
+								<li class="icon fa-phone">
+									<h3>Customer Support</h3>
+									<p>Some people aren't techy, but that's why we are. We offer a 24-hour support line to call anytime you have difficulties with your rental.</p>
+								</li>
+								<li class="icon fa-forward">
+									<h3>Rent Extensions</h3>
+									<p>We offer free extensions of your rent. Keep the device another day, week, month, semester, or even for a whole year.</p>
+								</li>
+								<li class="icon fa-heart-o">
+									<h3>Rental Purchase</h3>
+									<p>Love your rental tech so much you can't let go of it? You can permanently purchase your rental instantly.</p>
+								</li>
+							</ul>
+						</div>
+					</section>
+
+				<!-- CTA -->
+					<section id="cta" class="wrapper style4">
+						<div class="inner">
+							<header>
+								<h2>Start Renting Today</h2>
+								<p>Register today and start choosing from numerous rental devices with customizable program installations.</p>
+							</header>
+							<ul class="actions vertical">
+								<li><a href="signup.html" class="button fit special">Register</a></li>
+								<li><a href="about.html" class="button fit">About Us</a></li>
+							</ul>
+						</div>
+					</section>
+
+				<!-- Footer -->
+					<footer id="footer">
+						<ul class="icons">
+							<li><a href="#" class="icon fa-facebook"><span class="label">Facebook</span></a></li>
+							<li><a href="#" class="icon fa-twitter"><span class="label">Twitter</span></a></li>
+							<li><a href="#" class="icon fa-instagram"><span class="label">Instagram</span></a></li>
+							<li><a href="#" class="icon fa-dribbble"><span class="label">Dribbble</span></a></li>
+							<li><a href="#" class="icon fa-envelope-o"><span class="label">Email</span></a></li>
+						</ul>
+						<ul class="copyright">
+							<li>&copy; P.C.Tingles</li>
+						</ul>
+					</footer>
+
+			</div>
+
+		<!-- Scripts -->
+			<script src="assets/js/jquery.min.js"></script>
+			<script src="assets/js/jquery.scrollex.min.js"></script>
+			<script src="assets/js/jquery.scrolly.min.js"></script>
+			<script src="assets/js/skel.min.js"></script>
+			<script src="assets/js/util.js"></script>
+			<!--[if lte IE 8]><script src="assets/js/ie/respond.min.js"></script><![endif]-->
+			<script src="assets/js/main.js"></script>
+
+	</body>
+</html>
