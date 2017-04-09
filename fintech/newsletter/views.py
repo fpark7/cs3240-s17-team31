@@ -15,23 +15,33 @@ from django.http import HttpResponseRedirect, HttpResponse
  #   if request.method == 'POST':
   #      form = 
 
+#=---------------Login--------View---------------------------------
+#def login(request):
+#    if request.method == 'POST':
+        
 
+  
 #------------------SignUp---View------------------------------------
 
-def signupform (request):
+def register(request):
     if request.method == 'POST':
         form = SignupForm(request.POST)
         if form.is_valid():
             username = request.POST.get('username')
             email = request.POST.get('email')
             password = request.POST.get('password')
+            usertype = request.POST.get('usertype')
 
-            new_user = User.objects.create_user(username, email, password)
-            new_user = authenticate(username=username, password=password)
-            login(request, new_user)
-            return render(request, 'results.html', {'username': form.cleaned_data['username'],
-                                                   'email': form.cleaned_data['email']
-                                                   })
+            new_user = User.objects.create(username=username, email=email, password=password)
+            
+            site_user = SiteUser.objects.create(username=new_user,usertype=usertype)
+            
+            #login(request, new_user)
+            #return render(request, 'results.html', {'username': form.cleaned_data['username'],
+            #'email': form.cleaned_data['email']
+            #                                       })
+            return HttpResponseRedirect('../login/')
+              
     else:
         form = SignupForm()
 

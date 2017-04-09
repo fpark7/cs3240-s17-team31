@@ -5,10 +5,10 @@ from newsletter import views as newsletter_views
 
 urlpatterns = [
     # Examples:
-     #url(r'^$', views.home, name='home'),
+     url(r'^$', newsletter_views.register, name='home'),
     # url(r'^blog/', include('blog.urls')),
 
-    url(r'^signup/', newsletter_views.signupform),
+    url(r'^signup/', newsletter_views.register),
     url(r'^admin/', include(admin.site.urls)),
     url(r'^newsletter/', include('newsletter.urls')),
     url(r'^login/', auth_views.login, name='login'),

@@ -5,19 +5,19 @@ from django.dispatch import receiver
 
 # Create your models here.
 class SiteUser(models.Model):
-    user = models.OneToOneField(User,on_delete=models.CASCADE)
-    email = models.TextField(max_length=25, blank=False)
-    password = models.TextField(max_length=25, blank=False)
-    usertype = models.CharField(choices = (('c','Company User'),('i','Investor User'),('m','Site Manager'),), max_length=1)
+    username = models.OneToOneField(User,on_delete=models.CASCADE)
+    usertype = models.CharField(choices = (('c','Company User'),('i','Investor User'),), max_length=1)
 
-    @receiver(post_save,sender=User)
-    def create_user(sender,instance,created,**kwargs):
-        if created:
-            SiteUser.objects.create(user=instance)
+#    @receiver(post_save,sender=User)
+#    def create_user(sender,instance,created,**kwargs):
+#        if created:
+#            SiteUser.objects.create(user=instance)
             
-    @receiver(post_save,sender=User)
-    def save_user(sender,instance,**kwargs):
-       instance.siteuser.save()
+#    @receiver(post_save,sender=User)
+#    def save_user(sender,instance,**kwargs):
+#       instance.siteuser.save()
+
+
     
 
 

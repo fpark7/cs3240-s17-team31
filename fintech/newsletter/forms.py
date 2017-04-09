@@ -2,8 +2,12 @@
 from django import forms
 from django.contrib.auth.models import User
 from newsletter.models import Report
+from newsletter.models import SiteUser
 
-# creating our forms
+
+
+
+#---------------Signup-----Form-------------------------------------------
 class SignupForm(forms.Form): #forms.Form
     # django gives a number of predefined fields
     # CharField and EmailField are only two of them
@@ -15,10 +19,10 @@ class SignupForm(forms.Form): #forms.Form
     username = forms.CharField(label='Enter your username', max_length=100)
     email = forms.EmailField(label='Enter your email', max_length=100)
     password = forms.CharField(widget=forms.PasswordInput())
-    '''usertype = forms.ChoiceField(required=True, choices=USERTYPES, label="Select Your Desired User Type")'''
+    usertype = forms.ChoiceField(required=True, choices=USERTYPES, label="Select Your Desired User Type")
     class Meta:
-            model=User
-            fields=('username','email','password')
+            model=SiteUser
+            fields=('username','email','password','usertype')
 
 
 #------------------------Report--Form------------------------------------
