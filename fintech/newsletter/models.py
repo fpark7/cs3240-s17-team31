@@ -5,7 +5,7 @@ from django.dispatch import receiver
 
 # Create your models here.
 class SiteUser(models.Model):
-    username = models.OneToOneField(User,on_delete=models.CASCADE)
+    user = models.OneToOneField(User,on_delete=models.CASCADE)
     usertype = models.CharField(choices = (('c','Company User'),('i','Investor User'),), max_length=1)
 
 #    @receiver(post_save,sender=User)

@@ -21,7 +21,7 @@ class SignupForm(forms.Form): #forms.Form
     password = forms.CharField(widget=forms.PasswordInput())
     usertype = forms.ChoiceField(required=True, choices=USERTYPES, label="Select Your Desired User Type")
     class Meta:
-            model=SiteUser
+            model=User
             fields=('username','email','password','usertype')
 
 
