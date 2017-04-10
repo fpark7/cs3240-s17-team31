@@ -5,13 +5,13 @@
     {% load static %}
     <meta charset="UTF-8">
     <title>New Report</title>
-    <link rel="Stylesheet" type="text/css" href="{% static 'main.css' %}" />
-    {% block title %}New report{% endblock %}
+    <link rel="Stylesheet" type="text/css" href="{% static 'css/main.css' %}" />
+      <h1>{% block title %}New report{% endblock %}</h1>
 
     {% block body_block %}
   </head>
       <div class="page-header">
-	<h1>New Report</h1>
+
       </div>
 	
       <form id="form" method="post" action="/newsletter/new_report/">

@@ -19,7 +19,7 @@ class SignupForm(forms.Form): #forms.Form
     username = forms.CharField(label='Enter your username', max_length=100)
     email = forms.EmailField(label='Enter your email', max_length=100)
     password = forms.CharField(widget=forms.PasswordInput())
-    usertype = forms.ChoiceField(required=True, choices=USERTYPES, label="Select Your Desired User Type")
+    usertype = forms.ChoiceField(required=True, choices=USERTYPES, help_text="Select Your Desired User Type")
     class Meta:
             model=User
             fields=('username','email','password','usertype')
@@ -40,9 +40,11 @@ class ReportForm(forms.ModelForm):
     company_name = forms.CharField(required=True, help_text="Enter Company Name")
     company_Phone = forms.CharField(required=True, help_text="Enter Company Phone Number")
     company_location = forms.CharField(required=True, help_text="Enter Company location")
-    company_country = forms.ChoiceField(required=True, widget=forms.RadioSelect(), choices=COUNTRIES, help_text="Enter Company country")
+    #company_country = forms.ChoiceField(required=True, widget=forms.RadioSelect(), choices=COUNTRIES, help_text="Enter Company country")
+    company_country = forms.ChoiceField(required=True, choices=COUNTRIES, help_text="Enter Company country")
     sector = forms.CharField(required=True, help_text="Enter Company sector")
-    is_private = forms.ChoiceField(required=True, widget=forms.RadioSelect(), choices=OPTIONS, help_text="Is this report private?")
+    #is_private = forms.ChoiceField(required=True, widget=forms.RadioSelect(attrs={'type': 'radio'}), choices=OPTIONS, help_text="Is this report private?")
+    is_private = forms.ChoiceField(required=True, choices=OPTIONS, help_text="Is this report private?")
     project = forms.CharField(required=True, help_text="Enter project name")
     files = forms.FileField(label="Upload a file here",required=False)
 
