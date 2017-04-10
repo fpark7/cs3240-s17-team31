@@ -20,6 +20,7 @@ def homeView(request):
 #=---------------Login--------View---------------------------------
 #def login(request):
 #    if request.method == 'POST':
+#        form = 
         
 
   
@@ -34,9 +35,9 @@ def register(request):
             password = request.POST.get('password')
             usertype = request.POST.get('usertype')
 
-            new_user = User.objects.create(username=username, email=email, password=password)
-            
-            site_user = SiteUser.objects.create(username=new_user, usertype=usertype)
+            new_user = User.objects.create_user(username=username, email=email, password=password)
+            site_user = SiteUser.objects.create(user=new_user,usertype=usertype)
+            setattr(site_user, 'password', password)
             
             #login(request, new_user)
             #return render(request, 'results.html', {'username': form.cleaned_data['username'],
