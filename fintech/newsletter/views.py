@@ -36,7 +36,7 @@ def register(request):
 
             new_user = User.objects.create(username=username, email=email, password=password)
             
-            site_user = SiteUser.objects.create(username=new_user,usertype=usertype)
+            site_user = SiteUser.objects.create(username=new_user, usertype=usertype)
             
             #login(request, new_user)
             #return render(request, 'results.html', {'username': form.cleaned_data['username'],
