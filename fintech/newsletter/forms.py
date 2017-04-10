@@ -37,19 +37,25 @@ class ReportForm(forms.ModelForm):
     OPTIONS=(('Y', 'Yes'),
              ('N', 'No'))
 
+    owner = forms.CharField(required=True, help_text="Enter Owner")
     company_name = forms.CharField(required=True, help_text="Enter Company Name")
     company_Phone = forms.CharField(required=True, help_text="Enter Company Phone Number")
     company_location = forms.CharField(required=True, help_text="Enter Company location")
     company_country = forms.ChoiceField(required=True, widget=forms.RadioSelect(), choices=COUNTRIES, help_text="Enter Company country")
     sector = forms.CharField(required=True, help_text="Enter Company sector")
     is_private = forms.ChoiceField(required=True, widget=forms.RadioSelect(), choices=OPTIONS, help_text="Is this report private?")
-    project = forms.CharField(required=True, help_text="Enter project name")
-    files = forms.FileField(label="Upload a file here",required=False)
+    projects = forms.CharField(required=True, help_text="Enter project name")
+    content = forms.FileField(widget=forms.ClearableFileInput(attrs={'multiple': True}),help_text="Upload a file here",required=False)
+
+    """
+
+    """
 
     
     class Meta:
         model = Report
-        fields = ("sector", "company_name", "company_Phone", "company_location","company_country", "is_private", "project", "files")
+        fields = ("owner", "is_encrypted", "projects"
+                  , "sector", "company_name", "company_Phone", "company_location","company_country", "is_private", "content")
 
 
 #----------------------SignIn/Home-Page----------------------------------
