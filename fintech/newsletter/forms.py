@@ -3,7 +3,7 @@ from django import forms
 from django.contrib.auth.models import User
 from newsletter.models import Report
 from newsletter.models import SiteUser
-
+from django.contrib.auth.models import Group, Permission
 
 
 
@@ -19,7 +19,7 @@ class SignupForm(forms.Form): #forms.Form
     username = forms.CharField(label='Enter your username', max_length=100)
     email = forms.EmailField(label='Enter your email', max_length=100)
     password = forms.CharField(widget=forms.PasswordInput())
-    usertype = forms.ChoiceField(required=True, choices=USERTYPES, help_text="Select Your Desired User Type")
+    usertype = forms.ChoiceField(required=True, choices=USERTYPES, label="Select Your Desired User Type")
     class Meta:
             model=User
             fields=('username','email','password','usertype')
@@ -57,3 +57,13 @@ class ReportForm(forms.ModelForm):
 #----------------------SignIn/Home-Page----------------------------------
 
 #class SignIn(forms.
+
+
+#---------------------Make---Group------Form-----------------------------
+class GroupForm(forms.Form):
+    name = forms.CharField(label='Enter your group name', max_length=100)
+
+
+    
+    class Meta:
+        model = Group

@@ -1,12 +1,14 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.db.models.signals import post_save
+from django.contrib.auth.models import Group, Permission
 from django.dispatch import receiver
 
 # Create your models here.
 class SiteUser(models.Model):
     user = models.OneToOneField(User,on_delete=models.CASCADE)
     usertype = models.CharField(choices = (('c','Company User'),('i','Investor User'),), max_length=1)
+    groups = models.ManyToManyField(Group)
 
 #    @receiver(post_save,sender=User)
 #    def create_user(sender,instance,created,**kwargs):
@@ -28,8 +30,7 @@ class Report(models.Model):
     
     COUNTRIES= (('US', 'United States'),
                 ('CA', 'Canada'),
-                ('GB', 'Great Britain'),
-                ('MX', 'Mexico'),)
+                ('GB', 'Great Britain'),                ('MX', 'Mexico'),)
 
     OPTIONS=(('Y', 'Yes'),
              ('N', 'No'),)
@@ -75,4 +76,15 @@ class Files(models.Model):
     def __str__(self):
         return self.file_name
     
+#--------------------------------Group---Model----------------------------
+class Group(models.Model):
+    name = models.CharField(max_length=40,blank=False)
+    
+    members = models.ManyToManyField(SiteUser)
+
+
+
+
+
+
 #-------------------------------------END----------------------------
