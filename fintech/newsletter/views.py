@@ -8,6 +8,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.decorators import user_passes_test
 from newsletter.models import *
 from django.http import HttpResponseRedirect, HttpResponse
+from django.db import IntegrityError
 
 #------------------Home------View-----------------------------------
 @login_required
@@ -18,9 +19,8 @@ def homeView(request):
   #      form = 
 
 #=---------------Login--------View---------------------------------
-#def login(request):
-#    if request.method == 'POST':
-#        form = 
+def invalid(request):
+    return render(request, 'invalid.html')
         
 
   
@@ -34,16 +34,20 @@ def register(request):
             email = request.POST.get('email')
             password = request.POST.get('password')
             usertype = request.POST.get('usertype')
-
-            new_user = User.objects.create_user(username=username, email=email, password=password)
-            site_user = SiteUser.objects.create(user=new_user,usertype=usertype)
-            setattr(site_user, 'password', password)
+            try:
+                new_user = User.objects.create_user(username=username, email=email, password=password)
+                site_user = SiteUser.objects.create(user=new_user,usertype=usertype)
+                setattr(site_user, 'password', password)
+            except IntegrityError:
+                return HttpResponseRedirect('/invalid/')
             
             #login(request, new_user)
             #return render(request, 'results.html', {'username': form.cleaned_data['username'],
             #'email': form.cleaned_data['email']
             #                                       })
-            return HttpResponseRedirect('../login/')
+            return HttpResponseRedirect('/login/')
+        else:
+            return HttpResponseRedirect('/invalid/') # really shouldn't ever get here... but just in case
               
     else:
         form = SignupForm()

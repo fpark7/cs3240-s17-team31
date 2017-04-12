@@ -1,17 +1,92 @@
-<!DOCTYPE html>
+<!DOCTYPE HTML>
+{% load static %}
+<!--
+	felix
+-->
 <html>
-    {% load static %}
-    <meta charset="UTF-8">
-    <link rel="Stylesheet" type="text/css" href="{% static 'css/main.css' %}" />
-    
-    <h2>{% block title %}Reports{% endblock %}</h2>
-    <br>
-    {% block body_block %}
-    {% for field in reports %}
-    {{ field.company_name }}
-    <br>
-    {% endfor %}
+<head>
+    <title>View Reports | Lokahi</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!--[if lte IE 8]><script src="static/js/ie/html5shiv.js"></script><![endif]-->
+    <link rel="stylesheet" href="{%  static 'css/main.css' %}" />
+    <!--[if lte IE 8]><link rel="stylesheet" href="static/css/ie8.css" /><![endif]-->
+    <!--[if lte IE 9]><link rel="stylesheet" href="static/css/ie9.css" /><![endif]-->
+</head>
+	<body>
+		<!-- Page Wrapper -->
+    <div id="page-wrapper">
+        <!-- Header -->
+            <header id="header">
+                <h1><a href="{% url 'home' %}">Lokahi</a></h1>
+                <nav id="nav">
+                    <ul>
+                        <li class="special">
+                            <a href="#menu" class="menuToggle"><span>Menu</span></a>
+                            <div id="menu">
+                                <ul>
+                                    <li><a href="{% url 'home' %}">Home</a></li>
+                                    <li><a href="{% url 'newMessage' %}">Compose Message</a></li>
+                                    <!--^make this Inbox instead. Then compose in inbox-->
+                                    <!--<li><a href="{% url 'newReport' %}">New Report</a></li>-->
+                                    <li><a href="{% url 'logout' %}">Log Out</a></li>
 
-    {% endblock %}
+                                </ul>
+                            </div>
+                        </li>
+                    </ul>
+                </nav>
+            </header>
 
+        <!-- Main -->
+            <article id="main">
+                <section class="wrapper style5">
+                    <div class="inner">
+
+                        <section>
+                            <h2>REPORTS</h2>
+                            <a href="{% url 'newReport' %}" class="button special">New Report</a>
+                            <table>
+                                <thead>
+                                    <tr> <!-- PUT COLUMN NAMES IN ORDER HERE -->
+                                        <th>Time Stamp</th>
+                                        <th>Company Name</th>
+                                        <th>Sector</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% block body_block %}
+                                        {% for report in reports %}
+                                            <tr><!-- PUT EACH FIELD HERE. (refer to spec sheet for required fields -->
+                                            <td>{{ report.timestamp }}</td>
+                                            <td>{{ report.company_name }}</td>
+                                            <td>{{ report.sector }}</td>
+                                            </tr>
+                                        {% endfor %}
+                                    {% endblock %}
+                                </tbody>
+                            </table>
+                        </section>
+                    </div>
+
+                </section>
+            </article>
+
+    </div>
+    		<!-- Scripts -->
+			<!--<script src="static/js/jquery.min.js"></script>-->
+            <script src = "{%  static 'js/jquery.min.js' %}"></script>
+			<!--<script src="static/js/jquery.scrollex.min.js"></script>-->
+            <script src = "{%  static 'js/jquery.scrollex.min.js' %}"></script>
+			<!--<script src="static/js/jquery.scrolly.min.js"></script>-->
+            <script src = "{%  static 'js/jquery.scrolly.min.js' %}"></script>
+			<!--<script src="static/js/skel.min.js"></script>-->
+            <script src = "{%  static 'js/skel.min.js' %}"></script>
+			<!--<script src="static/js/util.js"></script>-->
+            <script src = "{%  static 'js/util.js' %}"></script>
+			<!--[if lte IE 8]><script src="static/js/ie/respond.min.js"></script><![endif]-->
+			<!--<script src="static/js/main.js"></script>-->
+            <script src = "{%  static 'js/main.js' %}"></script>
+
+	</body>
 </html>
