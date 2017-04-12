@@ -70,7 +70,7 @@ def newReport (request):
     #Report.objects.get(pk=id)
     #Report.object.all()
     if request.method == 'POST':
-        form = ReportForm(request.POST)
+        form = ReportForm(request.POST, request.FILES)
         if form.is_valid():
             form.save()
             return HttpResponseRedirect('view_report')

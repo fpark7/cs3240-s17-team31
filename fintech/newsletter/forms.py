@@ -46,7 +46,7 @@ class ReportForm(forms.ModelForm):
     #is_private = forms.ChoiceField(required=True, widget=forms.RadioSelect(attrs={'type': 'radio'}), choices=OPTIONS, help_text="Is this report private?")
     is_private = forms.ChoiceField(required=True, choices=OPTIONS, label="Is this report private?")
     project = forms.CharField(required=True, label="Enter project name")
-    files = forms.FileField(label="Upload a file here", required=False)
+    files = forms.FileField(widget=forms.ClearableFileInput(attrs={'multiple': True}),label="Upload a file here", required=False)
 
     
     class Meta:
