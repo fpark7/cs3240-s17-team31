@@ -3,7 +3,7 @@ from django import forms
 from django.contrib.auth.models import User
 from newsletter.models import Report
 from newsletter.models import SiteUser
-
+from django.contrib.auth.models import Group, Permission
 
 
 
@@ -57,3 +57,13 @@ class ReportForm(forms.ModelForm):
 #----------------------SignIn/Home-Page----------------------------------
 
 #class SignIn(forms.
+
+
+#---------------------Make---Group------Form-----------------------------
+class GroupForm(forms.Form):
+    name = forms.CharField(label='Enter your group name', max_length=100)
+
+
+    
+    class Meta:
+        model = Group

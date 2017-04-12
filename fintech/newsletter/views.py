@@ -3,6 +3,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth import login, authenticate
 from .forms import SignupForm
 from django.db import models
+from django.contrib.auth.models import Group, Permission
 from newsletter.forms import ReportForm
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.decorators import user_passes_test
@@ -45,13 +46,15 @@ def register(request):
             #return render(request, 'results.html', {'username': form.cleaned_data['username'],
             #'email': form.cleaned_data['email']
             #                                       })
-            return HttpResponseRedirect('/login/')
-        else:
-            return HttpResponseRedirect('/invalid/') # really shouldn't ever get here... but just in case
-              
+            try:
+                user_exists = User.objects.get(username=request.POST['username'])
+                return HttpResponse("Username already taken")
+            except User.DoesNotExist:
+                return HttpResponseRedirect('../login/')
+
     else:
         form = SignupForm()
-
+    
     return render(request, 'signup.html', {'form': form})
 
 #-------------------ViewReports----view------------------------------
@@ -92,4 +95,16 @@ def siteManagerActions(request):
 
     return render(request, 'signupform.html')'''
 
+
+#----------------------Create--Group----View---------------------------------
+def makeGroup(request):
+    if request.method == 'POST':
+        form = GroupForm(request.POST)
+        if form.is_valid():
+            groupname = request.POST.get('name')
+        else:
+            form = SignUpForm()
+
+    return render(request, 'signup.html', {'form': form})
+            
 
