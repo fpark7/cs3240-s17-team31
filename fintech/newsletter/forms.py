@@ -3,7 +3,7 @@ from django import forms
 from django.contrib.auth.models import User
 from newsletter.models import Report
 from newsletter.models import SiteUser
-
+from django.contrib.auth.models import Group, Permission
 
 
 
@@ -19,7 +19,7 @@ class SignupForm(forms.Form): #forms.Form
     username = forms.CharField(label='Enter your username', max_length=100)
     email = forms.EmailField(label='Enter your email', max_length=100)
     password = forms.CharField(widget=forms.PasswordInput())
-    usertype = forms.ChoiceField(required=True, choices=USERTYPES, help_text="Select Your Desired User Type")
+    usertype = forms.ChoiceField(required=True, choices=USERTYPES, label="Select Your Desired User Type")
     class Meta:
             model=User
             fields=('username','email','password','usertype')
@@ -37,17 +37,17 @@ class ReportForm(forms.ModelForm):
     OPTIONS=(('Y', 'Yes'),
              ('N', 'No'))
 
-    owner = forms.CharField(required=True, help_text="Enter Owner")
-    company_name = forms.CharField(required=True, help_text="Enter Company Name")
-    company_Phone = forms.CharField(required=True, help_text="Enter Company Phone Number")
-    company_location = forms.CharField(required=True, help_text="Enter Company location")
-    #company_country = forms.ChoiceField(required=True, widget=forms.RadioSelect(), choices=COUNTRIES, help_text="Enter Company country")
-    company_country = forms.ChoiceField(required=True, choices=COUNTRIES, help_text="Enter Company country")
-    sector = forms.CharField(required=True, help_text="Enter Company sector")
 
-    is_private = forms.ChoiceField(required=True, widget=forms.RadioSelect(), choices=OPTIONS, help_text="Is this report private?")
-    projects = forms.CharField(required=True, help_text="Enter project name")
-    content = forms.FileField(widget=forms.ClearableFileInput(attrs={'multiple': True}),help_text="Upload a file here",required=False)
+    company_name = forms.CharField(required=True, label="Enter Company Name")
+    company_Phone = forms.CharField(required=True, label="Enter Company Phone Number")
+    company_location = forms.CharField(required=True, label="Enter Company location")
+    #company_country = forms.ChoiceField(required=True, widget=forms.RadioSelect(), choices=COUNTRIES, help_text="Enter Company country")
+    company_country = forms.ChoiceField(required=True, choices=COUNTRIES, label="Enter Company country")
+    sector = forms.CharField(required=True, label="Enter Company Sector")
+    #is_private = forms.ChoiceField(required=True, widget=forms.RadioSelect(attrs={'type': 'radio'}), choices=OPTIONS, help_text="Is this report private?")
+    is_private = forms.ChoiceField(required=True, choices=OPTIONS, label="Is this report private?")
+    project = forms.CharField(required=True, label="Enter project name")
+    files = forms.FileField(widget=forms.ClearableFileInput(attrs={'multiple': True}),label="Upload a file here", required=False)
 
 
     
@@ -60,3 +60,13 @@ class ReportForm(forms.ModelForm):
 #----------------------SignIn/Home-Page----------------------------------
 
 #class SignIn(forms.
+
+
+#---------------------Make---Group------Form-----------------------------
+class GroupForm(forms.Form):
+    name = forms.CharField(label='Enter your group name', max_length=100)
+
+
+    
+    class Meta:
+        model = Group

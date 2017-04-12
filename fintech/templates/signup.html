@@ -18,15 +18,14 @@
     <div id="page-wrapper">
         <!-- Header -->
             <header id="header">
-                <h1><a href="index.html">Lokahi</a></h1>
+                <h1><a href="{% url 'login' %}">Lokahi</a></h1>
                 <nav id="nav">
                     <ul>
                         <li class="special">
                             <a href="#menu" class="menuToggle"><span>Menu</span></a>
                             <div id="menu">
                                 <ul>
-                                    <li><a href="index.html">Home</a></li>
-                                    <li><a href="about.html">About Us</a></li>
+                                    <li><a href="{% url 'login' %}">Login</a></li>
 
                                 </ul>
                             </div>
@@ -41,7 +40,7 @@
                     <div class="inner">
 
                         <section>
-                            <h4>Registration Page</h4>
+                            <h2>Registration Page</h2>
                             <form method="post">
                                 {%  csrf_token %}
                                 {{ form }}

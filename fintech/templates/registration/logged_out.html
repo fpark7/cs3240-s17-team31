@@ -18,15 +18,15 @@
     <div id="page-wrapper">
         <!-- Header -->
             <header id="header">
-                <h1><a href="index.html">Lokahi</a></h1>
+                <h1><a href="{%  url 'login' %}">Lokahi</a></h1>
                 <nav id="nav">
                     <ul>
                         <li class="special">
                             <a href="#menu" class="menuToggle"><span>Menu</span></a>
                             <div id="menu">
                                 <ul>
-                                    <li><a href="index.html">Home</a></li>
-                                    <li><a href="about.html">About Us</a></li>
+                                    <li><a href="{% url 'login' %}">Login</a></li>
+                                    <li><a href="{% url 'signup' %}">Sign Up</a></li>
 
                                 </ul>
                             </div>
@@ -41,7 +41,8 @@
                     <div class="inner">
 
                         <section>
-                            <h4>Successfully Logged Out</h4>
+                            <h2>Successfully Logged Out</h2>
+                            <p>Use the menu tab to navigate around our site.</p>
 
                         </section>
                     </div>
@@ -50,6 +51,19 @@
             </article>
 
     </div>
-
+        <!-- Scripts -->
+			<!--<script src="static/js/jquery.min.js"></script>-->
+            <script src = "{%  static 'js/jquery.min.js' %}"></script>
+			<!--<script src="static/js/jquery.scrollex.min.js"></script>-->
+            <script src = "{%  static 'js/jquery.scrollex.min.js' %}"></script>
+			<!--<script src="static/js/jquery.scrolly.min.js"></script>-->
+            <script src = "{%  static 'js/jquery.scrolly.min.js' %}"></script>
+			<!--<script src="static/js/skel.min.js"></script>-->
+            <script src = "{%  static 'js/skel.min.js' %}"></script>
+			<!--<script src="static/js/util.js"></script>-->
+            <script src = "{%  static 'js/util.js' %}"></script>
+			<!--[if lte IE 8]><script src="static/js/ie/respond.min.js"></script><![endif]-->
+			<!--<script src="static/js/main.js"></script>-->
+            <script src = "{%  static 'js/main.js' %}"></script>
 	</body>
 </html>
