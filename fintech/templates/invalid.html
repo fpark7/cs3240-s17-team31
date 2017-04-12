@@ -1,0 +1,71 @@
+<!DOCTYPE HTML>
+{% load static %}
+<!--
+	felix
+-->
+<html>
+<head>
+    <title>Invalid Login | Lokahi</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!--[if lte IE 8]><script src="static/js/ie/html5shiv.js"></script><![endif]-->
+    <link rel="stylesheet" href="{%  static 'css/main.css' %}" />
+    <!--[if lte IE 8]><link rel="stylesheet" href="static/css/ie8.css" /><![endif]-->
+    <!--[if lte IE 9]><link rel="stylesheet" href="static/css/ie9.css" /><![endif]-->
+</head>
+	<body>
+		<!-- Page Wrapper -->
+    <div id="page-wrapper">
+        <!-- Header -->
+            <header id="header">
+                <h1><a href="{% url 'login' %}">Lokahi</a></h1>
+                <nav id="nav">
+                    <ul>
+                        <li class="special">
+                            <a href="#menu" class="menuToggle"><span>Menu</span></a>
+                            <div id="menu">
+                                <ul>
+                                    <li><a href="{% url 'login' %}">Login</a></li>
+                                    <li><a href="{% url 'signup' %}">Sign Up</a></li>
+                                </ul>
+                            </div>
+                        </li>
+                    </ul>
+                </nav>
+            </header>
+
+        <!-- Main -->
+            <article id="main">
+                <section class="wrapper style5">
+                    <div class="inner">
+
+                        <section>
+                            <h2>Invalid Login</h2>
+                            <p>Oops! Looks like the username is already in use or invalid. Please try again!</p>
+                            <br>
+                            <p class="message">Already registered? <a href="{% url 'login' %}">Sign In</a></p>
+                            <p class="message">Need to register? <a href="{% url 'signup' %}">Register Now</a></p>
+                        </section>
+                    </div>
+
+                </section>
+            </article>
+
+    </div>
+    		<!-- Scripts -->
+			<!--<script src="static/js/jquery.min.js"></script>-->
+            <script src = "{%  static 'js/jquery.min.js' %}"></script>
+			<!--<script src="static/js/jquery.scrollex.min.js"></script>-->
+            <script src = "{%  static 'js/jquery.scrollex.min.js' %}"></script>
+			<!--<script src="static/js/jquery.scrolly.min.js"></script>-->
+            <script src = "{%  static 'js/jquery.scrolly.min.js' %}"></script>
+			<!--<script src="static/js/skel.min.js"></script>-->
+            <script src = "{%  static 'js/skel.min.js' %}"></script>
+			<!--<script src="static/js/util.js"></script>-->
+            <script src = "{%  static 'js/util.js' %}"></script>
+			<!--[if lte IE 8]><script src="static/js/ie/respond.min.js"></script><![endif]-->
+			<!--<script src="static/js/main.js"></script>-->
+            <script src = "{%  static 'js/main.js' %}"></script>
+
+	</body>
+</html>
