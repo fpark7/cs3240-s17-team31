@@ -72,6 +72,21 @@ def newReport (request):
     if request.method == 'POST':
         form = ReportForm(request.POST, request.FILES)
         if form.is_valid():
+            """
+            company = request.POST.get('companyname')
+            email = request.POST.get('email')
+            password = request.POST.get('password')
+            usertype = request.POST.get('usertype')
+            for file in request.POST.get('files'):
+
+            report_owner=request.user
+
+
+            report =Report.
+
+            grouplist = request.user.groups.all
+            """
+
             form.save()
             return HttpResponseRedirect('view_report')
         else:

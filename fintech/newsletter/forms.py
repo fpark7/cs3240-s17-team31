@@ -37,6 +37,7 @@ class ReportForm(forms.ModelForm):
     OPTIONS=(('Y', 'Yes'),
              ('N', 'No'))
 
+
     company_name = forms.CharField(required=True, label="Enter Company Name")
     company_Phone = forms.CharField(required=True, label="Enter Company Phone Number")
     company_location = forms.CharField(required=True, label="Enter Company location")
@@ -48,10 +49,12 @@ class ReportForm(forms.ModelForm):
     project = forms.CharField(required=True, label="Enter project name")
     files = forms.FileField(widget=forms.ClearableFileInput(attrs={'multiple': True}),label="Upload a file here", required=False)
 
+
     
     class Meta:
         model = Report
-        fields = ("sector", "company_name", "company_Phone", "company_location","company_country", "is_private", "project", "files")
+        fields = ("owner", "is_encrypted", "projects"
+                  , "sector", "company_name", "company_Phone", "company_location","company_country", "is_private", "content")
 
 
 #----------------------SignIn/Home-Page----------------------------------

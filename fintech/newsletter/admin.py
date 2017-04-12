@@ -3,6 +3,8 @@ from .models import Report, SiteUser, Group
 
 # Register your models here.
 
+# admin.site.register(Report)
+
 class ReportAdmin(admin.ModelAdmin):
     pass
 admin.site.register(Report, ReportAdmin)
@@ -14,3 +16,4 @@ admin.site.register(SiteUser,SiteUserAdmin)
 class GroupAdmin(admin.ModelAdmin):
     pass
 admin.site.register(Group,GroupAdmin)
+
