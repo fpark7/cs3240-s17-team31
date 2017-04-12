@@ -37,7 +37,6 @@ class ReportForm(forms.ModelForm):
     OPTIONS=(('Y', 'Yes'),
              ('N', 'No'))
 
-
     company_name = forms.CharField(required=True, label="Enter Company Name")
     company_Phone = forms.CharField(required=True, label="Enter Company Phone Number")
     company_location = forms.CharField(required=True, label="Enter Company location")
@@ -46,15 +45,17 @@ class ReportForm(forms.ModelForm):
     sector = forms.CharField(required=True, label="Enter Company Sector")
     #is_private = forms.ChoiceField(required=True, widget=forms.RadioSelect(attrs={'type': 'radio'}), choices=OPTIONS, help_text="Is this report private?")
     is_private = forms.ChoiceField(required=True, choices=OPTIONS, label="Is this report private?")
-    project = forms.CharField(required=True, label="Enter project name")
+    is_encrypted = forms.ChoiceField(required=True, choices=OPTIONS, label="Is this encrypted?")
+    project = forms.CharField(required=True, label="Enter Project Name")
     content = forms.FileField(label="Upload a file here", required=False)
 
 
     
     class Meta:
         model = Report
-        fields = ("owner", "is_encrypted", "projects"
-                  , "sector", "company_name", "company_Phone", "company_location","company_country", "is_private", "content")
+        fields = ("project"
+                  , "sector", "company_name", "company_Phone", "company_location"
+                  ,"company_country", "is_private", "is_encrypted", "content")
 
 
 #----------------------SignIn/Home-Page----------------------------------

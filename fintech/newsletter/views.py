@@ -86,7 +86,6 @@ def newReport (request):
 
             grouplist = request.user.groups.all
             """
-
             form.save()
             return HttpResponseRedirect('view_report')
         else:
