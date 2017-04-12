@@ -2,10 +2,10 @@
 <html>
     {% load static %}
     <meta charset="UTF-8">
-    <link rel="Stylesheet" type="text/css" href="{% static 'main.css' %}" />
+    <link rel="Stylesheet" type="text/css" href="{% static 'css/main.css' %}" />
     
-    {% block title %}Reports{% endblock %}
-    
+    <h2>{% block title %}Reports{% endblock %}</h2>
+    <br>
     {% block body_block %}
     {% for field in reports %}
     {{ field.company_name }}

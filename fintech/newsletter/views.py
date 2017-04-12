@@ -4,20 +4,23 @@ from django.contrib.auth import login, authenticate
 from .forms import SignupForm
 from django.db import models
 from newsletter.forms import ReportForm
-
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth.decorators import user_passes_test
 from newsletter.models import *
 from django.http import HttpResponseRedirect, HttpResponse
 
 #------------------Home------View-----------------------------------
-
-#def homeView (request):
+@login_required
+def homeView(request):
+    user = request.user
+    return render(request, 'home.html', {'user': user})
  #   if request.method == 'POST':
   #      form = 
 
 #=---------------Login--------View---------------------------------
 #def login(request):
 #    if request.method == 'POST':
+#        form = 
         
 
   
@@ -32,9 +35,9 @@ def register(request):
             password = request.POST.get('password')
             usertype = request.POST.get('usertype')
 
-            new_user = User.objects.create(username=username, email=email, password=password)
-            
-            site_user = SiteUser.objects.create(username=new_user,usertype=usertype)
+            new_user = User.objects.create_user(username=username, email=email, password=password)
+            site_user = SiteUser.objects.create(user=new_user,usertype=usertype)
+            setattr(site_user, 'password', password)
             
             #login(request, new_user)
             #return render(request, 'results.html', {'username': form.cleaned_data['username'],
@@ -48,14 +51,14 @@ def register(request):
     return render(request, 'signup.html', {'form': form})
 
 #-------------------ViewReports----view------------------------------
-
+@login_required
 def viewReports (request):
     view = Report.objects.all()
     return render(request, 'viewReport.html', {'reports': view})
         
 
 #-----------------newReport---view-------------------------------
-
+@login_required
 def newReport (request):
     #Report.objects.get(pk=id)
     #Report.object.all()

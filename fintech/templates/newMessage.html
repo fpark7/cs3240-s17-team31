@@ -4,17 +4,17 @@
   <head>
     {% load static %}
     <meta charset="UTF-8">
-    <title>New Report</title>
+    <title>New Message</title>
     <link rel="Stylesheet" type="text/css" href="{% static 'css/main.css' %}" />
-      <h1>{% block title %}New report{% endblock %}</h1>
+      <h1>{% block title %}New Message{% endblock %}</h1>
 
     {% block body_block %}
   </head>
       <div class="page-header">
 
       </div>
-	
-      <form id="form" method="post" action="/newsletter/new_report/">
+
+      <form id="form" method="post" action="/inbox/new_message/">
 	{% csrf_token %}
 	{% for field in form %}
 	   {{ field.errors }}
@@ -22,7 +22,7 @@
 	{{ field }}
 	<br>
 	{% endfor %}
-	<input type="submit" name="submit" value="Create a report" />
+	<input type="submit" name="submit" value="Send Message" />
 
       </form>
       {% endblock %}
