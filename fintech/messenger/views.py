@@ -13,8 +13,8 @@ from django.http import HttpResponseRedirect#, HttpResponse
 
 @login_required
 def viewMessages (request):
-    view = Message.objects.filter(message_from=request.user.username)
-    return render(request, 'viewMessages.html', {'Messages': view})
+    view = Message.objects.filter(message_to=""+request.user.get_username())
+    return render(request, 'viewMessages.html', {'messages': view})
 
 @login_required
 def newMessage (request):
@@ -22,7 +22,7 @@ def newMessage (request):
         form = MessageForm(request.POST)
         if form.is_valid():
             message = Message.objects.create()
-            message.message_from = request.user.username
+            message.message_from = request.user.get_username()
             message.message_to = request.POST.get('message_to')
             message.message_title = request.POST.get('message_title')
             message.is_encrypted = request.POST.get('is_encrypted')
