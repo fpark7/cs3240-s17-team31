@@ -13,7 +13,7 @@ from django.http import HttpResponseRedirect#, HttpResponse
 
 @login_required
 def viewMessages (request):
-    view = Message.objects.all()
+    view = Message.objects.filter(message_from=request.user.username)
     return render(request, 'viewMessages.html', {'Messages': view})
 
 @login_required
@@ -29,7 +29,7 @@ def newMessage (request):
             message.message_content = request.POST.get('message_content')
             message.message_delete = 'N'
             message.save()
-            return HttpResponseRedirect('view_message')
+            return HttpResponseRedirect('/inbox/')
         else:
             print(form.errors)
     else:

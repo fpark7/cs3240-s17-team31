@@ -87,7 +87,7 @@ def newReport (request):
             grouplist = request.user.groups.all
             """
             form.save()
-            return HttpResponseRedirect('view_report')
+            return HttpResponseRedirect('view_report') #make this '/newsletter/reports/' if you want to redirect create report to view reports
         else:
             print(form.errors)
     else:
