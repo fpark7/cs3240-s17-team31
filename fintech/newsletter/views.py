@@ -4,10 +4,10 @@ from django.contrib.auth import login, authenticate
 from .forms import SignupForm
 from django.db import models
 from django.contrib.auth.models import Group, Permission
-from newsletter.forms import ReportForm
+from .forms import ReportForm
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.decorators import user_passes_test
-from newsletter.models import *
+from .models import *
 from django.http import HttpResponseRedirect, HttpResponse
 from django.db import IntegrityError
 
@@ -61,8 +61,15 @@ def register(request):
 @login_required
 def viewReports (request):
     view = Report.objects.all()
-    return render(request, 'viewReport.html', {'reports': view})
-        
+    public_view = []
+    if request.user.username == 'admin':
+        return render(request, 'viewReport.html', {'reports': view})
+    else:
+        for v in view:
+            if v.is_private == 'N':
+                public_view.append(v)
+    return render(request, 'viewReport.html', {'reports': public_view})
+
 
 #-----------------newReport---view-------------------------------
 @login_required
@@ -72,22 +79,27 @@ def newReport (request):
     if request.method == 'POST':
         form = ReportForm(request.POST, request.FILES)
         if form.is_valid():
-            """
-            company = request.POST.get('companyname')
-            email = request.POST.get('email')
-            password = request.POST.get('password')
-            usertype = request.POST.get('usertype')
-            for file in request.POST.get('files'):
 
-            report_owner=request.user
+            owner = request.user.username
+            company_name = request.POST.get('company_name')
+            is_private = request.POST.get('is_private')
+            company_Phone = request.POST.get('company_Phone')
+            company_location = request.POST.get('company_location')
+            company_country = request.POST.get('company_country')
+            sector = request.POST.get('sector')
+            is_encrypted = request.POST.get('is_encrypted')
+            projects = request.POST.get('projects')
+            content = request.POST.get('content')
 
+            report = Report.objects.create(owner=owner, company_name=company_name, is_private=is_private, company_Phone=company_Phone,
+            company_location=company_location, company_country=company_country, sector=sector, is_encrypted=is_encrypted,
+            projects=projects, content=content)
 
-            report =Report.
+            for afile in request.FILES.getlist('content'):
+                print("here")
 
-            grouplist = request.user.groups.all
-            """
+            report.save()
 
-            form.save()
             return HttpResponseRedirect('view_report')
         else:
             print(form.errors)

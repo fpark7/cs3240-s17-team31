@@ -44,16 +44,17 @@ class ReportForm(forms.ModelForm):
     #company_country = forms.ChoiceField(required=True, widget=forms.RadioSelect(), choices=COUNTRIES, help_text="Enter Company country")
     company_country = forms.ChoiceField(required=True, choices=COUNTRIES, label="Enter Company country")
     sector = forms.CharField(required=True, label="Enter Company Sector")
-    #is_private = forms.ChoiceField(required=True, widget=forms.RadioSelect(attrs={'type': 'radio'}), choices=OPTIONS, help_text="Is this report private?")
-    is_private = forms.ChoiceField(required=True, choices=OPTIONS, label="Is this report private?")
-    project = forms.CharField(required=True, label="Enter project name")
+    is_private = forms.ChoiceField(required=True, choices=OPTIONS)
+    #is_private = forms.ChoiceField(required=True, choices=OPTIONS, label="Is this report private?")
+    projects = forms.CharField(required=True, label="Enter project name")
+    is_encrypted = forms.ChoiceField(required=True, choices=OPTIONS)
     content = forms.FileField(label="Upload a file here", required=False)
 
 
     
     class Meta:
         model = Report
-        fields = ("owner", "is_encrypted", "projects"
+        fields = ( "is_encrypted", "projects"
                   , "sector", "company_name", "company_Phone", "company_location","company_country", "is_private", "content")
 
 

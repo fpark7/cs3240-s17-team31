@@ -28,6 +28,8 @@ class SiteUser(models.Model):
 # -----------------------------Report Model----------------------------
 
 
+class File(models.Model):
+    file = models.FileField(upload_to='reports/')
 
 class Report(models.Model):
 
@@ -48,8 +50,8 @@ class Report(models.Model):
     company_country = models.CharField(max_length=2, choices=COUNTRIES)
     sector = models.CharField(max_length=45)
     projects = models.CharField(max_length=30, default='project')
-    content = models.FileField(upload_to='reports/' ,blank=True)
-    is_encrypted=models.BooleanField(default=False)
+    content = models.FileField(upload_to='reports/')
+    is_encrypted=models.CharField(max_length=1, choices=OPTIONS)
 
     #class Meta:
      #   order_with_respect_to = 'company_name'
