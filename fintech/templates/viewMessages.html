@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+    {% load static %}
+    <meta charset="UTF-8">
+    <link rel="Stylesheet" type="text/css" href="{% static 'css/main.css' %}" />
+
+    <h2>{% block title %}Messages{% endblock %}</h2>
+    <br>
+    {% block body_block %}
+    {% for field in messages %}
+    {{ field.message_content }}
+    <br>
+    {% endfor %}
+
+    {% endblock %}
+
+</html>
