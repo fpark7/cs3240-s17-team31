@@ -5,7 +5,7 @@
 -->
 <html>
 <head>
-    <title>Home | Lokahi</title>
+    <title>New Group | Lokahi</title>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <!--[if lte IE 8]><script src="static/js/ie/html5shiv.js"></script><![endif]-->
@@ -28,7 +28,6 @@
                                     <li><a href="{% url 'home' %}">Home</a></li>
                                     <li><a href="{% url 'inbox' %}">Inbox</a></li>
                                     <!--^make this Inbox instead. Then compose in inbox-->
-                                    <li><a href="{% url 'groups' %}">Groups</a></li>
                                     <li><a href="{% url 'viewReport' %}">View Reports</a></li>
                                     <li><a href="{% url 'logout' %}">Log Out</a></li>
 
@@ -45,8 +44,14 @@
                     <div class="inner">
 
                         <section>
-                            <h2>HOME PAGE</h2>
-                            <p>Welcome  {{ user.get_username }} </p>
+                            <h2>NEW GROUP</h2>
+                            <form method="post">
+                                {% csrf_token %}
+                                {{ form }}
+                                <br>
+                                <br>
+                                <button value=""submit>Create Group</button>
+                            </form>
                         </section>
                     </div>
 
@@ -71,3 +76,4 @@
 
 	</body>
 </html>
+
