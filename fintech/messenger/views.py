@@ -27,7 +27,7 @@ def newMessage (request):
             message.message_title = request.POST.get('message_title')
             message.is_encrypted = request.POST.get('is_encrypted')
             message.message_content = request.POST.get('message_content')
-            message.message_delete = 'N'
+            message.message_delete = 'N' # what is this?
             message.save()
             return HttpResponseRedirect('/inbox/')
         else:
@@ -35,3 +35,8 @@ def newMessage (request):
     else:
         form = MessageForm()
     return render(request, 'newMessage.html', {'form': form})
+
+@login_required
+def viewDetails(request):
+    pass
+

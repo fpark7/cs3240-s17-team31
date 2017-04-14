@@ -14,7 +14,7 @@
 
       </div>
 
-      <form id="form" method="post" action="/inbox/new_message/">
+      <form id="form" method="post">
 	{% csrf_token %}
 	{% for field in form %}
 	   {{ field.errors }}
