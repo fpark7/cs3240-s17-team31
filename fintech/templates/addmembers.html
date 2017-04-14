@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+
+
+  </head>
+  
+
+
+
+    <form method="post">
+      {% csrf_token %}
+
+      {% for u in namelist %}
+      <button type="submit" value="{{u}}">Add "{{u}}"</button>
+      
+      {% endfor %}
+
+    </form>
+
+    
+    
+
+</html>
