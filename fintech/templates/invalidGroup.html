@@ -5,7 +5,7 @@
 -->
 <html>
 <head>
-    <title>New Report | Lokahi</title>
+    <title>Invalid Group | Lokahi</title>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <!--[if lte IE 8]><script src="static/js/ie/html5shiv.js"></script><![endif]-->
@@ -18,7 +18,7 @@
     <div id="page-wrapper">
         <!-- Header -->
             <header id="header">
-                <h1><a href="{% url 'home' %}">Lokahi</a></h1>
+                <h1><a href="{% url 'login' %}">Lokahi</a></h1>
                 <nav id="nav">
                     <ul>
                         <li class="special">
@@ -30,7 +30,6 @@
                                     <li><a href="{% url 'groups' %}">Groups</a></li>
                                     <li><a href="{% url 'viewReport' %}">View Reports</a></li>
                                     <li><a href="{% url 'logout' %}">Log Out</a></li>
-
                                 </ul>
                             </div>
                         </li>
@@ -44,14 +43,11 @@
                     <div class="inner">
 
                         <section>
-                            <h2>NEW REPORT</h2>
-                            <form method="post">
-                                {% csrf_token %}
-                                {{ form }}
-                                <br>
-                                <br>
-                                <button value="submit">Create Report</button>
-                            </form>
+                            <h2>Invalid Group</h2>
+                            <p>Oops! Looks like the group already exists or is invalid. Please try again!</p>
+                            <br>
+                            <p class="message"><a href="{% url 'group' %}">Create New Group</a></p>
+                            <p class="message"><a href="{% url 'groups' %}">View Groups</a></p>
                         </section>
                     </div>
 
@@ -76,4 +72,3 @@
 
 	</body>
 </html>
-

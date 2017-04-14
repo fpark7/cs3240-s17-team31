@@ -5,7 +5,7 @@
 -->
 <html>
 <head>
-    <title>New Report | Lokahi</title>
+    <title>Site Manager | Lokahi</title>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <!--[if lte IE 8]><script src="static/js/ie/html5shiv.js"></script><![endif]-->
@@ -44,14 +44,16 @@
                     <div class="inner">
 
                         <section>
-                            <h2>NEW REPORT</h2>
+                            <h2>SITE MANAGER CONTROL PANEL</h2>
+                            <p>Welcome  {{ user.get_username }} </p>
+                            <br>
                             <form method="post">
                                 {% csrf_token %}
-                                {{ form }}
-                                <br>
-                                <br>
-                                <button value="submit">Create Report</button>
+                                {% for u in namelist %}
+                                    <button name="submit" value="{{u}}">Make "{{u}}" Site Manager</button>
+                                {% endfor %}
                             </form>
+
                         </section>
                     </div>
 
@@ -76,4 +78,3 @@
 
 	</body>
 </html>
-

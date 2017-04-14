@@ -4,7 +4,8 @@ from django.contrib.auth import login, authenticate
 from .forms import SignupForm
 from django.db import models
 from django.contrib.auth.models import Group, Permission
-from .forms import ReportForm
+
+from .forms import ReportForm, GroupForm
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.decorators import user_passes_test
 from .models import *
@@ -46,11 +47,8 @@ def register(request):
             #return render(request, 'results.html', {'username': form.cleaned_data['username'],
             #'email': form.cleaned_data['email']
             #                                       })
-            try:
-                user_exists = User.objects.get(username=request.POST['username'])
-                return HttpResponse("Username already taken")
-            except User.DoesNotExist:
-                return HttpResponseRedirect('../login/')
+
+            return HttpResponseRedirect('/login/')
 
     else:
         form = SignupForm()
@@ -111,29 +109,74 @@ def newReport (request):
 
           
 # ---------------------------------------------------------------------------
-
-'''@user_passes_test(lambda u: u.is_superuser)
-def siteManagerActions(request):
-    #give others SM status
-    #suspend or restore other access to other user's accounts
-    if request.method=='POST':
-        # request.POST.get('')
-        users = User.objects.all()
-        for user in users:
-
-
-    return render(request, 'signupform.html')'''
-
-
-#----------------------Create--Group----View---------------------------------
+#----------------------Create--Group----View--------------------------------- 
+@login_required
 def makeGroup(request):
     if request.method == 'POST':
         form = GroupForm(request.POST)
         if form.is_valid():
-            groupname = request.POST.get('name')
-        else:
-            form = SignUpForm()
+            try:
+                groupname = request.POST.get('name')
+                group = Group.objects.create(name=groupname)
+                User.objects.get(username=request.user).groups.add(group)
 
-    return render(request, 'signup.html', {'form': form})
-            
+                #addee = form.cleaned_data['addee']
+                #User.objects.get(addee).groups.add(group)
+            except IntegrityError:
+                return HttpResponseRedirect('/invalidGroup/')
 
+            #group.user_set.remove(request.user) 
+            # #User.objects.get(username=request.user2add).groups.remove(group)  
+
+            return HttpResponseRedirect('../groups/')
+
+    else:
+        form = GroupForm()
+
+    return render(request, 'group.html', {'form': form})
+
+@login_required
+def invalidGroup(request):
+    return render(request, 'invalidGroup.html')
+#--------------Add-----Member----View------------------- 
+@login_required
+def viewGroup (request):
+    userlist = User.objects.all()
+    namelist = []
+    for x in userlist:
+        namelist.append(x.username)
+    if request.method == 'POST':
+        user_to_add = request.POST.get('submit')
+        print(user_to_add)
+
+    return render(request, 'addmembers.html',{'namelist':namelist})
+
+
+#---------------Group-----Main------Page-----------------
+@login_required
+def viewGroups (request):
+    all_groups = Group.objects.all()
+    groups = []
+
+    for x in all_groups:
+        if request.user in x.user_set.all():
+            groups.append(x)
+
+    return render(request, 'groups.html', {'groups': groups})
+
+#---------------SITE MANAGER CONTROL PANEL-----------------
+@user_passes_test(lambda u: u.is_superuser)
+def viewSiteManager(request):
+    userlist = User.objects.all()
+    namelist = []
+    for x in userlist:
+        if x.username != request.user.username and not x.is_superuser:
+            namelist.append(x.username)
+    if request.method == 'POST':
+        user_to_promote = request.POST.get('submit')
+        print(user_to_promote)
+        user = User.objects.get(username=user_to_promote)
+        user.is_superuser = True
+        user.save()
+        return HttpResponseRedirect('/home/')
+    return render(request, 'sitemanager.html', {'namelist': namelist})

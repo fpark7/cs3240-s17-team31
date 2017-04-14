@@ -9,7 +9,7 @@ class MessageForm(forms.ModelForm):
 
     is_encrypted = forms.ChoiceField(required=True, choices=OPTIONS, help_text="Encrypt this message?")
     message_title = forms.CharField(required=True, help_text="Subject")
-    message_content = forms.CharField(required=True, help_text="Message Content")
+    message_content = forms.CharField(required=True, help_text="Message Content", widget=forms.Textarea(attrs={'rows':6, 'cols': 20}))
     message_to = forms.CharField(required=True, help_text="Message Recipient")
 
     class Meta:

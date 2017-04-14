@@ -5,7 +5,7 @@
 -->
 <html>
 <head>
-    <title>New Report | Lokahi</title>
+    <title>Your Groups | Lokahi</title>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <!--[if lte IE 8]><script src="static/js/ie/html5shiv.js"></script><![endif]-->
@@ -27,7 +27,6 @@
                                 <ul>
                                     <li><a href="{% url 'home' %}">Home</a></li>
                                     <li><a href="{% url 'inbox' %}">Inbox</a></li>
-                                    <li><a href="{% url 'groups' %}">Groups</a></li>
                                     <li><a href="{% url 'viewReport' %}">View Reports</a></li>
                                     <li><a href="{% url 'logout' %}">Log Out</a></li>
 
@@ -44,14 +43,28 @@
                     <div class="inner">
 
                         <section>
-                            <h2>NEW REPORT</h2>
-                            <form method="post">
-                                {% csrf_token %}
-                                {{ form }}
-                                <br>
-                                <br>
-                                <button value="submit">Create Report</button>
-                            </form>
+                            <h2>YOUR GROUPS</h2>
+                            <a href="{% url 'newgroup' %}" class="button special">New Group</a>
+                            <table>
+                                <thead>
+                                    <tr> <!-- PUT COLUMN NAMES IN ORDER HERE -->
+                                        <th>Name</th>
+                                        <th>Members</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% block body_block %}
+                                        {% for group in groups %}
+                                            <tr ><!-- PUT EACH FIELD HERE. (refer to spec sheet for required fields -->
+
+                                                <td><a href = "/groups/{{group.name}}"> {{ group.name }}</></td>
+                                                <td> {{ group.user_set.all}}</td>
+                                            </tr>
+                                        {% endfor %}
+                                    {% endblock %}
+
+                                </tbody>
+                            </table>
                         </section>
                     </div>
 
@@ -76,4 +89,3 @@
 
 	</body>
 </html>
-

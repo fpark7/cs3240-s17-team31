@@ -8,7 +8,12 @@ from django.dispatch import receiver
 class SiteUser(models.Model):
     user = models.OneToOneField(User,on_delete=models.CASCADE)
     usertype = models.CharField(choices = (('c','Company User'),('i','Investor User'),), max_length=1)
+
     groups = models.ManyToManyField(Group)
+
+
+    def timeStamp(self):
+        return self.user.date_joined
 
 #    @receiver(post_save,sender=User)
 #    def create_user(sender,instance,created,**kwargs):
@@ -62,9 +67,9 @@ class Report(models.Model):
 
     
 #--------------------------------Group---Model----------------------------
-class Group(models.Model):
-    name = models.CharField(max_length=40,blank=False)
+#class Group(models.Model):
+#    name = models.CharField(max_length=40,blank=False)
     
-    members = models.ManyToManyField(SiteUser)
+#    members = models.ManyToManyField(SiteUser)
 
 #-------------------------------------END----------------------------

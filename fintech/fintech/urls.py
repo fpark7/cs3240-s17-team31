@@ -2,7 +2,7 @@ from django.conf.urls import include, url
 from django.contrib.auth import views as auth_views
 from django.contrib import admin
 from newsletter import views as newsletter_views
-from messenger import views as message_views
+# from messenger import views as message_views
 
 urlpatterns = [
     # Examples:
@@ -16,6 +16,10 @@ urlpatterns = [
     url(r'^invalid/', newsletter_views.invalid),
     url(r'^logout/', auth_views.logout, name='logout'),
     url(r'^home/', newsletter_views.homeView, name='home'),
-    url(r'^newgroup/',newsletter_views.makeGroup,name='group'),
-    url(r'^inbox/', include('messenger.urls')),
+    url(r'^newgroup/',newsletter_views.makeGroup,name='newgroup'),
+    url(r'^invalidGroup/', newsletter_views.invalidGroup),
+    url(r'^groups/', newsletter_views.viewGroups, name='groups'),
+    url(r'^groups/(?P<group_name>\d+)/$',newsletter_views.viewGroup,name='group'),
+    url(r'^inbox/', include('messenger.urls'), name='inbox'),
+    url(r'^sm_panel/',newsletter_views.viewSiteManager,name='sm_panel'),
 ]

@@ -62,11 +62,13 @@ class ReportForm(forms.ModelForm):
 #class SignIn(forms.
 
 
-#---------------------Make---Group------Form-----------------------------
+#---------------------Make---Group------Form----------------------------- 
 class GroupForm(forms.Form):
     name = forms.CharField(label='Enter your group name', max_length=100)
+    addee = forms.ModelChoiceField(label='Select users to add to your group',queryset=User.objects.all(),required=False)
+    #users2 = forms.MultipleChoiceField(widget=forms.CheckboxSelectMultiple,
+                                            #    choices=User.objects.all())
 
-
-    
     class Meta:
         model = Group
+        fields = ('name','users')

@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+
+
+
+
+
+
+    <form methods="post">
+      {% csrf_token %}
+
+      {% for u in userlist %}
+      {{u}}
+      

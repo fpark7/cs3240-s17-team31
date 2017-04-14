@@ -1,30 +1,83 @@
-<!DOCTYPE html>
+<!DOCTYPE HTML>
 {% load static %}
+<!--
+	felix
+-->
 <html>
-  <head>
-    {% load static %}
-    <meta charset="UTF-8">
-    <title>New Message</title>
-    <link rel="Stylesheet" type="text/css" href="{% static 'css/main.css' %}" />
-      <h1>{% block title %}New Message{% endblock %}</h1>
+<head>
+    <title>New Message | Lokahi</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!--[if lte IE 8]><script src="static/js/ie/html5shiv.js"></script><![endif]-->
+    <link rel="stylesheet" href="{%  static 'css/main.css' %}" />
+    <!--[if lte IE 8]><link rel="stylesheet" href="static/css/ie8.css" /><![endif]-->
+    <!--[if lte IE 9]><link rel="stylesheet" href="static/css/ie9.css" /><![endif]-->
+</head>
+	<body>
+		<!-- Page Wrapper -->
+    <div id="page-wrapper">
+        <!-- Header -->
+            <header id="header">
+                <h1><a href="{% url 'home' %}">Lokahi</a></h1>
+                <nav id="nav">
+                    <ul>
+                        <li class="special">
+                            <a href="#menu" class="menuToggle"><span>Menu</span></a>
+                            <div id="menu">
+                                <ul>
+                                    <li><a href="{% url 'home' %}">Home</a></li>
+                                    <li><a href="{% url 'inbox' %}">Inbox</a></li>
+                                    <li><a href="{% url 'groups' %}">Groups</a></li>
+                                    <li><a href="{% url 'viewReport' %}">View Reports</a></li>
+                                    <li><a href="{% url 'logout' %}">Log Out</a></li>
 
-    {% block body_block %}
-  </head>
-      <div class="page-header">
+                                </ul>
+                            </div>
+                        </li>
+                    </ul>
+                </nav>
+            </header>
 
-      </div>
+        <!-- Main -->
+            <article id="main">
+                <section class="wrapper style5">
+                    <div class="inner">
 
-      <form id="form" method="post" action="/inbox/new_message/">
-	{% csrf_token %}
-	{% for field in form %}
-	   {{ field.errors }}
-	   {{ field.help_text }}
-	{{ field }}
-	<br>
-	{% endfor %}
-	<input type="submit" name="submit" value="Send Message" />
+                        <section>
+                            <h2>NEW MESSAGE</h2>
+                            <form method="post">
+                                {% csrf_token %}
+                                {% for field in form %}
+	                                {{ field.help_text }}
+                                    {{ field.errors }}
+	                                {{ field }}
+                                {% endfor %}
+                                <br>
+                                <br>
+                            <input type="submit" name="submit" value="Send Message" />
+                            </form>
+                        </section>
+                    </div>
 
-      </form>
-      {% endblock %}
+                </section>
+            </article>
 
+    </div>
+    		<!-- Scripts -->
+			<!--<script src="static/js/jquery.min.js"></script>-->
+            <script src = "{%  static 'js/jquery.min.js' %}"></script>
+			<!--<script src="static/js/jquery.scrollex.min.js"></script>-->
+            <script src = "{%  static 'js/jquery.scrollex.min.js' %}"></script>
+			<!--<script src="static/js/jquery.scrolly.min.js"></script>-->
+            <script src = "{%  static 'js/jquery.scrolly.min.js' %}"></script>
+			<!--<script src="static/js/skel.min.js"></script>-->
+            <script src = "{%  static 'js/skel.min.js' %}"></script>
+			<!--<script src="static/js/util.js"></script>-->
+            <script src = "{%  static 'js/util.js' %}"></script>
+			<!--[if lte IE 8]><script src="static/js/ie/respond.min.js"></script><![endif]-->
+			<!--<script src="static/js/main.js"></script>-->
+            <script src = "{%  static 'js/main.js' %}"></script>
+
+	</body>
 </html>
+

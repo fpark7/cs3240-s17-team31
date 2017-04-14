@@ -43,9 +43,8 @@
                             <div id="menu">
                                 <ul>
                                     <li><a href="{% url 'home' %}">Home</a></li>
+                                    <li><a href="{% url 'groups' %}">Groups</a></li>
                                     <li><a href="{% url 'viewReport' %}">View Reports</a></li>
-                                    <!--^make this Inbox instead. Then compose in inbox-->
-                                    <!--<li><a href="{% url 'newReport' %}">New Report</a></li>-->
                                     <li><a href="{% url 'logout' %}">Log Out</a></li>
 
                                 </ul>
@@ -63,21 +62,23 @@
                         <section>
                             <h2>INBOX</h2>
                             <a href="{% url 'newMessage' %}" class="button special">New Message</a>
-                            <table>
+                            <table style="table-layout: fixed;">
                                 <thead>
                                     <tr> <!-- PUT COLUMN NAMES IN ORDER HERE -->
+                                        <th>TIME</th>
                                         <th>FROM</th>
                                         <th>SUBJECT</th>
-                                        <th>CONTENT</th>
+                                        <th class>CONTENT</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     {% block body_block2 %}
-                                        {% for report in reports %}
+                                        {% for message in messages reversed %}
                                             <tr><!-- PUT EACH FIELD HERE. (refer to spec sheet for required fields -->
-                                            <td>{{ message.message_from }}</td>
-                                            <td>{{ message.message_title }}</td>
-                                            <td>{{ message.message_content }}</td>
+                                                <td style="width:180px;">{{  message.timestamp }}<a href="{% url 'del' message_id=message.id %}" class="button special1">Delete Message</a></td>
+                                                <td>{{ message.message_from }}</td>
+                                                <td>{{ message.message_title }}</td>
+                                                <td style="width:600px; word-wrap:break-word;">{{ message.message_content }}</td>
                                             </tr>
                                         {% endfor %}
                                     {% endblock %}
