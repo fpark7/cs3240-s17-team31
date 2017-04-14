@@ -17,6 +17,7 @@ urlpatterns = [
     url(r'^logout/', auth_views.logout, name='logout'),
     url(r'^home/', newsletter_views.homeView, name='home'),
     url(r'^newgroup/',newsletter_views.makeGroup,name='group'),
+    url(r'^invalidGroup/', newsletter_views.invalidGroup),
     url(r'^groups/', newsletter_views.viewGroups, name='groups'),
     url(r'^group/',newsletter_views.addMember,name='add'),
     url(r'^inbox/', include('messenger.urls'), name='inbox'),

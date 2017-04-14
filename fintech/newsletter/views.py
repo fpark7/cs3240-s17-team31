@@ -46,10 +46,7 @@ def register(request):
             #return render(request, 'results.html', {'username': form.cleaned_data['username'],
             #'email': form.cleaned_data['email']
             #                                       })
-            '''try:
-                user_exists = User.objects.get(username=request.POST['username'])
-                return HttpResponse("Username already taken")
-            except User.DoesNotExist:'''
+
             return HttpResponseRedirect('/login/')
 
     else:
@@ -101,18 +98,16 @@ def makeGroup(request):
     if request.method == 'POST':
         form = GroupForm(request.POST)
         if form.is_valid():
-            groupname = request.POST.get('name')
-            group = Group.objects.create(name=groupname)
-            User.objects.get(username=request.user).groups.add(group)
-
+            try:
+                groupname = request.POST.get('name')
+                group = Group.objects.create(name=groupname)
+                User.objects.get(username=request.user).groups.add(group)
+            except IntegrityError:
+                return HttpResponseRedirect('/invalidGroup/')
 
             #group.user_set.remove(request.user) 
             # #User.objects.get(username=request.user2add).groups.remove(group)  
-        try:
-            group_exists = Group.objects.get(groupname=request.POST['groupname'])
-            return HttpResponse("There is already a group with that name")
 
-        except:
             return HttpResponseRedirect('../groups/')
 
     else:
@@ -120,7 +115,9 @@ def makeGroup(request):
 
     return render(request, 'group.html', {'form': form})
 
-
+@login_required
+def invalidGroup(request):
+    return render(request, 'invalidGroup.html')
 #--------------Add-----Member----View------------------- 
 @login_required
 def addMember(request):

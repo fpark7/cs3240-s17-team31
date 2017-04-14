@@ -1,20 +1,3 @@
-<!--<!DOCTYPE html>-->
-<!--<html>-->
-    <!--{% load static %}-->
-    <!--<meta charset="UTF-8">-->
-    <!--<link rel="Stylesheet" type="text/css" href="{% static 'css/main.css' %}" />-->
-
-    <!--<h2>{% block title %}Messages{% endblock %}</h2>-->
-    <!--<br>-->
-    <!--{% block body_block %}-->
-    <!--{% for field in messages %}-->
-    <!--{{ field.message_content }}-->
-    <!--<br>-->
-    <!--{% endfor %}-->
-
-    <!--{% endblock %}-->
-
-<!--</html>-->
 <!DOCTYPE HTML>
 {% load static %}
 <!--
@@ -22,7 +5,7 @@
 -->
 <html>
 <head>
-    <title>Inbox | Lokahi</title>
+    <title>Invalid Group | Lokahi</title>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <!--[if lte IE 8]><script src="static/js/ie/html5shiv.js"></script><![endif]-->
@@ -35,7 +18,7 @@
     <div id="page-wrapper">
         <!-- Header -->
             <header id="header">
-                <h1><a href="{% url 'home' %}">Lokahi</a></h1>
+                <h1><a href="{% url 'login' %}">Lokahi</a></h1>
                 <nav id="nav">
                     <ul>
                         <li class="special">
@@ -43,10 +26,10 @@
                             <div id="menu">
                                 <ul>
                                     <li><a href="{% url 'home' %}">Home</a></li>
+                                    <li><a href="{% url 'inbox' %}">Inbox</a></li>
                                     <li><a href="{% url 'groups' %}">Groups</a></li>
                                     <li><a href="{% url 'viewReport' %}">View Reports</a></li>
                                     <li><a href="{% url 'logout' %}">Log Out</a></li>
-
                                 </ul>
                             </div>
                         </li>
@@ -60,30 +43,11 @@
                     <div class="inner">
 
                         <section>
-                            <h2>INBOX</h2>
-                            <a href="{% url 'newMessage' %}" class="button special">New Message</a>
-                            <table style="table-layout: fixed;">
-                                <thead>
-                                    <tr> <!-- PUT COLUMN NAMES IN ORDER HERE -->
-                                        <th>TIME</th>
-                                        <th>FROM</th>
-                                        <th>SUBJECT</th>
-                                        <th class>CONTENT</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    {% block body_block2 %}
-                                        {% for message in messages reversed %}
-                                            <tr><!-- PUT EACH FIELD HERE. (refer to spec sheet for required fields -->
-                                                <td style="width:180px;">{{  message.timestamp }}</td>
-                                                <td>{{ message.message_from }}</td>
-                                                <td>{{ message.message_title }}</td>
-                                                <td style="width:600px; word-wrap:break-word;">{{ message.message_content }}</td>
-                                            </tr>
-                                        {% endfor %}
-                                    {% endblock %}
-                                </tbody>
-                            </table>
+                            <h2>Invalid Group</h2>
+                            <p>Oops! Looks like the group already exists or is invalid. Please try again!</p>
+                            <br>
+                            <p class="message"><a href="{% url 'group' %}">Create New Group</a></p>
+                            <p class="message"><a href="{% url 'groups' %}">View Groups</a></p>
                         </section>
                     </div>
 
