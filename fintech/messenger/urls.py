@@ -4,6 +4,4 @@ from django.conf import settings
 from django.conf.urls.static import static
 
 urlpatterns = [ url(r'^new_message/', views.newMessage, name='newMessage'),
-                #url(r'^$', views.viewMessage, name='index'),
-                ]
-                #url(r'^new_message/view_inbox/$', views.viewInbox , name='viewInbox')]
+                url(r'^$', views.viewMessages, name='inbox')]

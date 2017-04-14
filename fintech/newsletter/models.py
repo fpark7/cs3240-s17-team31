@@ -40,8 +40,7 @@ class Report(models.Model):
     OPTIONS=(('Y', 'Yes'),
              ('N', 'No'),)
 
-    owner = models.CharField(max_length=45)
-
+    owner = models.CharField(max_length=50)
     timestamp = models.DateTimeField(auto_now_add=True, blank=True)
     is_private = models.CharField(max_length=1, choices=OPTIONS)
     company_name = models.CharField(max_length=45)
@@ -49,12 +48,17 @@ class Report(models.Model):
     company_location = models.CharField(max_length=45)
     company_country = models.CharField(max_length=2, choices=COUNTRIES)
     sector = models.CharField(max_length=45)
+
     projects = models.CharField(max_length=30, default='project')
     content = models.FileField(upload_to='reports/')
     is_encrypted=models.CharField(max_length=1, choices=OPTIONS)
 
+
     #class Meta:
      #   order_with_respect_to = 'company_name'
+
+    # def setOwner(self, name):
+    #     self.owner = name
 
     
 #--------------------------------Group---Model----------------------------

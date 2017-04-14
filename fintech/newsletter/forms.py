@@ -37,13 +37,13 @@ class ReportForm(forms.ModelForm):
     OPTIONS=(('Y', 'Yes'),
              ('N', 'No'))
 
-
     company_name = forms.CharField(required=True, label="Enter Company Name")
     company_Phone = forms.CharField(required=True, label="Enter Company Phone Number")
     company_location = forms.CharField(required=True, label="Enter Company location")
     #company_country = forms.ChoiceField(required=True, widget=forms.RadioSelect(), choices=COUNTRIES, help_text="Enter Company country")
     company_country = forms.ChoiceField(required=True, choices=COUNTRIES, label="Enter Company country")
     sector = forms.CharField(required=True, label="Enter Company Sector")
+
     is_private = forms.ChoiceField(required=True, choices=OPTIONS)
     #is_private = forms.ChoiceField(required=True, choices=OPTIONS, label="Is this report private?")
     projects = forms.CharField(required=True, label="Enter project name")
@@ -56,7 +56,6 @@ class ReportForm(forms.ModelForm):
         model = Report
         fields = ( "is_encrypted", "projects"
                   , "sector", "company_name", "company_Phone", "company_location","company_country", "is_private", "content")
-
 
 #----------------------SignIn/Home-Page----------------------------------
 

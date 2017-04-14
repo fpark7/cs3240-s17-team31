@@ -62,7 +62,7 @@ def register(request):
 def viewReports (request):
     view = Report.objects.all()
     public_view = []
-    if request.user.username == 'admin':
+    if request.user.is_superuser:
         return render(request, 'viewReport.html', {'reports': view})
     else:
         for v in view:
@@ -98,9 +98,11 @@ def newReport (request):
             for afile in request.FILES.getlist('content'):
                 print("here")
 
+
             report.save()
 
             return HttpResponseRedirect('view_report')
+
         else:
             print(form.errors)
     else:
