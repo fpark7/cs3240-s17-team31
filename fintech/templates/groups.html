@@ -5,7 +5,7 @@
 -->
 <html>
 <head>
-    <title>Home | Lokahi</title>
+    <title>Your Groups | Lokahi</title>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <!--[if lte IE 8]><script src="static/js/ie/html5shiv.js"></script><![endif]-->
@@ -28,8 +28,7 @@
                                     <li><a href="{% url 'home' %}">Home</a></li>
                                     <li><a href="{% url 'inbox' %}">Inbox</a></li>
                                     <!--^make this Inbox instead. Then compose in inbox-->
-                                    <li><a href="{% url 'groups' %}">Groups</a></li>
-                                    <li><a href="{% url 'viewReport' %}">View Reports</a></li>
+                                    <!--<li><a href="{% url 'newReport' %}">New Report</a></li>-->
                                     <li><a href="{% url 'logout' %}">Log Out</a></li>
 
                                 </ul>
@@ -45,8 +44,27 @@
                     <div class="inner">
 
                         <section>
-                            <h2>HOME PAGE</h2>
-                            <p>Welcome  {{ user.get_username }} </p>
+                            <h2>YOUR GROUPS</h2>
+                            <a href="{% url 'group' %}" class="button special">New Group</a>
+                            <table>
+                                <thead>
+                                    <tr> <!-- PUT COLUMN NAMES IN ORDER HERE -->
+                                        <th>Name</th>
+                                        <th>Date of Creation</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% block body_block %}
+                                        {% for group in groups %}
+                                            <tr><!-- PUT EACH FIELD HERE. (refer to spec sheet for required fields -->
+                                            <td>{{ group.name }}</td>
+                                                <td> {{ group.}}</td>
+                                            </tr>
+                                        {% endfor %}
+                                    {% endblock %}
+
+                                </tbody>
+                            </table>
                         </section>
                     </div>
 
