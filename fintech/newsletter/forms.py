@@ -43,20 +43,19 @@ class ReportForm(forms.ModelForm):
     #company_country = forms.ChoiceField(required=True, widget=forms.RadioSelect(), choices=COUNTRIES, help_text="Enter Company country")
     company_country = forms.ChoiceField(required=True, choices=COUNTRIES, label="Enter Company country")
     sector = forms.CharField(required=True, label="Enter Company Sector")
-    #is_private = forms.ChoiceField(required=True, widget=forms.RadioSelect(attrs={'type': 'radio'}), choices=OPTIONS, help_text="Is this report private?")
-    is_private = forms.ChoiceField(required=True, choices=OPTIONS, label="Is this report private?")
-    is_encrypted = forms.ChoiceField(required=True, choices=OPTIONS, label="Is this encrypted?")
-    project = forms.CharField(required=True, label="Enter Project Name")
+
+    is_private = forms.ChoiceField(required=True, choices=OPTIONS)
+    #is_private = forms.ChoiceField(required=True, choices=OPTIONS, label="Is this report private?")
+    projects = forms.CharField(required=True, label="Enter project name")
+    is_encrypted = forms.ChoiceField(required=True, choices=OPTIONS)
     content = forms.FileField(label="Upload a file here", required=False)
 
 
     
     class Meta:
         model = Report
-        fields = ("project"
-                  , "sector", "company_name", "company_Phone", "company_location"
-                  ,"company_country", "is_private", "is_encrypted", "content")
-
+        fields = ( "is_encrypted", "projects"
+                  , "sector", "company_name", "company_Phone", "company_location","company_country", "is_private", "content")
 
 #----------------------SignIn/Home-Page----------------------------------
 
@@ -66,9 +65,9 @@ class ReportForm(forms.ModelForm):
 #---------------------Make---Group------Form----------------------------- 
 class GroupForm(forms.Form):
     name = forms.CharField(label='Enter your group name', max_length=100)
-    users = forms.ModelChoiceField(label='Select users to add to your group',queryset=User.objects.all())
+    addee = forms.ModelChoiceField(label='Select users to add to your group',queryset=User.objects.all(),required=False)
     #users2 = forms.MultipleChoiceField(widget=forms.CheckboxSelectMultiple,
-                                            # choices=User.objects.all())
+                                            #    choices=User.objects.all())
 
     class Meta:
         model = Group

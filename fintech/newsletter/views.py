@@ -4,10 +4,11 @@ from django.contrib.auth import login, authenticate
 from .forms import SignupForm
 from django.db import models
 from django.contrib.auth.models import Group, Permission
-from newsletter.forms import ReportForm, GroupForm
+
+from .forms import ReportForm, GroupForm
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.decorators import user_passes_test
-from newsletter.models import *
+from .models import *
 from django.http import HttpResponseRedirect, HttpResponse
 from django.db import IntegrityError
 
@@ -58,8 +59,15 @@ def register(request):
 @login_required
 def viewReports (request):
     view = Report.objects.all()
-    return render(request, 'viewReport.html', {'reports': view})
-        
+    public_view = []
+    if request.user.is_superuser:
+        return render(request, 'viewReport.html', {'reports': view})
+    else:
+        for v in view:
+            if v.is_private == 'N':
+                public_view.append(v)
+    return render(request, 'viewReport.html', {'reports': public_view})
+
 
 #-----------------newReport---view-------------------------------
 @login_required
@@ -69,22 +77,30 @@ def newReport (request):
     if request.method == 'POST':
         form = ReportForm(request.POST, request.FILES)
         if form.is_valid():
-            """
-            company = request.POST.get('companyname')
-            email = request.POST.get('email')
-            password = request.POST.get('password')
-            usertype = request.POST.get('usertype')
-            for file in request.POST.get('files'):
 
-            report_owner=request.user
+            owner = request.user.username
+            company_name = request.POST.get('company_name')
+            is_private = request.POST.get('is_private')
+            company_Phone = request.POST.get('company_Phone')
+            company_location = request.POST.get('company_location')
+            company_country = request.POST.get('company_country')
+            sector = request.POST.get('sector')
+            is_encrypted = request.POST.get('is_encrypted')
+            projects = request.POST.get('projects')
+            content = request.POST.get('content')
+
+            report = Report.objects.create(owner=owner, company_name=company_name, is_private=is_private, company_Phone=company_Phone,
+            company_location=company_location, company_country=company_country, sector=sector, is_encrypted=is_encrypted,
+            projects=projects, content=content)
+
+            for afile in request.FILES.getlist('content'):
+                print("here")
 
 
-            report =Report.
+            report.save()
 
-            grouplist = request.user.groups.all
-            """
-            form.save()
-            return HttpResponseRedirect('view_report') #make this '/newsletter/reports/' if you want to redirect create report to view reports
+            return HttpResponseRedirect('view_report')
+
         else:
             print(form.errors)
     else:
@@ -103,6 +119,9 @@ def makeGroup(request):
                 groupname = request.POST.get('name')
                 group = Group.objects.create(name=groupname)
                 User.objects.get(username=request.user).groups.add(group)
+
+                #addee = form.cleaned_data['addee']
+                #User.objects.get(addee).groups.add(group)
             except IntegrityError:
                 return HttpResponseRedirect('/invalidGroup/')
 
@@ -121,7 +140,7 @@ def invalidGroup(request):
     return render(request, 'invalidGroup.html')
 #--------------Add-----Member----View------------------- 
 @login_required
-def addMember(request):
+def viewGroup (request):
     userlist = User.objects.all()
     namelist = []
     for x in userlist:
