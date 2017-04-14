@@ -2,7 +2,7 @@ from django.conf.urls import include, url
 from django.contrib.auth import views as auth_views
 from django.contrib import admin
 from newsletter import views as newsletter_views
-from messenger import views as message_views
+# from messenger import views as message_views
 
 urlpatterns = [
     # Examples:

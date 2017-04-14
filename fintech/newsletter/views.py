@@ -94,6 +94,7 @@ def newReport (request):
           
 # ---------------------------------------------------------------------------
 #----------------------Create--Group----View--------------------------------- 
+@login_required
 def makeGroup(request):
     if request.method == 'POST':
         form = GroupForm(request.POST)

@@ -75,7 +75,7 @@
                                     {% block body_block2 %}
                                         {% for message in messages reversed %}
                                             <tr><!-- PUT EACH FIELD HERE. (refer to spec sheet for required fields -->
-                                                <td style="width:180px;">{{  message.timestamp }}</td>
+                                                <td style="width:180px;">{{  message.timestamp }}<a href="{% url 'del' message_id=message.id %}" class="button special1">Delete Message</a></td>
                                                 <td>{{ message.message_from }}</td>
                                                 <td>{{ message.message_title }}</td>
                                                 <td style="width:600px; word-wrap:break-word;">{{ message.message_content }}</td>
