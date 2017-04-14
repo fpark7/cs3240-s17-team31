@@ -7,9 +7,17 @@ from messenger.forms import MessageForm
 from django.contrib.auth.decorators import login_required
 # from django.contrib.auth.decorators import user_passes_test
 from messenger.models import Message
-from django.http import HttpResponseRedirect#, HttpResponse
+from django.http import HttpResponseRedirect
 
 # Create your views here.
+
+@login_required
+def delete (request, message_id):
+    i_d = int(message_id)
+    for m in Message.objects.filter(message_to=""+request.user.get_username()):
+        if i_d == m.id:
+            m.delete()
+    return HttpResponseRedirect('/inbox/')
 
 @login_required
 def viewMessages (request):

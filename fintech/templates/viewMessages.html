@@ -66,6 +66,7 @@
                             <table>
                                 <thead>
                                     <tr> <!-- PUT COLUMN NAMES IN ORDER HERE -->
+                                        <th>OPTIONS</th>
                                         <th>FROM</th>
                                         <th>SUBJECT</th>
                                         <th>CONTENT</th>
@@ -74,7 +75,9 @@
                                 <tbody>
                                     {% block body_block2 %}
                                         {% for message in messages %}
+                                            <!--<tr><input type="submit" name="delete" value="Delete Items" /></tr>-->
                                             <tr><!-- PUT EACH FIELD HERE. (refer to spec sheet for required fields -->
+                                                <td><a href="{% url 'del' message_id=message.id %}" class="button special1">Delete Message</a></td>
                                             <td>{{ message.message_from }}</td>
                                             <td>{{ message.message_title }}</td>
                                             <td>{{ message.message_content }}</td>
