@@ -45,7 +45,7 @@ class ReportForm(forms.ModelForm):
     sector = forms.CharField(required=True, label="Enter Company Sector")
     #is_private = forms.ChoiceField(required=True, widget=forms.RadioSelect(attrs={'type': 'radio'}), choices=OPTIONS, help_text="Is this report private?")
     is_private = forms.ChoiceField(required=True, choices=OPTIONS, label="Is this report private?")
-    is_encrypted = forms.ChoiceField(required=True, choices=OPTIONS, label="Is this encrypted?")
+    #is_encrypted = forms.ChoiceField(required=True, choices=OPTIONS, label="Is this encrypted?")
     project = forms.CharField(required=True, label="Enter Project Name")
     content = forms.FileField(label="Upload a file here", required=False)
 
@@ -66,9 +66,9 @@ class ReportForm(forms.ModelForm):
 #---------------------Make---Group------Form----------------------------- 
 class GroupForm(forms.Form):
     name = forms.CharField(label='Enter your group name', max_length=100)
-    users = forms.ModelChoiceField(label='Select users to add to your group',queryset=User.objects.all())
+    addee = forms.ModelChoiceField(label='Select users to add to your group',queryset=User.objects.all(),required=False)
     #users2 = forms.MultipleChoiceField(widget=forms.CheckboxSelectMultiple,
-                                            # choices=User.objects.all())
+                                            #    choices=User.objects.all())
 
     class Meta:
         model = Group

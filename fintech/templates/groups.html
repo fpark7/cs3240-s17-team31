@@ -44,20 +44,21 @@
 
                         <section>
                             <h2>YOUR GROUPS</h2>
-                            <a href="{% url 'group' %}" class="button special">New Group</a>
+                            <a href="{% url 'newgroup' %}" class="button special">New Group</a>
                             <table>
                                 <thead>
                                     <tr> <!-- PUT COLUMN NAMES IN ORDER HERE -->
                                         <th>Name</th>
-                                        <th>Date of Creation</th>
+                                        <th>Members</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     {% block body_block %}
                                         {% for group in groups %}
-                                            <tr><!-- PUT EACH FIELD HERE. (refer to spec sheet for required fields -->
-                                            <td>{{ group.name }}</td>
-                                                <td> {{ group.}}</td>
+                                            <tr ><!-- PUT EACH FIELD HERE. (refer to spec sheet for required fields -->
+
+                                                <td><a href = "/groups/{{group.name}}"> {{ group.name }}</></td>
+                                                <td> {{ group.user_set.all}}</td>
                                             </tr>
                                         {% endfor %}
                                     {% endblock %}

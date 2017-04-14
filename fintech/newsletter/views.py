@@ -103,6 +103,9 @@ def makeGroup(request):
                 groupname = request.POST.get('name')
                 group = Group.objects.create(name=groupname)
                 User.objects.get(username=request.user).groups.add(group)
+
+                #addee = form.cleaned_data['addee']
+                #User.objects.get(addee).groups.add(group)
             except IntegrityError:
                 return HttpResponseRedirect('/invalidGroup/')
 
@@ -121,7 +124,7 @@ def invalidGroup(request):
     return render(request, 'invalidGroup.html')
 #--------------Add-----Member----View------------------- 
 @login_required
-def addMember(request):
+def viewGroup (request):
     userlist = User.objects.all()
     namelist = []
     for x in userlist:
