@@ -5,7 +5,7 @@
 -->
 <html>
 <head>
-    <title>Home | Lokahi</title>
+    <title>Site Manager | Lokahi</title>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <!--[if lte IE 8]><script src="static/js/ie/html5shiv.js"></script><![endif]-->
@@ -26,9 +26,6 @@
                             <div id="menu">
                                 <ul>
                                     <li><a href="{% url 'home' %}">Home</a></li>
-                                    {% if request.user.is_superuser %}
-                                        <li><a href="{% url 'sm_panel' %}">Site Manager</a></li>
-                                    {% endif %}
                                     <li><a href="{% url 'inbox' %}">Inbox</a></li>
                                     <li><a href="{% url 'groups' %}">Groups</a></li>
                                     <li><a href="{% url 'viewReport' %}">View Reports</a></li>
@@ -47,8 +44,16 @@
                     <div class="inner">
 
                         <section>
-                            <h2>HOME PAGE</h2>
+                            <h2>SITE MANAGER CONTROL PANEL</h2>
                             <p>Welcome  {{ user.get_username }} </p>
+                            <br>
+                            <form method="post">
+                                {% csrf_token %}
+                                {% for u in namelist %}
+                                    <button name="submit" value="{{u}}">Make "{{u}}" Site Manager</button>
+                                {% endfor %}
+                            </form>
+
                         </section>
                     </div>
 

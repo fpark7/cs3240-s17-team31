@@ -21,4 +21,5 @@ urlpatterns = [
     url(r'^groups/', newsletter_views.viewGroups, name='groups'),
     url(r'^group/',newsletter_views.addMember,name='add'),
     url(r'^inbox/', include('messenger.urls'), name='inbox'),
+    url(r'^sm_panel/',newsletter_views.viewSiteManager,name='sm_panel'),
 ]

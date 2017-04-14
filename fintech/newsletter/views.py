@@ -144,3 +144,20 @@ def viewGroups (request):
             groups.append(x)
 
     return render(request, 'groups.html', {'groups': groups})
+
+#---------------SITE MANAGER CONTROL PANEL-----------------
+@user_passes_test(lambda u: u.is_superuser)
+def viewSiteManager(request):
+    userlist = User.objects.all()
+    namelist = []
+    for x in userlist:
+        if x.username != request.user.username and not x.is_superuser:
+            namelist.append(x.username)
+    if request.method == 'POST':
+        user_to_promote = request.POST.get('submit')
+        print(user_to_promote)
+        user = User.objects.get(username=user_to_promote)
+        user.is_superuser = True
+        user.save()
+        return HttpResponseRedirect('/home/')
+    return render(request, 'sitemanager.html', {'namelist': namelist})
