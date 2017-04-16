@@ -42,11 +42,7 @@ def register(request):
                 setattr(site_user, 'password', password)
             except IntegrityError:
                 return HttpResponseRedirect('/invalid/')
-            
-            #login(request, new_user)
-            #return render(request, 'results.html', {'username': form.cleaned_data['username'],
-            #'email': form.cleaned_data['email']
-            #                                       })
+         
 
             return HttpResponseRedirect('/login/')
 
@@ -161,6 +157,12 @@ def viewGroups (request):
     for x in all_groups:
         if request.user in x.user_set.all():
             groups.append(x)
+
+    if request.method == 'POST':
+        group_to_leave = request.POST.get('submit')
+        g = Group.objects.get(name=group_to_leave)
+        g.user_set.remove(request.user)
+        return HttpResponseRedirect('/groups/')
 
     return render(request, 'groups.html', {'groups': groups})
 
