@@ -171,15 +171,22 @@ def viewGroups (request):
 @user_passes_test(lambda u: u.is_superuser)
 def viewSiteManager(request):
     userlist = User.objects.all()
-    namelist = []
+    list = []
     for x in userlist:
         if x.username != request.user.username and not x.is_superuser:
-            namelist.append(x.username)
+            list.append(x)
     if request.method == 'POST':
-        user_to_promote = request.POST.get('submit')
-        print(user_to_promote)
-        user = User.objects.get(username=user_to_promote)
-        user.is_superuser = True
+        code = request.POST.get('submit')[0]
+        username = request.POST.get('submit')[1:]
+        user = User.objects.get(username=username)
+        if code=="S":
+            user.is_superuser = True
+        if code=="T":
+            user.is_active = not user.is_active
         user.save()
-        return HttpResponseRedirect('/home/')
-    return render(request, 'sitemanager.html', {'namelist': namelist})
+        return HttpResponseRedirect('/sm_confirm/')
+    return render(request, 'sitemanager.html', {'list': list})
+
+@user_passes_test(lambda u: u.is_superuser)
+def smConfirm(request):
+    return render(request, 'smConfirm.html')

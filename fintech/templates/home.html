@@ -43,16 +43,27 @@
 
         <!-- Main -->
             <article id="main">
-                <section class="wrapper style5">
+                <header style="background-image: url('{% static "images/banner2.jpg"%}')">
+                    <h2>Welcome, {{ user.get_username }}</h2>
+                    {% if user.siteuser.usertype == "i" %}
+                        <p>Investor User</p>
+                    {% endif %}
+                    {% if user.siteuser.usertype == "c" %}
+                        <p>Company User</p>
+                    {% endif %}
+                    {% if user.is_superuser %}
+                        <p>SITE MANAGER</p>
+                    {% endif %}
+                </header>
+                <!--<section class="wrapper style5">
                     <div class="inner">
 
                         <section>
-                            <h2>HOME PAGE</h2>
-                            <p>Welcome  {{ user.get_username }} </p>
+                            # MAIN BODY
                         </section>
                     </div>
 
-                </section>
+                </section>-->
             </article>
 
     </div>

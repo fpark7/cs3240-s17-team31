@@ -22,4 +22,5 @@ urlpatterns = [
     url(r'^groups/(?P<group_name>\d+)/$',newsletter_views.viewGroup,name='group'),
     url(r'^inbox/', include('messenger.urls'), name='inbox'),
     url(r'^sm_panel/',newsletter_views.viewSiteManager,name='sm_panel'),
+    url(r'^sm_confirm/', newsletter_views.smConfirm, name='sm_confirm')
 ]
