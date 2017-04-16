@@ -67,6 +67,7 @@ def viewReports (request):
 
 #-----------------newReport---view-------------------------------
 @login_required
+@user_passes_test(lambda u: u.is_superuser or u.siteuser.usertype is not 'i')
 def newReport (request):
     #Report.objects.get(pk=id)
     #Report.object.all()

@@ -47,7 +47,9 @@
 
                         <section>
                             <h2>REPORTS</h2>
-                            <a href="{% url 'newReport' %}" class="button special">New Report</a>
+                            {% if user.is_superuser or user.siteuser.usertype == 'c' %}
+                                <a href="{% url 'newReport' %}" class="button special">New Report</a>
+                            {% endif %}
                             <table>
                                 <thead>
                                     <tr> <!-- PUT COLUMN NAMES IN ORDER HERE -->
