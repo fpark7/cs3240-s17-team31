@@ -71,4 +71,4 @@ class GroupForm(forms.Form):
 
     class Meta:
         model = Group
-        fields = ('name','users')
+        fields = ('name','addee')

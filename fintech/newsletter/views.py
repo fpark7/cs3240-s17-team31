@@ -42,7 +42,7 @@ def register(request):
                 setattr(site_user, 'password', password)
             except IntegrityError:
                 return HttpResponseRedirect('/invalid/')
-         
+
 
             return HttpResponseRedirect('/login/')
 
@@ -115,14 +115,13 @@ def makeGroup(request):
                 groupname = request.POST.get('name')
                 group = Group.objects.create(name=groupname)
                 User.objects.get(username=request.user).groups.add(group)
+                addee = request.POST.get('addee')
+                user_to_add = User.objects.get(username=addee)
+                user_to_add.groups.add(group)
 
-                #addee = form.cleaned_data['addee']
-                #User.objects.get(addee).groups.add(group)
             except IntegrityError:
                 return HttpResponseRedirect('/invalidGroup/')
 
-            #group.user_set.remove(request.user) 
-            # #User.objects.get(username=request.user2add).groups.remove(group)  
 
             return HttpResponseRedirect('../groups/')
 
@@ -162,6 +161,8 @@ def viewGroups (request):
         group_to_leave = request.POST.get('submit')
         g = Group.objects.get(name=group_to_leave)
         g.user_set.remove(request.user)
+        if g.user_set.all().__len__() == 0:
+            g.delete()
         return HttpResponseRedirect('/groups/')
 
     return render(request, 'groups.html', {'groups': groups})
