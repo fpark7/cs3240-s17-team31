@@ -26,8 +26,11 @@
                             <div id="menu">
                                 <ul>
                                     <li><a href="{% url 'home' %}">Home</a></li>
+                                    {% if request.user.is_superuser %}
+                                        <li><a href="{% url 'sm_panel' %}">Site Manager</a></li>
+                                    {% endif %}
                                     <li><a href="{% url 'inbox' %}">Inbox</a></li>
-                                     <li><a href="{% url 'groups' %}">Groups</a></li>
+                                    <li><a href="{% url 'groups' %}">Groups</a></li>
                                     <li><a href="{% url 'viewReport' %}">View Reports</a></li>
                                     <li><a href="{% url 'logout' %}">Log Out</a></li>
 
@@ -44,17 +47,13 @@
                     <div class="inner">
 
                         <section>
-                            <h2>NEW GROUP</h2>
+                            <h2>{{name}}</h2>
                             <form method="post">
                                 {% csrf_token %}
                                 {{ form }}
                                 <br>
-                                 {% for u in namelist %}
-                                    <button type="submit" value="{{u}}">Add "{{u}}"</button>
-
-                                  {% endfor %}
                                 <br>
-                                <button value=""submit>Create Group</button>
+                                <button value="submit">Create Group</button>
                             </form>
                         </section>
                     </div>
@@ -80,7 +79,4 @@
 
 	</body>
 </html>
-
-
-
 

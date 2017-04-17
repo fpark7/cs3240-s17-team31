@@ -108,7 +108,7 @@ def newReport (request):
 # ---------------------------------------------------------------------------
 #----------------------Create--Group----View--------------------------------- 
 @login_required
-def makeGroup(request):
+def newGroup(request):
     if request.method == 'POST':
         form = GroupForm(request.POST)
         if form.is_valid():
@@ -116,9 +116,6 @@ def makeGroup(request):
                 groupname = request.POST.get('name')
                 group = Group.objects.create(name=groupname)
                 User.objects.get(username=request.user).groups.add(group)
-                addee = request.POST.get('addee')
-                user_to_add = User.objects.get(username=addee)
-                user_to_add.groups.add(group)
 
             except IntegrityError:
                 return HttpResponseRedirect('/invalidGroup/')
@@ -129,23 +126,38 @@ def makeGroup(request):
     else:
         form = GroupForm()
 
-    return render(request, 'group.html', {'form': form})
+    return render(request, 'newgroup.html', {'form': form})
 
 @login_required
 def invalidGroup(request):
     return render(request, 'invalidGroup.html')
 #--------------Add-----Member----View------------------- 
 @login_required
-def viewGroup (request):
+def viewGroup (request, group_id):
+    group = Group.objects.get(pk=group_id)
+    name = group.name
     userlist = User.objects.all()
-    namelist = []
-    for x in userlist:
-        namelist.append(x.username)
-    if request.method == 'POST':
-        user_to_add = request.POST.get('submit')
-        print(user_to_add)
+    addlist = []
+    memberlist = group.user_set.all()
 
-    return render(request, 'addmembers.html',{'namelist':namelist})
+    # because the url is unique, can't really give s user_test.
+    if request.user not in memberlist:
+        return HttpResponseRedirect('/groups/')
+
+    for x in userlist:
+        if x not in group.user_set.all(): # memberlist?
+            addlist.append(x.username)
+
+    if request.method == 'POST':
+        if request.POST.get('submit') == "back":
+            return HttpResponseRedirect('/groups/')
+        else:
+            username = request.POST.get('submit')
+            user = User.objects.get(username=username)
+            user.groups.add(group)
+            return HttpResponseRedirect('../'+group_id)
+
+    return render(request, 'group.html',{'addlist':addlist, 'memberlist':memberlist,'name':name})
 
 
 #---------------Group-----Main------Page-----------------

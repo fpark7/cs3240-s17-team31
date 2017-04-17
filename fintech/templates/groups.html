@@ -62,8 +62,11 @@
                                         {% for group in groups %}
                                             <tr ><!-- PUT EACH FIELD HERE. (refer to spec sheet for required fields -->
 
-                                                <td><a href = "/groups/{{group.name}}"> {{ group }}</></td>
-                                                <td> {{ group.user_set.all}}</td>
+                                                <td><a href = "{% url 'group' group_id=group.id %}"> {{ group }}</></td>
+                                                <td>
+                                                    {% for user in group.user_set.all %}
+                                                        {{user}},
+                                                    {% endfor %}
                                                 <td><form method="post"><button name="submit"
                                                             onclick="return confirm('Are you sure you want to remove yourself from the group?')"
                                                             value = "{{group}}">
