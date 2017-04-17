@@ -5,7 +5,7 @@
 -->
 <html>
 <head>
-    <title>Site Manager | Lokahi</title>
+    <title>Group Settings | Lokahi</title>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <!--[if lte IE 8]><script src="static/js/ie/html5shiv.js"></script><![endif]-->
@@ -26,6 +26,9 @@
                             <div id="menu">
                                 <ul>
                                     <li><a href="{% url 'home' %}">Home</a></li>
+                                    {% if request.user.is_superuser %}
+                                        <li><a href="{% url 'sm_panel' %}">Site Manager</a></li>
+                                    {% endif %}
                                     <li><a href="{% url 'inbox' %}">Inbox</a></li>
                                     <li><a href="{% url 'groups' %}">Groups</a></li>
                                     <li><a href="{% url 'viewReport' %}">View Reports</a></li>
@@ -44,24 +47,10 @@
                     <div class="inner">
 
                         <section>
-                            <h2>SITE MANAGER CONTROL PANEL</h2>
-                            <br>
-                            <h3>Manage Users</h3>
-                            <br>
-                            <form method="post">
-                                {% csrf_token %}
-                                {% for u in list %}
-                                    <button name="submit" value="S{{u.username}}">Make "{{u.username}}" Site Manager</button>
-                                    {% if u.is_active %}
-                                        <button name="submit" value="T{{u.username}}">Suspend "{{ u.username }}"</button>
-                                    {% else %}
-                                        <button name="submit" value="T{{u.username}}">Restore "{{ u.username }}"</button>
-                                    {% endif %}
-                                    <br>
-                                    <br>
-                                {% endfor %}
-                            </form>
-
+                            <h2>Group Settings</h2>
+                            {% for u in usernamelist %}
+                                <p>{{ u }}</p>
+                            {% endfor %}
                         </section>
                     </div>
 

@@ -169,7 +169,7 @@ def viewGroups (request):
     return render(request, 'groups.html', {'groups': groups})
 
 #---------------SITE MANAGER CONTROL PANEL-----------------
-@user_passes_test(lambda u: u.is_superuser)
+'''@user_passes_test(lambda u: u.is_superuser)
 def viewSiteManager(request):
     userlist = User.objects.all()
     list = []
@@ -180,9 +180,9 @@ def viewSiteManager(request):
         code = request.POST.get('submit')[0]
         username = request.POST.get('submit')[1:]
         user = User.objects.get(username=username)
-        if code=="S":
+        if code == "S":
             user.is_superuser = True
-        if code=="T":
+        if code == "T":
             user.is_active = not user.is_active
         user.save()
         return HttpResponseRedirect('/sm_confirm/')
@@ -191,3 +191,10 @@ def viewSiteManager(request):
 @user_passes_test(lambda u: u.is_superuser)
 def smConfirm(request):
     return render(request, 'smConfirm.html')
+
+@user_passes_test(lambda u: u.is_superuser)
+def manageGroups(request):
+    userlist = User.objects.all()
+    grouplist = Group.objects.all()
+    return render(request, 'manageGroups.html', {'grouplist': grouplist, 'userlist': userlist})
+'''

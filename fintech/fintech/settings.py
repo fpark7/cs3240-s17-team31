@@ -39,6 +39,7 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'messenger',
     'newsletter',
+    'sitemanager',
 )
 
 MIDDLEWARE_CLASSES = (
