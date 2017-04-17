@@ -42,19 +42,23 @@
             <article id="main">
                 <section class="wrapper style5">
                     <div class="inner">
-
                         <section>
                             <h2>{{name}}</h2>
+                            <h5> Members:
+                                {% for user in memberlist %}
+                                    {{user}}
+                                {% endfor %}
+                            </h5>
+                            <br></br>
+                            <h4> Add Users to {{name}}</h4>
                             <form method="post">
                                 {% csrf_token %}
-                                {{ form }}
-                                <br>
-                                 {% for u in namelist %}
-                                    <button type="submit" value="{{u}}">Add "{{u}}"</button>
 
-                                  {% endfor %}
+                                 {% for user in addlist %}
+                                    <button name="submit" value="{{user.username}}">Add "{{user}}"</button>
+                                    {% endfor %}
                                 <br>
-                                <button value=""submit>Create Group</button>
+                                </br>
                             </form>
                         </section>
                     </div>
