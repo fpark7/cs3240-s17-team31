@@ -116,9 +116,7 @@ def newGroup(request):
                 groupname = request.POST.get('name')
                 group = Group.objects.create(name=groupname)
                 User.objects.get(username=request.user).groups.add(group)
-                addee = request.POST.get('addee')
-                user_to_add = User.objects.get(username=addee)
-                user_to_add.groups.add(group)
+
 
             except IntegrityError:
                 return HttpResponseRedirect('/invalidGroup/')
