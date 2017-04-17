@@ -126,7 +126,7 @@ def newGroup(request):
     else:
         form = GroupForm()
 
-    return render(request, 'group.html', {'form': form})
+    return render(request, 'newgroup.html', {'form': form})
 
 @login_required
 def invalidGroup(request):
@@ -146,17 +146,16 @@ def viewGroup (request, group_id):
 
 
     if request.method == 'POST':
-        print(request.POST.get('submit'))
-
-        username = request.POST.get('submit')
-        print(username)
-
-
-        #user = User.objects.get(username=username)
-        #print(user)
-
         if request.POST.get('submit') == "back":
             return HttpResponseRedirect('/groups/')
+        else:
+            username = request.POST.get('submit')
+            user = User.objects.get(username=username)
+            user.groups.add(group)
+            return HttpResponseRedirect('../'+group_id)
+
+
+
 
     return render(request, 'group.html',{'addlist':addlist, 'memberlist':memberlist,'name':name})
 

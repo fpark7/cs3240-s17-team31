@@ -5,7 +5,7 @@
 -->
 <html>
 <head>
-    <title>{{name}} | Lokahi</title>
+    <title>New Group | Lokahi</title>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <!--[if lte IE 8]><script src="static/js/ie/html5shiv.js"></script><![endif]-->
@@ -27,7 +27,7 @@
                                 <ul>
                                     <li><a href="{% url 'home' %}">Home</a></li>
                                     <li><a href="{% url 'inbox' %}">Inbox</a></li>
-                                     <li><a href="{% url 'groups' %}">Groups</a></li>
+                                    <li><a href="{% url 'groups' %}">Groups</a></li>
                                     <li><a href="{% url 'viewReport' %}">View Reports</a></li>
                                     <li><a href="{% url 'logout' %}">Log Out</a></li>
 
@@ -42,29 +42,16 @@
             <article id="main">
                 <section class="wrapper style5">
                     <div class="inner">
+
                         <section>
                             <h2>{{name}}</h2>
-                            <h5> Members:
-                                {% for user in memberlist %}
-                                    {{user}}
-                                {% endfor %}
-                            </h5>
-                            <br></br>
-                            <h4> Add Users to {{name}}</h4>
                             <form method="post">
                                 {% csrf_token %}
-                                 {% for user in addlist %}
-                                    <button name="submit" value="{{user}}">Add "{{user}}"</button>
-                                    {% endfor %}
+                                {{ form }}
                                 <br>
-                                </br>
+                                <br>
+                                <button value="submit">Create Group</button>
                             </form>
-
-                            <form method="post">
-                                {% csrf_token %}
-                                <button name="submit" value="back">Return to Groups</button>
-                            </form>
-
                         </section>
                     </div>
 
@@ -89,7 +76,4 @@
 
 	</body>
 </html>
-
-
-
 
