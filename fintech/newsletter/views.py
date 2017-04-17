@@ -141,17 +141,22 @@ def viewGroup (request, group_id):
     memberlist = group.user_set.all()
 
     for x in userlist:
-        if x.username != request.user.username and x not in group.user_set.all():
+        if x not in group.user_set.all():
             addlist.append(x.username)
 
 
     if request.method == 'POST':
+        print(request.POST.get('submit'))
+
         username = request.POST.get('submit')
         print(username)
 
 
         #user = User.objects.get(username=username)
         #print(user)
+
+        if request.POST.get('submit') == "back":
+            return HttpResponseRedirect('/groups/')
 
     return render(request, 'group.html',{'addlist':addlist, 'memberlist':memberlist,'name':name})
 

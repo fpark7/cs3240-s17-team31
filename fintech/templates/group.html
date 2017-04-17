@@ -53,13 +53,18 @@
                             <h4> Add Users to {{name}}</h4>
                             <form method="post">
                                 {% csrf_token %}
-
                                  {% for user in addlist %}
                                     <button name="submit" value="{{user.username}}">Add "{{user}}"</button>
                                     {% endfor %}
                                 <br>
                                 </br>
                             </form>
+
+                            <form method="post">
+                                {% csrf_token %}
+                                <button name="submit" value="back">Return to Groups</button>
+                            </form>
+
                         </section>
                     </div>
 
