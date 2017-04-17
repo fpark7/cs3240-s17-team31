@@ -16,10 +16,10 @@ urlpatterns = [
     url(r'^invalid/', newsletter_views.invalid),
     url(r'^logout/', auth_views.logout, name='logout'),
     url(r'^home/', newsletter_views.homeView, name='home'),
-    url(r'^newgroup/',newsletter_views.makeGroup,name='newgroup'),
+    url(r'^newgroup/',newsletter_views.newGroup,name='newgroup'),
     url(r'^invalidGroup/', newsletter_views.invalidGroup),
     url(r'^groups/', newsletter_views.viewGroups, name='groups'),
-    url(r'^groups/(?P<group_name>\d+)/$',newsletter_views.viewGroup,name='group'),
+    url(r'^viewgroup/(?P<group_id>\d+)/$',newsletter_views.viewGroup,name='group'),
     url(r'^inbox/', include('messenger.urls'), name='inbox'),
     url(r'^sm_panel/', include('sitemanager.urls'), name='sm_panel'),
 

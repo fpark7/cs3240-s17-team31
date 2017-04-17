@@ -5,7 +5,7 @@
 -->
 <html>
 <head>
-    <title>New Group | Lokahi</title>
+    <title>{{name}} | Lokahi</title>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <!--[if lte IE 8]><script src="static/js/ie/html5shiv.js"></script><![endif]-->
@@ -27,7 +27,7 @@
                                 <ul>
                                     <li><a href="{% url 'home' %}">Home</a></li>
                                     <li><a href="{% url 'inbox' %}">Inbox</a></li>
-                                    <li><a href="{% url 'groups' %}">Groups</a></li>
+                                     <li><a href="{% url 'groups' %}">Groups</a></li>
                                     <li><a href="{% url 'viewReport' %}">View Reports</a></li>
                                     <li><a href="{% url 'logout' %}">Log Out</a></li>
 
@@ -44,13 +44,17 @@
                     <div class="inner">
 
                         <section>
-                            <h2>NEW GROUP</h2>
+                            <h2>{{name}}</h2>
                             <form method="post">
                                 {% csrf_token %}
                                 {{ form }}
                                 <br>
+                                 {% for u in namelist %}
+                                    <button type="submit" value="{{u}}">Add "{{u}}"</button>
+
+                                  {% endfor %}
                                 <br>
-                                <button value="submit">Create Group</button>
+                                <button value=""submit>Create Group</button>
                             </form>
                         </section>
                     </div>
@@ -76,4 +80,7 @@
 
 	</body>
 </html>
+
+
+
 

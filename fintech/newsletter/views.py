@@ -108,7 +108,7 @@ def newReport (request):
 # ---------------------------------------------------------------------------
 #----------------------Create--Group----View--------------------------------- 
 @login_required
-def makeGroup(request):
+def newGroup(request):
     if request.method == 'POST':
         form = GroupForm(request.POST)
         if form.is_valid():
@@ -136,7 +136,9 @@ def invalidGroup(request):
     return render(request, 'invalidGroup.html')
 #--------------Add-----Member----View------------------- 
 @login_required
-def viewGroup (request):
+def viewGroup (request, group_id):
+    group = Group.objects.get(pk=group_id)
+    name = group.name
     userlist = User.objects.all()
     namelist = []
     for x in userlist:
@@ -145,7 +147,7 @@ def viewGroup (request):
         user_to_add = request.POST.get('submit')
         print(user_to_add)
 
-    return render(request, 'addmembers.html',{'namelist':namelist})
+    return render(request, 'group.html',{'namelist':namelist, 'name':name})
 
 
 #---------------Group-----Main------Page-----------------
