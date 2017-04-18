@@ -5,7 +5,7 @@
 -->
 <html>
 <head>
-    <title>Manage Groups | Lokahi</title>
+    <title>Manage Reports | Lokahi</title>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <!--[if lte IE 8]><script src="static/js/ie/html5shiv.js"></script><![endif]-->
@@ -47,17 +47,13 @@
                     <div class="inner">
 
                         <section>
-                            <h2>Manage Groups</h2>
+                            <h2>Manage Reports</h2>
                             <br>
-                            <h4>Select Group to Edit</h4>
-                            {% if len == 0 %}
-                                <p>No groups!</p>
-                            {% else %}
-                                {% for g in grouplist %}
-                                    <a href="{% url 'groupSettings' group_id=g.id %}" class="button special">{{ g.name }}</a>
-                                    <br>
-                                {% endfor %}
-                            {% endif %}
+                            <h4>Select Report to Edit</h4>
+                            {% for report in reports %}
+                                <a href="" class="button special">{{ report.company_name }}</a>
+                                <br>
+                            {% endfor %}
                             <br>
                             <br>
                             <a href="{% url 'sm_panel' %}" class="button">Back to Control Panel</a>

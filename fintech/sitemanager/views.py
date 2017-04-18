@@ -9,6 +9,7 @@ from django.contrib.auth.decorators import user_passes_test
 from .models import *
 from django.http import HttpResponseRedirect, HttpResponse
 from django.db import IntegrityError
+from newsletter.models import Report
 
 @user_passes_test(lambda u: u.is_superuser)
 def viewSiteManager(request):
@@ -36,16 +37,35 @@ def smConfirm(request):
 @user_passes_test(lambda u: u.is_superuser)
 def manageGroups(request):
     grouplist = Group.objects.all()
-    return render(request, 'manageGroups.html', {'grouplist': grouplist})
+    return render(request, 'manageGroups.html', {'grouplist': grouplist, 'len' : len(grouplist)})
 
 @user_passes_test(lambda u: u.is_superuser)
-def groupSettings(request, group_name):
-    group = Group.objects.get(name=group_name)
+def groupSettings(request, group_id):
+    group = Group.objects.get(pk=group_id)
     users = User.objects.all()
     usernamelist = []
+    not_in = []
+    if request.method == 'POST':
+        if request.POST.get('submit') == "back":
+            return HttpResponseRedirect('/sm_panel/manageGroups/')
+
+        username = request.POST.get('submit')
+        user = User.objects.get(username=username)
+        if user in group.user_set.all():
+            group.user_set.remove(user)
+            if group.user_set.all().__len__() == 0:
+                group.delete()
+        elif user not in group.user_set.all():
+            user.groups.add(group)
+        return HttpResponseRedirect('../'+group_id)
     for u in users:
         if u in group.user_set.all():
             usernamelist.append(u.username)
-    return render(request, 'groupSettings.html', {'usernamelist': usernamelist})
+        else:
+            not_in.append(u.username)
+    return render(request, 'groupSettings.html', {'group': group, 'usernamelist': usernamelist, 'not_in': not_in})
 
-
+@user_passes_test(lambda u: u.is_superuser)
+def manageReports(request):
+    reports = Report.objects.all()
+    return render(request, 'manageReports.html', {'reports': reports})

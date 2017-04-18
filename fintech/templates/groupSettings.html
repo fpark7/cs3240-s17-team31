@@ -47,10 +47,28 @@
                     <div class="inner">
 
                         <section>
-                            <h2>Group Settings</h2>
-                            {% for u in usernamelist %}
-                                <p>{{ u }}</p>
-                            {% endfor %}
+                            <h2>Group Settings: "{{ group.name }}"</h2>
+                            <form method="post">
+                                {% csrf_token %}
+                                <h4>Current Users in Group</h4>
+                                {% for user in usernamelist %}
+                                    <button name="submit" value="{{user}}">Remove "{{user}}"</button>
+                                {% endfor %}
+                                <br>
+                            </form>
+                            <form method="post">
+                                {% csrf_token %}
+                                <h4>Add New Users to Group</h4>
+                                {% for user in not_in %}
+                                    <button name="submit" value="{{user}}">Add "{{user}}"</button>
+                                {% endfor %}
+                                <br>
+                            </form>
+                            <br>
+                            <form method="post">
+                                {% csrf_token %}
+                                <button class="button special" name="submit" value="back">Return to Groups Manager</button>
+                            </form>
                         </section>
                     </div>
 

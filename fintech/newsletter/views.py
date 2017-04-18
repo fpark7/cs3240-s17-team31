@@ -140,7 +140,7 @@ def viewGroup (request, group_id):
     addlist = []
     memberlist = group.user_set.all()
 
-    # because the url is unique, can't really give s user_test.
+    # because the url is unique, can't really give user_test.
     if request.user not in memberlist:
         return HttpResponseRedirect('/groups/')
 
