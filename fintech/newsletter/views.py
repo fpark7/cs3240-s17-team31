@@ -219,7 +219,11 @@ def manageGroups(request):
 @login_required
 def viewReport (request, report_id):
     report = Report.objects.get(pk=report_id)
-    print(report)
+
+    if request.method == 'POST':
+        if request.POST.get('submit') == "back":
+            return HttpResponseRedirect('/newsletter/reports/')
+
 
 
     return render(request, 'report.html', {'report':report,})

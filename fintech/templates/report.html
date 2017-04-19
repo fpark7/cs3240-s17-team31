@@ -5,7 +5,7 @@
 -->
 <html>
 <head>
-    <title>Report | Lokahi</title>
+    <title>{{report.projects}} | Lokahi</title>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <!--[if lte IE 8]><script src="static/js/ie/html5shiv.js"></script><![endif]-->
@@ -46,7 +46,7 @@
                     <div class="inner">
 
                         <section>
-                            <h2>Report by {{report.owner}}</h2>
+                            <h2>{{report.projects}} by {{report.owner}}</h2>
 
                             <table>
                                 <thead>
@@ -66,6 +66,19 @@
 
                                 </tbody>
                             </table>
+
+                            <form method="post">
+                                {% csrf_token %}
+                                <input id="browse-click" type="file" class="button" value="Browse for files"/>
+                                <!--<button class="button special" name="submit" value="add"></button>-->
+                            </form>
+
+
+                            <form method="post">
+                                {% csrf_token %}
+
+                                <button class="button special" name="submit" value="back">Return to Reports</button>
+                            </form>
                         </section>
                     </div>
 
