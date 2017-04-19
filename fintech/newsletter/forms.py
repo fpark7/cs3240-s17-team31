@@ -40,15 +40,14 @@ class ReportForm(forms.ModelForm):
     company_name = forms.CharField(required=True, label="Enter Company Name")
     company_Phone = forms.CharField(required=True, label="Enter Company Phone Number")
     company_location = forms.CharField(required=True, label="Enter Company location")
-    #company_country = forms.ChoiceField(required=True, widget=forms.RadioSelect(), choices=COUNTRIES, help_text="Enter Company country")
     company_country = forms.ChoiceField(required=True, choices=COUNTRIES, label="Enter Company country")
     sector = forms.CharField(required=True, label="Enter Company Sector")
+    group = forms.CharField(required=False, label="What group can view this?")
 
     is_private = forms.ChoiceField(required=True, choices=OPTIONS)
-    #is_private = forms.ChoiceField(required=True, choices=OPTIONS, label="Is this report private?")
     projects = forms.CharField(required=True, label="Enter project name")
     is_encrypted = forms.ChoiceField(required=True, choices=OPTIONS)
-    content = forms.FileField(label="Upload a file here", required=False)
+    content = forms.FileField(label="Upload a file here",widget=forms.ClearableFileInput(attrs={'multiple': True}), required=False)
 
 
     

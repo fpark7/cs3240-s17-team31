@@ -60,7 +60,7 @@ def viewReports (request):
         return render(request, 'viewReport.html', {'reports': view})
     else:
         for v in view:
-            if v.is_private == 'N':
+            if v.is_private == 'N' or v.group in User.objects.get(username=request.user).groups.all():
                 public_view.append(v)
     return render(request, 'viewReport.html', {'reports': public_view})
 
@@ -84,15 +84,18 @@ def newReport (request):
             sector = request.POST.get('sector')
             is_encrypted = request.POST.get('is_encrypted')
             projects = request.POST.get('projects')
-            content = request.POST.get('content')
 
             report = Report.objects.create(owner=owner, company_name=company_name, is_private=is_private, company_Phone=company_Phone,
             company_location=company_location, company_country=company_country, sector=sector, is_encrypted=is_encrypted,
-            projects=projects, content=content)
+            projects=projects)
+
+            report.save()
 
             for afile in request.FILES.getlist('content'):
-                print("here")
-
+                fileX = File.objects.create(file=afile)
+                FILENAME = afile.name
+                fileX.save()
+                report.content.add(fileX)
 
             report.save()
 
