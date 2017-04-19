@@ -64,7 +64,7 @@ class ReportForm(forms.ModelForm):
 
 #---------------------Make---Group------Form----------------------------- 
 class GroupForm(forms.Form):
-    name = forms.CharField(label='Enter your group name', max_length=100)
+    name = forms.CharField(label='Enter your group name', max_length=22)
 
     class Meta:
         model = Group

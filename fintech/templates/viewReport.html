@@ -63,7 +63,7 @@
                                     {% block body_block %}
                                         {% for report in reports %}
                                             <tr><!-- PUT EACH FIELD HERE. (refer to spec sheet for required fields -->
-                                            <td>{{ report.timestamp }}</td>
+                                                <td><a href="{% url 'report' report_id=report.id %}">{{ report.timestamp }}</a></td>
                                             <td>{{ report.company_name }}</td>
                                             <td>{{ report.sector }}</td>
                                             </tr>

@@ -210,3 +210,13 @@ def manageGroups(request):
     grouplist = Group.objects.all()
     return render(request, 'manageGroups.html', {'grouplist': grouplist, 'userlist': userlist})
 '''
+
+
+#--------------------REPORT----VIEW--------------------------
+@login_required
+def viewReport (request, report_id):
+    report = Report.objects.get(pk=report_id)
+    print(report)
+
+
+    return render(request, 'report.html', {'report':report,})
