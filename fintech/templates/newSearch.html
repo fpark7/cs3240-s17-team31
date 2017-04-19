@@ -5,7 +5,7 @@
 -->
 <html>
 <head>
-    <title>View Reports | Lokahi</title>
+    <title>New Report | Lokahi</title>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <!--[if lte IE 8]><script src="static/js/ie/html5shiv.js"></script><![endif]-->
@@ -31,6 +31,7 @@
                                     {% endif %}
                                     <li><a href="{% url 'inbox' %}">Inbox</a></li>
                                     <li><a href="{% url 'groups' %}">Groups</a></li>
+                                    <li><a href="{% url 'viewReport' %}">View Reports</a></li>
                                     <li><a href="{% url 'logout' %}">Log Out</a></li>
 
                                 </ul>
@@ -46,31 +47,14 @@
                     <div class="inner">
 
                         <section>
-                            <h2>REPORTS</h2>
-                            {% if user.is_superuser or user.siteuser.usertype == 'c' %}
-                                <a href="{% url 'newReport' %}" class="button special">New Report</a>
-                                <a href="{% url 'search' %}" class="button special">Advanced Search</a>
-                            {% endif %}
-                            <table>
-                                <thead>
-                                    <tr> <!-- PUT COLUMN NAMES IN ORDER HERE -->
-                                        <th>Time Stamp</th>
-                                        <th>Company Name</th>
-                                        <th>Sector</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    {% block body_block %}
-                                        {% for report in reports %}
-                                            <tr><!-- PUT EACH FIELD HERE. (refer to spec sheet for required fields -->
-                                            <td>{{ report.timestamp }}</td>
-                                            <td>{{ report.company_name }}</td>
-                                            <td>{{ report.sector }}</td>
-                                            </tr>
-                                        {% endfor %}
-                                    {% endblock %}
-                                </tbody>
-                            </table>
+                            <h2>ADVANCED SEARCH</h2>
+                            <form method="post">
+                                {% csrf_token %}
+                                {{ form }}
+                                <br>
+                                <br>
+                                <button value="submit">Search</button>
+                            </form>
                         </section>
                     </div>
 
@@ -95,3 +79,4 @@
 
 	</body>
 </html>
+

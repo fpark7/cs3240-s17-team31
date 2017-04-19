@@ -22,6 +22,7 @@ urlpatterns = [
     url(r'^viewgroup/(?P<group_id>\d+)/$',newsletter_views.viewGroup,name='group'),
     url(r'^inbox/', include('messenger.urls'), name='inbox'),
     url(r'^sm_panel/', include('sitemanager.urls'), name='sm_panel'),
+    url(r'^search/', include('search.urls'), name='search'),
 
     ### don't touch anything under here ###
     url(r'^password_reset/$', auth_views.password_reset, name='password_reset'),

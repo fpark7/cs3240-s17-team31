@@ -31,6 +31,7 @@
                                     {% endif %}
                                     <li><a href="{% url 'inbox' %}">Inbox</a></li>
                                     <li><a href="{% url 'groups' %}">Groups</a></li>
+                                    <li><a href="{% url 'viewReport' %}">View Reports</a></li>
                                     <li><a href="{% url 'logout' %}">Log Out</a></li>
 
                                 </ul>
@@ -46,11 +47,9 @@
                     <div class="inner">
 
                         <section>
-                            <h2>REPORTS</h2>
-                            {% if user.is_superuser or user.siteuser.usertype == 'c' %}
-                                <a href="{% url 'newReport' %}" class="button special">New Report</a>
-                                <a href="{% url 'search' %}" class="button special">Advanced Search</a>
-                            {% endif %}
+                            <h2>Search Results</h2>
+                            <a href="{% url 'viewReport' %}" class="button special">Back to Reports</a>
+                            <a href="{% url 'search' %}" class="button special">Advanced Search</a>
                             <table>
                                 <thead>
                                     <tr> <!-- PUT COLUMN NAMES IN ORDER HERE -->
@@ -60,7 +59,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    {% block body_block %}
+                                    {% block body_block3 %}
                                         {% for report in reports %}
                                             <tr><!-- PUT EACH FIELD HERE. (refer to spec sheet for required fields -->
                                             <td>{{ report.timestamp }}</td>
