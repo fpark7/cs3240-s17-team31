@@ -40,6 +40,7 @@ INSTALLED_APPS = (
     'messenger',
     'newsletter',
     'sitemanager',
+    'search',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -114,3 +115,11 @@ STATICFILES_DIRS = (
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 LOGIN_REDIRECT_URL = '/home/'
+
+# EMAIL STUFF
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_HOST_USER = 'lokahi.fintech@gmail.com'
+EMAIL_HOST_PASSWORD = 'lokahi3240'
+EMAIL_USE_TLS = True
+DEFAULT_FROM_EMAIL = 'Lokahi Team <lokahi.fintech@gmail.com>'

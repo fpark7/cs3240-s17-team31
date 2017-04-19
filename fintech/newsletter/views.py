@@ -129,7 +129,7 @@ def newGroup(request):
     else:
         form = GroupForm()
 
-    return render(request, 'group.html', {'form': form})
+    return render(request, 'newgroup.html', {'form': form})
 
 @login_required
 def invalidGroup(request):
@@ -143,18 +143,22 @@ def viewGroup (request, group_id):
     addlist = []
     memberlist = group.user_set.all()
 
+    # because the url is unique, can't really give user_test.
+    if request.user not in memberlist:
+        return HttpResponseRedirect('/groups/')
+
     for x in userlist:
-        if x.username != request.user.username and x not in group.user_set.all():
+        if x not in group.user_set.all(): # memberlist?
             addlist.append(x.username)
 
-
     if request.method == 'POST':
-        username = request.POST.get('submit')
-        print(username)
-
-
-        #user = User.objects.get(username=username)
-        #print(user)
+        if request.POST.get('submit') == "back":
+            return HttpResponseRedirect('/groups/')
+        else:
+            username = request.POST.get('submit')
+            user = User.objects.get(username=username)
+            user.groups.add(group)
+            return HttpResponseRedirect('../'+group_id)
 
     return render(request, 'group.html',{'addlist':addlist, 'memberlist':memberlist,'name':name})
 
@@ -209,3 +213,13 @@ def manageGroups(request):
     grouplist = Group.objects.all()
     return render(request, 'manageGroups.html', {'grouplist': grouplist, 'userlist': userlist})
 '''
+
+
+#--------------------REPORT----VIEW--------------------------
+@login_required
+def viewReport (request, report_id):
+    report = Report.objects.get(pk=report_id)
+    print(report)
+
+
+    return render(request, 'report.html', {'report':report,})

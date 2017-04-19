@@ -8,5 +8,6 @@ urlpatterns = [
                 # url(r'^delete_message/(?P<message_id>\w+)/$', views.delete, name='del'),
                 url(r'sm_confirm/', views.smConfirm, name='sm_confirm'),
                 url(r'manageGroups/$', views.manageGroups, name='manageGroups'),
-                url(r'manageGroups/groupSettings/(?P<group_name>\w+)/$', views.groupSettings, name='groupSettings'),
+                url(r'manageGroups/groupSettings/(?P<group_id>\w+)/$', views.groupSettings, name='groupSettings'),
+                url(r'manageReports/$', views.manageReports, name='manageReports'),
                 ]

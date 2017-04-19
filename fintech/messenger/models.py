@@ -13,7 +13,8 @@ class Message(models.Model):
     message_content = models.CharField(max_length=500)
     message_from = models.CharField(max_length=100)
     message_to = models.CharField(max_length=100)
-    message_delete = models.CharField(max_length=1, choices=OPTIONS)
+    message_enc_content = models.BinaryField()
+
 
     class Meta:
         ordering = ['timestamp']

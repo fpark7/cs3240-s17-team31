@@ -26,6 +26,9 @@
                             <div id="menu">
                                 <ul>
                                     <li><a href="{% url 'home' %}">Home</a></li>
+                                    {% if request.user.is_superuser %}
+                                        <li><a href="{% url 'sm_panel' %}">Site Manager</a></li>
+                                    {% endif %}
                                     <li><a href="{% url 'inbox' %}">Inbox</a></li>
                                      <li><a href="{% url 'groups' %}">Groups</a></li>
                                     <li><a href="{% url 'viewReport' %}">View Reports</a></li>
@@ -44,22 +47,27 @@
                     <div class="inner">
                         <section>
                             <h2>{{name}}</h2>
-                            <h5> Members:
+                            <h5> Current Members:
                                 {% for user in memberlist %}
-                                    {{user}}
+                                    {{user}},
                                 {% endfor %}
                             </h5>
                             <br></br>
                             <h4> Add Users to {{name}}</h4>
                             <form method="post">
                                 {% csrf_token %}
-
                                  {% for user in addlist %}
-                                    <button name="submit" value="{{user.username}}">Add "{{user}}"</button>
+                                    <button name="submit" value="{{user}}">Add "{{user}}"</button>
                                     {% endfor %}
                                 <br>
                                 </br>
                             </form>
+
+                            <form method="post">
+                                {% csrf_token %}
+                                <button class="button special" name="submit" value="back">Return to Groups</button>
+                            </form>
+
                         </section>
                     </div>
 

@@ -49,6 +49,7 @@
                             <h2>REPORTS</h2>
                             {% if user.is_superuser or user.siteuser.usertype == 'c' %}
                                 <a href="{% url 'newReport' %}" class="button special">New Report</a>
+                                <a href="{% url 'search' %}" class="button special">Advanced Search</a>
                             {% endif %}
                             <table>
                                 <thead>
@@ -63,7 +64,7 @@
                                     {% block body_block %}
                                         {% for report in reports %}
                                             <tr><!-- PUT EACH FIELD HERE. (refer to spec sheet for required fields -->
-                                            <td>{{ report.timestamp }}</td>
+                                                <td><a href="{% url 'report' report_id=report.id %}">{{ report.timestamp }}</a></td>
                                             <td>{{ report.company_name }}</td>
                                             <td>{{ report.sector }}</td>
                                                 {% for f in report.content.all %}

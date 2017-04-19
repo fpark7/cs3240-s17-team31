@@ -5,7 +5,7 @@
 -->
 <html>
 <head>
-    <title>Your Groups | Lokahi</title>
+    <title>Report | Lokahi</title>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <!--[if lte IE 8]><script src="static/js/ie/html5shiv.js"></script><![endif]-->
@@ -30,7 +30,7 @@
                                         <li><a href="{% url 'sm_panel' %}">Site Manager</a></li>
                                     {% endif %}
                                     <li><a href="{% url 'inbox' %}">Inbox</a></li>
-                                    <li><a href="{% url 'viewReport' %}">View Reports</a></li>
+                                    <li><a href="{% url 'groups' %}">Groups</a></li>
                                     <li><a href="{% url 'logout' %}">Log Out</a></li>
 
                                 </ul>
@@ -46,40 +46,23 @@
                     <div class="inner">
 
                         <section>
-                            <h2>YOUR GROUPS</h2>
-                            <a href="{% url 'newgroup' %}" class="button special">New Group</a>
+                            <h2>Report by {{report.owner}}</h2>
+
                             <table>
                                 <thead>
-                                    <tr> <!-- PUT COLUMN NAMES IN ORDER HERE -->
-                                        <th>Name</th>
-                                        <th>Members</th>
-                                        <th>Options</th>
-                                    </tr>
+
+                                    <th> Created at </th>
+                                    <th> Company Name </th>
+                                    <th> Phone Number </th>
+                                    <th> Country Location </th>
+
                                 </thead>
                                 <tbody>
-                                    {% block body_block %}
 
-                                        {% for group in groups %}
-                                            <tr ><!-- PUT EACH FIELD HERE. (refer to spec sheet for required fields -->
-
-                                                <td><a href = "{% url 'group' group_id=group.id %}"><font size=5>{{ group }}</font> </a></td>
-                                                <td>
-                                                    {% for user in group.user_set.all %}
-                                                        {% if last %}
-                                                            {{user}}
-                                                        {% else %}
-                                                            {{user}},
-                                                        {% endif %}
-                                                    {% endfor %}
-                                                <td><form method="post"><button name="submit"
-                                                            onclick="return confirm('Are you sure you want to remove yourself from the group?')"
-                                                            value = "{{group}}">
-                                                    {% csrf_token %}
-                                                    <font color = "red"> Leave Group</font></button></td>
-                                                </form>
-                                            </tr>
-                                        {% endfor %}
-                                    {% endblock %}
+                                    <td> {{report.timestamp}}</td>
+                                    <td> {{report.company_name}}</td>
+                                    <td> {{report.company_Phone}}</td>
+                                    <td> {{report.company_location}}</td>
 
                                 </tbody>
                             </table>
