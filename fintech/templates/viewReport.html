@@ -75,7 +75,7 @@
                                                     {% if report.is_encrypted == 'Y'%}
                                                         <p>[encrypted file]</p>
                                                     {% else %}
-                                                        <a href="{{f.file.url}}">{{f.file.name}}</a>
+                                                        <a href="{{f.file.url}}" target="_blank">{{f.file.name}}</a>
                                                         <br>
                                                     {% endif %}
                                                 {% endfor %}
