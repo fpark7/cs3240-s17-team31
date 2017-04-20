@@ -6,9 +6,11 @@ from django.db import models
 from django.contrib.auth.models import Group, Permission
 
 from .forms import ReportForm, GroupForm
+from search.forms import SearchBarForm
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.decorators import user_passes_test
 from .models import *
+from search.models import SearchBar
 from django.http import HttpResponseRedirect, HttpResponse
 from django.db import IntegrityError
 
@@ -54,15 +56,48 @@ def register(request):
 #-------------------ViewReports----view------------------------------
 @login_required
 def viewReports (request):
+    all_models_dict = {
+        "view": []
+    }
     view = Report.objects.all()
     public_view = []
     if request.user.is_superuser:
-        return render(request, 'viewReport.html', {'reports': view})
+        all_models_dict["view"] = view
+        if request.method == 'POST':
+            form = SearchBarForm(request.POST)
+            if isinstance(SearchBar.objects.first(), SearchBar):
+                SearchBar.objects.first().delete()
+            if form.is_valid():
+                s = SearchBar.objects.create()
+                s.search = request.POST.get('search')
+                s.search_type = request.POST.get('search_type')
+                s.save()
+                return HttpResponseRedirect('/search/view_search2/')
+            else:
+                print(form.errors)
+        else:
+            form = SearchBarForm()
+        return render(request, 'viewReport.html', {'reports': all_models_dict, 'view': form})
     else:
         for v in view:
-            if v.is_private == 'N' or v.group in User.objects.get(username=request.user).groups.all() or v.owner == request.user.username:
+            if v.is_private == 'N' or v.group in User.objects.get(username=request.user).groups.all():
                 public_view.append(v)
-    return render(request, 'viewReport.html', {'reports': public_view})
+        all_models_dict["view"] = public_view
+        if request.method == 'POST':
+            form = SearchBarForm(request.POST)
+            if isinstance(SearchBar.objects.first(), SearchBar):
+                SearchBar.objects.first().delete()
+            if form.is_valid():
+                s = SearchBar.objects.create()
+                s.search = request.POST.get('search')
+                s.search_type = request.POST.get('search_type')
+                s.save()
+                return HttpResponseRedirect('/search/view_search2/')
+            else:
+                print(form.errors)
+        else:
+            form = SearchBarForm()
+    return render(request, 'viewReport.html', {'reports': all_models_dict, 'view': form})
 
 
 #-----------------newReport---view-------------------------------

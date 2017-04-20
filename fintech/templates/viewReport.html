@@ -50,7 +50,10 @@
                             {% if user.is_superuser or user.siteuser.usertype == 'c' %}
                                 <a href="{% url 'newReport' %}" class="button special">New Report</a>
                             {% endif %}
-                            <a href="{% url 'search' %}" class="button special">Advanced Search</a>
+                            <form method="post" enctype="multipart/form-data">
+                                {% csrf_token %}
+                                {{ view }}
+                            </form>
                             <table>
                                 <thead>
                                     <tr> <!-- PUT COLUMN NAMES IN ORDER HERE -->
@@ -62,7 +65,7 @@
                                 </thead>
                                 <tbody>
                                     {% block body_block %}
-                                        {% for report in reports reversed%}
+                                        {% for report in reports.view reversed%}
                                             <tr><!-- PUT EACH FIELD HERE. (refer to spec sheet for required fields -->
                                                 <td><a href="{% url 'report' report_id=report.id %}">{{ report.timestamp }}</a></td>
                                             <td>{{ report.company_name }}</td>
