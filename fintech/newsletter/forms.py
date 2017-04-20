@@ -58,6 +58,8 @@ class ReportForm(forms.ModelForm):
     group = forms.ChoiceField(label="Which Group Should This Report Be Associated With?", required=True,
                               choices=GROUPS_CHOICE)
 
+    industry = forms.CharField(required=True, label="Enter Industry")
+
     is_private = forms.ChoiceField(label="Is This Private?", required=True, choices=OPTIONS)
     projects = forms.CharField(required=True, label="Enter Project Name")
     is_encrypted = forms.ChoiceField(label="Is The File Encrypted?",required=True, choices=OPTIONS)

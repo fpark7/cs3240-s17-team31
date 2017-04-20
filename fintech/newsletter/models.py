@@ -14,6 +14,7 @@ class SiteUser(models.Model):
 
     def timeStamp(self):
         return self.user.date_joined
+        return self.user.date_joined
 
 #    @receiver(post_save,sender=User)
 #    def create_user(sender,instance,created,**kwargs):
@@ -60,6 +61,7 @@ class Report(models.Model):
     company_location = models.CharField(max_length=45)
     company_country = models.CharField(max_length=2, choices=COUNTRIES)
     sector = models.CharField(max_length=45)
+    #industry = models.CharField(max_length=45, initial='industry')
 
     projects = models.CharField(max_length=30, default='project')
     content = models.ManyToManyField(File, default="none")

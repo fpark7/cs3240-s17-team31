@@ -120,6 +120,7 @@ def newReport (request):
             is_encrypted = request.POST.get('is_encrypted')
             projects = request.POST.get('projects')
             group = request.POST.get('group')
+            #industry = request.POST.get('industry')
 
             report = Report.objects.create(owner=owner, company_name=company_name, is_private=is_private, company_Phone=company_Phone,
             company_location=company_location, company_country=company_country, sector=sector, is_encrypted=is_encrypted,
