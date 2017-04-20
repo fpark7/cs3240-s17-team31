@@ -36,6 +36,12 @@ class SiteUser(models.Model):
 class File(models.Model):
     file = models.FileField(upload_to='reports/')
 
+#class Project(models.Model):
+#    project_name = models.CharField(max_length=30)
+#
+#    def __str__(self):
+#        return self.project_name
+
 class Report(models.Model):
 
     COUNTRIES= (('US', 'United States'),
@@ -46,6 +52,7 @@ class Report(models.Model):
              ('N', 'No'),)
 
     owner = models.CharField(max_length=50)
+    group = models.CharField(max_length=30, blank=True)
     timestamp = models.DateTimeField(auto_now_add=True, blank=True)
     is_private = models.CharField(max_length=1, choices=OPTIONS)
     company_name = models.CharField(max_length=45)
@@ -55,7 +62,7 @@ class Report(models.Model):
     sector = models.CharField(max_length=45)
 
     projects = models.CharField(max_length=30, default='project')
-    content = models.FileField(upload_to='reports/')
+    content = models.ManyToManyField(File, default="none")
     is_encrypted=models.CharField(max_length=1, choices=OPTIONS)
 
 

@@ -36,26 +36,40 @@ class ReportForm(forms.ModelForm):
 
     OPTIONS=(('Y', 'Yes'),
              ('N', 'No'))
+    GROUPS_CHOICE = ()
+
+    def __init__(self, *args, **kwargs):
+        user = kwargs.pop('user')
+        super(ReportForm, self).__init__(*args, **kwargs)
+        self.GROUPS_CHOICE = self.GROUPS_CHOICE + (('None', 'None'),)
+        for group in Group.objects.all():
+            if user in group.user_set.all():
+                self.GROUPS_CHOICE = self.GROUPS_CHOICE + ((group.name, group.name),)
+        self.fields['group'].choices = self.GROUPS_CHOICE
+
+
 
     company_name = forms.CharField(required=True, label="Enter Company Name")
     company_Phone = forms.CharField(required=True, label="Enter Company Phone Number")
-    company_location = forms.CharField(required=True, label="Enter Company location")
-    #company_country = forms.ChoiceField(required=True, widget=forms.RadioSelect(), choices=COUNTRIES, help_text="Enter Company country")
-    company_country = forms.ChoiceField(required=True, choices=COUNTRIES, label="Enter Company country")
+    company_location = forms.CharField(required=True, label="Enter Company Location")
+    company_country = forms.ChoiceField(required=True, choices=COUNTRIES, label="Enter Company Country")
     sector = forms.CharField(required=True, label="Enter Company Sector")
+    #group = forms.CharField(required=False, label="What group can view this?")
+    group = forms.ChoiceField(label="Which Group Should This Report Be Associated With?", required=True,
+                              choices=GROUPS_CHOICE)
 
-    is_private = forms.ChoiceField(required=True, choices=OPTIONS)
-    #is_private = forms.ChoiceField(required=True, choices=OPTIONS, label="Is this report private?")
-    projects = forms.CharField(required=True, label="Enter project name")
-    is_encrypted = forms.ChoiceField(required=True, choices=OPTIONS)
-    content = forms.FileField(label="Upload a file here", required=False)
+    is_private = forms.ChoiceField(label="Is This Private?", required=True, choices=OPTIONS)
+    projects = forms.CharField(required=True, label="Enter Project Name")
+    is_encrypted = forms.ChoiceField(label="Is The File Encrypted?",required=True, choices=OPTIONS)
+    content = forms.FileField(label="Upload a file here",
+                              widget=forms.FileInput(attrs={'multiple': True, 'type': 'file', 'class': 'button'}), required=False)
 
 
     
     class Meta:
         model = Report
-        fields = ( "is_encrypted", "projects"
-                  , "sector", "company_name", "company_Phone", "company_location","company_country", "is_private", "content")
+        fields = ("projects" , "company_name", "sector", "company_Phone", "company_location",
+                  "company_country", "is_private", "content", "is_encrypted")
 
 #----------------------SignIn/Home-Page----------------------------------
 
@@ -64,7 +78,7 @@ class ReportForm(forms.ModelForm):
 
 #---------------------Make---Group------Form----------------------------- 
 class GroupForm(forms.Form):
-    name = forms.CharField(label='Enter your group name', max_length=100)
+    name = forms.CharField(label='Enter your group name', max_length=22)
 
     class Meta:
         model = Group

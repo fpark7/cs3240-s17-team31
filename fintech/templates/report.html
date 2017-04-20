@@ -5,7 +5,7 @@
 -->
 <html>
 <head>
-    <title>New Report | Lokahi</title>
+    <title>{{report.projects}} | Lokahi</title>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <!--[if lte IE 8]><script src="static/js/ie/html5shiv.js"></script><![endif]-->
@@ -31,7 +31,6 @@
                                     {% endif %}
                                     <li><a href="{% url 'inbox' %}">Inbox</a></li>
                                     <li><a href="{% url 'groups' %}">Groups</a></li>
-                                    <li><a href="{% url 'viewReport' %}">View Reports</a></li>
                                     <li><a href="{% url 'logout' %}">Log Out</a></li>
 
                                 </ul>
@@ -47,17 +46,39 @@
                     <div class="inner">
 
                         <section>
-                            <h2>NEW REPORT</h2>
-                            <form method="post" enctype="multipart/form-data">
+                            <h2>{{report.projects}} by {{report.owner}}</h2>
+
+                            <table>
+                                <thead>
+
+                                    <th> Created at </th>
+                                    <th> Company Name </th>
+                                    <th> Phone Number </th>
+                                    <th> Country Location </th>
+
+                                </thead>
+                                <tbody>
+
+                                    <td> {{report.timestamp}}</td>
+                                    <td> {{report.company_name}}</td>
+                                    <td> {{report.company_Phone}}</td>
+                                    <td> {{report.company_location}}</td>
+
+                                </tbody>
+                            </table>
+
+                            <form method="post">
                                 {% csrf_token %}
-                                {{ form }}
-                                <br>
-                                <br>
-                                <button class="button special" value="submit">Create Report</button>
+                                <input id="browse-click" type="file" class="button" value="Browse for files"/>
+                                <!--<button class="button special" name="submit" value="add"></button>-->
                             </form>
 
-                            <a href="{% url 'viewReport' %}" class="button">Back to Reports</a>
 
+                            <form method="post">
+                                {% csrf_token %}
+
+                                <button class="button special" name="submit" value="back">Return to Reports</button>
+                            </form>
                         </section>
                     </div>
 
@@ -82,4 +103,3 @@
 
 	</body>
 </html>
-

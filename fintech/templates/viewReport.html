@@ -49,23 +49,34 @@
                             <h2>REPORTS</h2>
                             {% if user.is_superuser or user.siteuser.usertype == 'c' %}
                                 <a href="{% url 'newReport' %}" class="button special">New Report</a>
-                                <a href="{% url 'search' %}" class="button special">Advanced Search</a>
                             {% endif %}
+                            <a href="{% url 'search' %}" class="button special">Advanced Search</a>
                             <table>
                                 <thead>
                                     <tr> <!-- PUT COLUMN NAMES IN ORDER HERE -->
                                         <th>Time Stamp</th>
                                         <th>Company Name</th>
                                         <th>Sector</th>
+                                        <th>Attached Files</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     {% block body_block %}
-                                        {% for report in reports %}
+                                        {% for report in reports reversed%}
                                             <tr><!-- PUT EACH FIELD HERE. (refer to spec sheet for required fields -->
-                                            <td>{{ report.timestamp }}</td>
+                                                <td><a href="{% url 'report' report_id=report.id %}">{{ report.timestamp }}</a></td>
                                             <td>{{ report.company_name }}</td>
                                             <td>{{ report.sector }}</td>
+                                                <td>
+                                                {% for f in report.content.all %}
+                                                    {% if report.is_encrypted == 'Y'%}
+                                                        <p>[encrypted file]</p>
+                                                    {% else %}
+                                                        <a href="{{f.file.url}}">{{f.file.name}}</a>
+                                                        <br>
+                                                    {% endif %}
+                                                {% endfor %}
+                                                </td>
                                             </tr>
                                         {% endfor %}
                                     {% endblock %}

@@ -60,7 +60,7 @@ def viewReports (request):
         return render(request, 'viewReport.html', {'reports': view})
     else:
         for v in view:
-            if v.is_private == 'N':
+            if v.is_private == 'N' or v.group in User.objects.get(username=request.user).groups.all() or v.owner == request.user.username:
                 public_view.append(v)
     return render(request, 'viewReport.html', {'reports': public_view})
 
@@ -72,7 +72,7 @@ def newReport (request):
     #Report.objects.get(pk=id)
     #Report.object.all()
     if request.method == 'POST':
-        form = ReportForm(request.POST, request.FILES)
+        form = ReportForm(request.POST, request.FILES, user=request.user)
         if form.is_valid():
 
             owner = request.user.username
@@ -84,15 +84,19 @@ def newReport (request):
             sector = request.POST.get('sector')
             is_encrypted = request.POST.get('is_encrypted')
             projects = request.POST.get('projects')
-            content = request.POST.get('content')
+            group = request.POST.get('group')
 
             report = Report.objects.create(owner=owner, company_name=company_name, is_private=is_private, company_Phone=company_Phone,
             company_location=company_location, company_country=company_country, sector=sector, is_encrypted=is_encrypted,
-            projects=projects, content=content)
+            projects=projects, group=group)
+
+            report.save()
 
             for afile in request.FILES.getlist('content'):
-                print("here")
-
+                fileX = File.objects.create(file=afile)
+                FILENAME = afile.name
+                fileX.save()
+                report.content.add(fileX)
 
             report.save()
 
@@ -101,7 +105,7 @@ def newReport (request):
         else:
             print(form.errors)
     else:
-       form = ReportForm()
+       form = ReportForm(user=request.user)
     return render(request, 'newReport.html', {'form': form})
 
           
@@ -210,3 +214,20 @@ def manageGroups(request):
     grouplist = Group.objects.all()
     return render(request, 'manageGroups.html', {'grouplist': grouplist, 'userlist': userlist})
 '''
+
+
+#--------------------REPORT----VIEW--------------------------
+@login_required
+def viewReport (request, report_id):
+    report = Report.objects.get(pk=report_id)
+
+    #security check
+    if report.is_private == 'N' or report.group in User.objects.get(username=request.user).groups.all() or report.owner == request.user.username:
+
+        if request.method == 'POST':
+            if request.POST.get('submit') == "back":
+                return HttpResponseRedirect('/newsletter/reports/')
+        return render(request, 'report.html', {'report': report,})
+    else:
+        # user is trying to access report that he/she does not have rights to
+        return HttpResponseRedirect('/newsletter/reports/')
