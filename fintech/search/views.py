@@ -15,27 +15,29 @@ def viewSearchBar (request):
     public_view = []
     if s.search_type == "Na":
         for v in view:
-            if s.search == v.company_name:
+            if s.search in v.company_name:
                 super_view.append(v)
-
     elif s.search_type == "Lo":
         for v in view:
-            if s.search == v.company_location:
+            if s.search in v.company_location:
                 super_view.append(v)
-
     elif s.search_type == "Co":
         for v in view:
-            if s.search == v.company_country:
+            if (s.search in "United States") and v.company_country == "US":
                 super_view.append(v)
-
+            elif (s.search in "Canada") and v.company_country == "CA":
+                super_view.append(v)
+            elif (s.search in "Great Britain") and v.company_country == "GB":
+                super_view.append(v)
+            elif (s.search in "Mexico") and v.company_country == "MX":
+                super_view.append(v)
     elif s.search_type == "Se":
         for v in view:
-            if s.search == v.sector:
+            if s.search in v.sector:
                 super_view.append(v)
-
     elif s.search_type == "Pr":
         for v in view:
-            if s.search == v.projects:
+            if s.search in v.projects:
                 super_view.append(v)
 
     if request.user.is_superuser:
@@ -52,25 +54,12 @@ def viewSearch (request):
     view = Report.objects.all()
     super_view = []
     public_view = []
-    if s.match == "Y":
-        for v in view:
-            if (s.company_name == v.company_name or s.company_name == "") and (s.company_location == v.company_location
-               or s.company_location == "") and (s.company_country == v.company_country or s.company_country == "AN") \
-               and (s.sector == v.sector or s.sector == "") and (s.projects == v.projects or s.projects == "") and \
-               (v not in super_view):
-                super_view.append(v)
-    elif s.match == "N":
-        for v in view:
-            if s.company_name == v.company_name and (v not in super_view):
-                super_view.append(v)
-            if s.company_location == v.company_location and (v not in super_view):
-                super_view.append(v)
-            if (s.company_country == v.company_country or s.company_country == "AN") and (v not in super_view):
-                super_view.append(v)
-            if s.sector == v.sector and (v not in super_view):
-                super_view.append(v)
-            if s.projects == v.projects and (v not in super_view):
-                super_view.append(v)
+    for v in view:
+        if (s.company_name == v.company_name or s.company_name == "") and (s.company_location == v.company_location or
+           s.company_location == "") and (s.company_country == v.company_country or s.company_country == "AN") and \
+           (s.sector == v.sector or s.sector == "") and (s.projects == v.projects or s.projects == "") and \
+           (v not in super_view):
+            super_view.append(v)
 
     if request.user.is_superuser:
         return render(request, 'viewSearch.html', {'reports': super_view})
@@ -89,7 +78,7 @@ def newSearch(request):
         if form.is_valid():
             s = Search.objects.create()
             # s.owner = request.user.username
-            s.match = request.POST.get('match')
+            # s.match = request.POST.get('match')
             s.company_name = request.POST.get('company_name')
             # s.is_private = request.POST.get('is_private')
             s.company_location = request.POST.get('company_location')

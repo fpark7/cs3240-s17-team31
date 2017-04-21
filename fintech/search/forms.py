@@ -13,7 +13,7 @@ class SearchForm(forms.Form):
                ('N', 'No'))
 
     # owner = models.CharField(required=False, label="Enter Owner")
-    match = forms.ChoiceField(required=False, choices=OPTIONS, label="Match All fields?")
+    # match = forms.ChoiceField(required=False, choices=OPTIONS)
     # is_private = forms.ChoiceField(required=False, choices=OPTIONS, label="Is Private")
     company_name = forms.CharField(required=False, label="Enter Company Name")
     company_location = forms.CharField(required=False, label="Enter Company Location")
@@ -23,7 +23,7 @@ class SearchForm(forms.Form):
 
     class Meta:
         model = Search
-        fields = ("match", "company_name", "company_location", "company_country", "sector", "projects")
+        fields = ("company_name", "company_location", "company_country", "sector", "projects")
 
 class SearchBarForm(forms.Form):
 

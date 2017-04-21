@@ -14,7 +14,7 @@ class Search(models.Model):
                ('N', 'No'),)
 
     # owner = models.CharField(required=False, max_length=50)
-    match = models.CharField(max_length=1, choices=OPTIONS)
+    # match = models.CharField(max_length=1, choices=OPTIONS, editable=False)
     # is_private = models.CharField(max_length=1, choices=OPTIONS)
     company_name = models.CharField(max_length=45)
     company_location = models.CharField(max_length=45)
