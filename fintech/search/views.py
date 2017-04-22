@@ -55,9 +55,9 @@ def viewSearch (request):
     super_view = []
     public_view = []
     for v in view:
-        if (s.company_name == v.company_name or s.company_name == "") and (s.company_location == v.company_location or
+        if (s.company_name in v.company_name or s.company_name == "") and (s.company_location in v.company_location or
            s.company_location == "") and (s.company_country == v.company_country or s.company_country == "AN") and \
-           (s.sector == v.sector or s.sector == "") and (s.projects == v.projects or s.projects == "") and \
+           (s.sector in v.sector or s.sector == "") and (s.projects in v.projects or s.projects == "") and \
            (v not in super_view):
             super_view.append(v)
 
