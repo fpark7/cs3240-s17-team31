@@ -62,7 +62,7 @@ class ReportForm(forms.ModelForm):
     projects = forms.CharField(required=True, label="Enter Project Name")
     is_encrypted = forms.ChoiceField(label="Is The File Encrypted?",required=True, choices=OPTIONS)
     content = forms.FileField(label="Upload a file here",
-                              widget=forms.FileInput(attrs={'multiple': True, 'type': 'file', 'class': 'button'}), required=False)
+                              widget=forms.FileInput(attrs={'multiple': True, 'type': 'file', 'class' : 'button'}), required=False) #'onchange':'getName'
 
 
     

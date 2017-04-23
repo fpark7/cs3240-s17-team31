@@ -56,6 +56,7 @@
                                 <button class="button special" value="submit">Create Report</button>
                             </form>
 
+
                             <a href="{% url 'viewReport' %}" class="button">Back to Reports</a>
 
                         </section>
@@ -79,6 +80,12 @@
 			<!--[if lte IE 8]><script src="static/js/ie/respond.min.js"></script><![endif]-->
 			<!--<script src="static/js/main.js"></script>-->
             <script src = "{%  static 'js/main.js' %}"></script>
+
+            <script>
+                function getName() {
+                    $('#file-name').innerHTML = $('#id_content').val(input.files[0].name);
+                }
+            </script>
 
 	</body>
 </html>
