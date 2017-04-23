@@ -10,6 +10,7 @@ from search.forms import SearchBarForm
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.decorators import user_passes_test
 from .models import *
+from newsfeed.models import Story
 from search.models import SearchBar
 from django.http import HttpResponseRedirect, HttpResponse
 from django.db import IntegrityError
@@ -136,6 +137,9 @@ def newReport (request):
 
             report.save()
 
+            user = User.objects.get(username=request.user)
+            if is_private == 'N':
+                story = Story.objects.create(content=user.username+" created a report called "+report.projects)
             return HttpResponseRedirect('view_report')
 
         else:
@@ -155,7 +159,9 @@ def newGroup(request):
             try:
                 groupname = request.POST.get('name')
                 group = Group.objects.create(name=groupname)
-                User.objects.get(username=request.user).groups.add(group)
+                user = User.objects.get(username=request.user)
+                user.groups.add(group)
+                story = Story.objects.create(content=user.username+" created a new group called "+groupname)
 
             except IntegrityError:
                 return HttpResponseRedirect('/invalidGroup/')
@@ -194,7 +200,9 @@ def viewGroup (request, group_id):
         else:
             username = request.POST.get('submit')
             user = User.objects.get(username=username)
+            adder = User.objects.get(username=request.user)
             user.groups.add(group)
+            story = Story.objects.create(content=adder.username+" added "+user.username+" to "+ name)
             return HttpResponseRedirect('../'+group_id)
 
     return render(request, 'group.html',{'addlist':addlist, 'memberlist':memberlist,'name':name})
