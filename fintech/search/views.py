@@ -15,29 +15,29 @@ def viewSearchBar (request):
     public_view = []
     if s.search_type == "Na":
         for v in view:
-            if s.search in v.company_name:
+            if s.search.lower() in v.company_name.lower():
                 super_view.append(v)
     elif s.search_type == "Lo":
         for v in view:
-            if s.search in v.company_location:
+            if s.search.lower() in v.company_location.lower():
                 super_view.append(v)
     elif s.search_type == "Co":
         for v in view:
-            if (s.search in "United States") and v.company_country == "US":
+            if (s.search.lower() in "united states") and v.company_country == "US":
                 super_view.append(v)
-            elif (s.search in "Canada") and v.company_country == "CA":
+            elif (s.search.lower() in "canada") and v.company_country == "CA":
                 super_view.append(v)
-            elif (s.search in "Great Britain") and v.company_country == "GB":
+            elif (s.search.lower() in "great britain") and v.company_country == "GB":
                 super_view.append(v)
-            elif (s.search in "Mexico") and v.company_country == "MX":
+            elif (s.search.lower() in "mexico") and v.company_country == "MX":
                 super_view.append(v)
     elif s.search_type == "Se":
         for v in view:
-            if s.search in v.sector:
+            if s.search.lower() in v.sector.lower():
                 super_view.append(v)
     elif s.search_type == "Pr":
         for v in view:
-            if s.search in v.projects:
+            if s.search.lower() in v.projects.lower():
                 super_view.append(v)
 
     if request.user.is_superuser:
@@ -55,10 +55,10 @@ def viewSearch (request):
     super_view = []
     public_view = []
     for v in view:
-        if (s.company_name in v.company_name or s.company_name == "") and (s.company_location in v.company_location or
-           s.company_location == "") and (s.company_country == v.company_country or s.company_country == "AN") and \
-           (s.sector in v.sector or s.sector == "") and (s.projects in v.projects or s.projects == "") and \
-           (v not in super_view):
+        if (s.company_name.lower() in v.company_name.lower() or s.company_name == "") and (s.company_location.lower()
+           in v.company_location.lower() or s.company_location == "") and (s.company_country == v.company_country or
+           s.company_country == "AN") and (s.sector.lower() in v.sector.lower() or s.sector == "") and \
+           (s.projects.lower() in v.projects.lower() or s.projects == "") and (v not in super_view):
             super_view.append(v)
 
     if request.user.is_superuser:
