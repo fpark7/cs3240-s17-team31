@@ -108,7 +108,6 @@ def fileSettings(request, report_id):
         form = FileAddForm(request.POST, request.FILES)
         if form.is_valid():
             for afile in request.FILES.getlist('content'):
-                print("UPLOADING")
                 fileX = File.objects.create(file=afile)
                 fileX.save()
                 report.content.add(fileX)

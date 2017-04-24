@@ -85,3 +85,11 @@ class GroupForm(forms.Form):
     class Meta:
         model = Group
         fields = ('name',)
+#------------------------FILE ADD FORM -----------------------------------
+class FileAddForm(forms.Form):
+    content = forms.FileField(label="Upload a file here",
+                              widget=forms.FileInput(attrs={'multiple': True, 'type': 'file', 'class': 'button'}),
+                              required=False)
+    class Meta:
+        model = Report
+        fields = ("content",)

@@ -5,7 +5,7 @@ from .forms import SignupForm
 from django.db import models
 from django.contrib.auth.models import Group, Permission
 
-from .forms import ReportForm, GroupForm
+from .forms import ReportForm, GroupForm, FileAddForm
 from search.forms import SearchBarForm
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.decorators import user_passes_test
@@ -267,11 +267,17 @@ def viewReport (request, report_id):
 
     #security check
     if report.is_private == 'N' or report.group in User.objects.get(username=request.user).groups.all() or report.owner == request.user.username:
-
         if request.method == 'POST':
-            if request.POST.get('submit') == "back":
-                return HttpResponseRedirect('/newsletter/reports/')
-        return render(request, 'report.html', {'report': report,})
+            form = FileAddForm(request.POST, request.FILES)
+            if form.is_valid():
+                for afile in request.FILES.getlist('content'):
+                    fileX = File.objects.create(file=afile)
+                    fileX.save()
+                    report.content.add(fileX)
+                report.save()
+            return HttpResponseRedirect('../' + report_id)
+        form = FileAddForm()
+        return render(request, 'report.html', {'report': report, 'form': form})
     else:
         # user is trying to access report that he/she does not have rights to
         return HttpResponseRedirect('/newsletter/reports/')

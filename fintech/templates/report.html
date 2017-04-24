@@ -44,68 +44,60 @@
             <article id="main">
                 <section class="wrapper style5">
                     <div class="inner">
+                        <h2>"{{report.projects}}"</h2>
+                        <table>
+                            <tr>
+                                <th>Owner:</th>
+                                <td>{{ report.owner }}</td>
+                            </tr>
+                            <tr>
+                                <th>Company Name:</th>
+                                <td>{{ report.company_name }}</td>
+                            </tr>
+                            <tr>
+                                <th>Company Phone:</th>
+                                <td>{{ report.company_Phone }}</td>
+                            </tr>
+                            <tr>
+                                <th>Company Location:</th>
+                                <td>{{ report.company_location }}</td>
+                            </tr>
+                            <tr>
+                                <th>Company Country:</th>
+                                <td>{{ report.company_country }}</td>
+                            </tr>
+                            <tr>
+                                <th>Sector:</th>
+                                <td>{{  report.sector }}</td>
+                            </tr>
+                            <tr>
+                                <th>Created At:</th>
+                                <td>{{ report.timestamp }}</td>
+                            </tr>
+                        </table>
 
+                        <h4>Files Attached to Report</h4>
+                        {% for f in report.content.all %}
+                            {% if report.is_encrypted == 'Y'%}
+                                <p>[encrypted file]</p>
+                            {% else %}
+                                <a href="{{f.file.url}}" target="_blank">{{f.file.name}}</a>
+                                <br>
+                            {% endif %}
+                        {% endfor %}
+                        <br>
+                        <br>
+                        <h5> Add Additional Files to Report</h5>
+                        <form method="post" enctype="multipart/form-data">
+                            {% csrf_token %}
+                            {{ form }}
+                            <br>
+                            <button name="submit" class="button special" value="submit">Add Files</button>
+                        </form>
+                        <br>
+                        <a href="{% url 'viewReport' %}" class="button">Back to Reports</a>
 
-                            <h2>{{report.projects}} by {{report.owner}}</h2>
-
-                            <div>
-                                <span  ><font size="5" style="vertical-align:middle;">Company Name:</font></span>
-                                <span style="font-size:1/2em; vertical-align:middle;">{{report.company_name}}</span>
-                            </div>
-                            <div>
-                                    <span  ><font size="5" style="vertical-align:middle;">Company Phone:</font></span>
-                                    <span style="font-size:1/2em; vertical-align:middle;">{{report.company_Phone}}</span>
-                                </div>
-                            <div>
-                                    <span  ><font size="5" style="vertical-align:middle;">Company Location:</font></span>
-                                    <span style="font-size:1/2em; vertical-align:middle;">{{report.company_location}}</span>
-                                </div>
-                            <div>
-                                    <span  ><font size="5" style="vertical-align:middle;">Company Country:</font></span>
-                                    <span style="font-size:1/2em; vertical-align:middle;">{{report.company_country}}</span>
-                                </div>
-                            <div>
-                                    <span  ><font size="5" style="vertical-align:middle;">Sector:</font></span>
-                                    <span style="font-size:1/2em; vertical-align:middle;">{{report.sector}}</span>
-                                </div>
-                            <div>
-                                    <span  ><font size="5" style="vertical-align:middle;">Created at:</font></span>
-                                    <span style="font-size:1/2em; vertical-align:middle;"> {{report.timestamp}} </span>
-                                </div>
-
-                            <div>
-                                    <span  ><font size="5" style="vertical-align:middle;">Industry:</font></span>
-                                    <span style="font-size:1/2em; vertical-align:middle;"> {{report.timestamp}} </span>
-                                </div>
-                                <br></br>
-
-
-                            {% for f in report.content.all %}
-                                {% if report.is_encrypted == 'Y'%}
-                                    <p>[encrypted file]</p>
-                                {% else %}
-                                    <a href="{{f.file.url}}" target="_blank">{{f.file.name}}</a>
-                                    <br>
-                                {% endif %}
-                            {% endfor %}
-
-                            <br></br>
-
-                            <h3> Add a file to this report</h3>
-                            <form method="post">
-                                {% csrf_token %}
-                                <input id="browse-click" type="file" class="button" >
-                                <!--<button class="button special" name="submit" value="add"></button>-->
-                            </form>
-
-                            <form method="post">
-                                {% csrf_token %}
-
-                                <button class="button special" name="submit" value="back">Return to Reports</button>
-                            </form>
-                        </section>
                     </div>
-
                 </section>
             </article>
 
