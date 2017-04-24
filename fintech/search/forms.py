@@ -34,8 +34,8 @@ class SearchBarForm(forms.Form):
                 ('Pr', 'Current Project(s)'))
                 # ('Sa', 'Search All'),)
 
-    search = forms.CharField(required=True, label="")
-    search_type = forms.ChoiceField(required=True, choices=SEARCHES, )
+    search = forms.CharField(required=True, label="", widget=forms.TextInput(attrs={'placeholder': 'Search for...'}))
+    search_type = forms.ChoiceField(required=True, choices=SEARCHES, label="")
 
     class Meta:
         model = SearchBar
