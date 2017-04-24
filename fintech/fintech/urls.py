@@ -2,6 +2,7 @@ from django.conf.urls import include, url
 from django.contrib.auth import views as auth_views
 from django.contrib import admin
 from newsletter import views as newsletter_views
+from newsfeed import views as newsfeed_views
 from django.conf.urls.static import static
 from django.conf import settings
 
@@ -26,6 +27,8 @@ urlpatterns = [
     url(r'^inbox/', include('messenger.urls'), name='inbox'),
     url(r'^sm_panel/', include('sitemanager.urls'), name='sm_panel'),
     url(r'^search/', include('search.urls'), name='search'),
+
+    url(r'^feed/', newsfeed_views.feed, name='feed'),
 
     ### don't touch anything under here ###
     url(r'^password_reset/$', auth_views.password_reset, name='password_reset'),

@@ -50,10 +50,14 @@
                             <h2>Manage Reports</h2>
                             <br>
                             <h4>Select Report to Edit</h4>
-                            {% for report in reports %}
-                                <a href="" class="button special">{{ report.company_name }}</a>
-                                <br>
-                            {% endfor %}
+                            <div class="row uniform">
+                                {% for report in reports %}
+                                    <span><a href="{% url 'reportSettings' report_id=report.id %}" class="button special" style="height:120px; margin:10px;"><p>Project: {{ report.projects }}<br>
+                                        Company: {{ report.company_name }}<br>
+                                        Sector: {{ report.sector }}</p>
+                                    </a></span>
+                                {% endfor %}
+                            </div>
                             <br>
                             <br>
                             <a href="{% url 'sm_panel' %}" class="button">Back to Control Panel</a>

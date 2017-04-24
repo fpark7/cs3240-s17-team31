@@ -41,6 +41,7 @@ INSTALLED_APPS = (
     'newsletter',
     'sitemanager',
     'search',
+    'newsfeed',
 )
 
 MIDDLEWARE_CLASSES = (

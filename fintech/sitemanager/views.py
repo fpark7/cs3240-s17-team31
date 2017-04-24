@@ -9,7 +9,8 @@ from django.contrib.auth.decorators import user_passes_test
 from .models import *
 from django.http import HttpResponseRedirect, HttpResponse
 from django.db import IntegrityError
-from newsletter.models import Report
+from newsletter.models import *
+from .forms import ReportForm, FileAddForm
 
 @user_passes_test(lambda u: u.is_superuser)
 def viewSiteManager(request):
@@ -69,3 +70,50 @@ def groupSettings(request, group_id):
 def manageReports(request):
     reports = Report.objects.all()
     return render(request, 'manageReports.html', {'reports': reports})
+
+@user_passes_test(lambda u: u.is_superuser)
+def reportSettings(request, report_id):
+    report = Report.objects.get(pk=report_id)
+    if request.method == 'POST':
+        form = ReportForm(request.POST)
+        if form.is_valid():
+            report.company_name = request.POST.get('company_name')
+            report.is_private = request.POST.get('is_private')
+            report.company_Phone = request.POST.get('company_Phone')
+            report.company_location = request.POST.get('company_location')
+            report.company_country = request.POST.get('company_country')
+            report.sector = request.POST.get('sector')
+            report.is_encrypted = request.POST.get('is_encrypted')
+            report.projects = request.POST.get('projects')
+            report.group = request.POST.get('group')
+
+            report.save()
+        return HttpResponseRedirect('../'+report_id)
+
+    form = ReportForm(initial={'company_name':report.company_name, 'is_private': report.is_private,
+                               'company_Phone':report.company_Phone, 'company_location': report.company_location,
+                               'company_country': report.company_country, 'sector': report.sector,
+                               'is_encrypted':report.is_encrypted, 'projects': report.projects, 'group': report.group})
+    return render(request, 'reportSettings.html', {'report': report, 'form': form})
+
+@user_passes_test(lambda u: u.is_superuser)
+def fileSettings(request, report_id):
+    report = Report.objects.get(pk=report_id)
+    if request.method == 'POST':
+        if "r" in request.POST.get('submit'):
+            file_id = request.POST.get('submit')[1:]
+            report.content.remove(File.objects.get(id=file_id))
+            report.save()
+            return HttpResponseRedirect('../' + report_id)
+        form = FileAddForm(request.POST, request.FILES)
+        if form.is_valid():
+            for afile in request.FILES.getlist('content'):
+                print("UPLOADING")
+                fileX = File.objects.create(file=afile)
+                fileX.save()
+                report.content.add(fileX)
+            report.save()
+        return HttpResponseRedirect('../' + report_id)
+
+    form = FileAddForm()
+    return render(request, 'fileSettings.html', {'report': report, 'form': form})

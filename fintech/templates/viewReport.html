@@ -50,11 +50,15 @@
                             {% if user.is_superuser or user.siteuser.usertype == 'c' %}
                                 <a href="{% url 'newReport' %}" class="button special">New Report</a>
                             {% endif %}
-                            <a href="{% url 'search' %}" class="button special">Advanced Search</a>
+                            <form method="post" enctype="multipart/form-data">
+                                {% csrf_token %}
+                                {{ view }}
+                            </form>
                             <table>
                                 <thead>
                                     <tr> <!-- PUT COLUMN NAMES IN ORDER HERE -->
                                         <th>Time Stamp</th>
+                                        <th>Project Name</th>
                                         <th>Company Name</th>
                                         <th>Sector</th>
                                         <th>Attached Files</th>
@@ -62,9 +66,10 @@
                                 </thead>
                                 <tbody>
                                     {% block body_block %}
-                                        {% for report in reports reversed%}
+                                        {% for report in reports.view reversed%}
                                             <tr><!-- PUT EACH FIELD HERE. (refer to spec sheet for required fields -->
                                                 <td><a href="{% url 'report' report_id=report.id %}">{{ report.timestamp }}</a></td>
+                                            <td>{{ report.projects }}</td>
                                             <td>{{ report.company_name }}</td>
                                             <td>{{ report.sector }}</td>
                                                 <td>
@@ -72,7 +77,7 @@
                                                     {% if report.is_encrypted == 'Y'%}
                                                         <p>[encrypted file]</p>
                                                     {% else %}
-                                                        <a href="{{f.file.url}}">{{f.file.name}}</a>
+                                                        <a href="{{f.file.url}}" target="_blank">{{f.file.name}}</a>
                                                         <br>
                                                     {% endif %}
                                                 {% endfor %}
