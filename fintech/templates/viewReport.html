@@ -50,10 +50,13 @@
                             {% if user.is_superuser or user.siteuser.usertype == 'c' %}
                                 <a href="{% url 'newReport' %}" class="button special">New Report</a>
                             {% endif %}
-                            <form method="post" enctype="multipart/form-data">
-                                {% csrf_token %}
-                                {{ view }}
-                            </form>
+                            <div class="6u 12u$(small)">
+                                <form method="post" enctype="multipart/form-data">
+                                    {% csrf_token %}
+                                    {{ view.search }}
+                                    {{ view.search_type }}
+                                </form>
+                            </div>
                             <table>
                                 <thead>
                                     <tr> <!-- PUT COLUMN NAMES IN ORDER HERE -->
