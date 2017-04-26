@@ -29,7 +29,7 @@ urlpatterns = [
     url(r'^search/', include('search.urls'), name='search'),
     url(r'^fda/', include('fda.urls')),
 
-    url(r'^feed/', newsfeed_views.feed, name='feed'),
+    #url(r'^feed/', newsfeed_views.feed, name='feed'),
 
     ### don't touch anything under here ###
     url(r'^password_reset/$', auth_views.password_reset, name='password_reset'),

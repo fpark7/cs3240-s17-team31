@@ -9,6 +9,7 @@ from django.contrib.auth.decorators import user_passes_test
 from .models import *
 from django.http import HttpResponseRedirect, HttpResponse
 from django.db import IntegrityError
+from newsfeed.models import Story
 from newsletter.models import *
 from .forms import ReportForm, FileAddForm
 
@@ -25,6 +26,7 @@ def viewSiteManager(request):
         user = User.objects.get(username=username)
         if code == "S":
             user.is_superuser = True
+            Story.objects.create(content= request.user.username + " promoted " + user.username +" to site manager")
         if code == "T":
             user.is_active = not user.is_active
         user.save()
@@ -54,10 +56,12 @@ def groupSettings(request, group_id):
         user = User.objects.get(username=username)
         if user in group.user_set.all():
             group.user_set.remove(user)
+            Story.objects.create(content=request.user.username + " removed "+ user.username +" from the group " + group.name)
             if group.user_set.all().__len__() == 0:
                 group.delete()
         elif user not in group.user_set.all():
             user.groups.add(group)
+            Story.objects.create(content=request.user.username + " added " + user.username + " to the group " + group.name )
         return HttpResponseRedirect('../'+group_id)
     for u in users:
         if u in group.user_set.all():
