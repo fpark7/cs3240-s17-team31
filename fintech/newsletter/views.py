@@ -81,7 +81,7 @@ def viewReports (request):
         return render(request, 'viewReport.html', {'reports': all_models_dict, 'view': form})
     else:
         for v in view:
-            if v.is_private == 'N' or v.group in User.objects.get(username=request.user).groups.all():
+            if v.is_private == 'N' or v.group in User.objects.get(username=request.user).groups.all() or v.owner == request.user.username:
                 public_view.append(v)
         all_models_dict["view"] = public_view
         if request.method == 'POST':

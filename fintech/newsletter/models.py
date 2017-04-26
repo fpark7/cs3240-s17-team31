@@ -61,7 +61,7 @@ class Report(models.Model):
     company_location = models.CharField(max_length=45)
     company_country = models.CharField(max_length=2, choices=COUNTRIES)
     sector = models.CharField(max_length=45)
-    #industry = models.CharField(max_length=45, initial='industry')
+    #industry = models.CharField(max_length=45)
 
     projects = models.CharField(max_length=30, default='project')
     content = models.ManyToManyField(File, default="none")

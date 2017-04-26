@@ -27,6 +27,7 @@ urlpatterns = [
     url(r'^inbox/', include('messenger.urls'), name='inbox'),
     url(r'^sm_panel/', include('sitemanager.urls'), name='sm_panel'),
     url(r'^search/', include('search.urls'), name='search'),
+    url(r'^fda/', include('fda.urls')),
 
     url(r'^feed/', newsfeed_views.feed, name='feed'),
 

@@ -42,6 +42,8 @@ INSTALLED_APPS = (
     'sitemanager',
     'search',
     'newsfeed',
+    'fda',
+
 )
 
 MIDDLEWARE_CLASSES = (
