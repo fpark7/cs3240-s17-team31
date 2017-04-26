@@ -1,5 +1,9 @@
 import requests
-import os
+import os, struct
+import hashlib
+from Crypto.PublicKey import RSA
+from Crypto.Cipher import AES
+
 
 URL = 'http://127.0.0.1:8000/fda/'
 
@@ -135,6 +139,62 @@ def getReportsList(username):
     reports = r.json().get('reports_list')
     return reports
 
+
+########################################################################################
+########################################################################################
+# -------------------- ENCRYPTION AND DECRYPTION USING AES -----------------------------
+def encrypt_file(file_name, sym_key):
+    try:
+        key = hashlib.sha256(sym_key).digest()
+        mode = AES.MODE_CBC
+        iv = 16*'a'
+        chunk_size = 8192
+        encryptor = AES.new(key, AES.MODE_CBC, iv)
+        filesize = os.path.getsize(file_name)
+        out_file = file_name + '.enc'
+        with open(file_name, 'rb') as f:
+            with open(out_file, 'wb') as outfile:
+                outfile.write(struct.pack('<Q', filesize))
+                outfile.write(str.encode(iv))
+                while True:
+                    chunk = f.read(chunk_size)
+                    if len(chunk)==0:
+                        break
+                    elif len(chunk) %16 !=0:
+                        chunk += str.encode(' ' * (16 - (len(chunk) %16)))
+                    outfile.write(encryptor.encrypt(chunk))
+        return True
+    except FileNotFoundError:
+        return False
+# sym_key is byte string
+def decrypt_file(file_name, sym_key):
+    try:
+        if file_name.endswith('.enc'):
+            new_name = file_name[:-4]
+            new_name = 'DEC_' + new_name
+            key = hashlib.sha256(sym_key).digest()
+            mode = AES.MODE_CBC
+            # iv = 16 * 'a'
+            chunk_size = 8192
+
+            with open(file_name, 'rb') as f:
+                filesize = struct.unpack('<Q', f.read(struct.calcsize('<Q')))[0]
+                iv = f.read(16).decode()
+                if iv != (16* 'a'):
+                    return False
+                decryptor = AES.new(key, mode, iv)
+
+                with open(new_name, 'wb') as outfile:
+                    while True:
+                        chunk = f.read(chunk_size)
+                        if len(chunk) ==0:
+                            break
+                        outfile.write(decryptor.decrypt(chunk))
+                    outfile.truncate(filesize)
+            return True
+        return False
+    except FileNotFoundError:
+        return False
 
 if __name__ == "__main__":
     main()
