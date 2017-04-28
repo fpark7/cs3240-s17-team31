@@ -19,7 +19,8 @@ from django.db import IntegrityError
 @login_required
 def homeView(request):
     user = request.user
-    return render(request, 'home.html', {'user': user})
+    stories = Story.objects.all()
+    return render(request, 'home.html', {'user': user, 'stories':stories})
  #   if request.method == 'POST':
   #      form = 
 
@@ -43,6 +44,10 @@ def register(request):
                 new_user = User.objects.create_user(username=username, email=email, password=password)
                 site_user = SiteUser.objects.create(user=new_user,usertype=usertype)
                 setattr(site_user, 'password', password)
+                if site_user.usertype == "i":
+                    Story.objects.create(content=new_user.username + " registered as an investor user")
+                else:
+                    Story.objects.create(content=new_user.username + " registered as a company user")
             except IntegrityError:
                 return HttpResponseRedirect('/invalid/')
 
@@ -129,6 +134,7 @@ def newReport (request):
 
             report.save()
 
+
             for afile in request.FILES.getlist('content'):
                 fileX = File.objects.create(file=afile)
                 FILENAME = afile.name
@@ -139,7 +145,7 @@ def newReport (request):
 
             user = User.objects.get(username=request.user)
             if is_private == 'N':
-                story = Story.objects.create(content=user.username+" created a report called "+report.projects)
+                Story.objects.create(content=user.username+" created a report called "+report.projects)
             return HttpResponseRedirect('view_report')
 
         else:
@@ -161,7 +167,7 @@ def newGroup(request):
                 group = Group.objects.create(name=groupname)
                 user = User.objects.get(username=request.user)
                 user.groups.add(group)
-                story = Story.objects.create(content=user.username+" created a new group called "+groupname)
+                Story.objects.create(content=user.username+" created a new group called "+groupname)
 
             except IntegrityError:
                 return HttpResponseRedirect('/invalidGroup/')
@@ -202,7 +208,7 @@ def viewGroup (request, group_id):
             user = User.objects.get(username=username)
             adder = User.objects.get(username=request.user)
             user.groups.add(group)
-            story = Story.objects.create(content=adder.username+" added "+user.username+" to "+ name)
+            Story.objects.create(content=adder.username+" added "+user.username+" to "+ name)
             return HttpResponseRedirect('../'+group_id)
 
     return render(request, 'group.html',{'addlist':addlist, 'memberlist':memberlist,'name':name})
@@ -222,6 +228,7 @@ def viewGroups (request):
         group_to_leave = request.POST.get('submit')
         g = Group.objects.get(name=group_to_leave)
         g.user_set.remove(request.user)
+        Story.objects.create(content=request.user.username + " left the group " + g.name)
         if g.user_set.all().__len__() == 0:
             g.delete()
         return HttpResponseRedirect('/groups/')

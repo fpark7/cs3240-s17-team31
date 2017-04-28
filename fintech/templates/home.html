@@ -65,7 +65,10 @@
                     </div>
 
                 </section>-->
-            </article>
+            </article>  <br />
+                         {% for story in stories reversed %}
+        <center> {{story.get_time_diff}}: {{story.content}} <br /> <br /> </center>
+                        {% endfor %}
 
     </div>
     		<!-- Scripts -->

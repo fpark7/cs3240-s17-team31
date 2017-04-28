@@ -45,7 +45,7 @@
                 <section class="wrapper style5">
                     <div class="inner">
                         {% for story in stories reversed %}
-                            {{story.content}} <br />
+                            {{story.get_time_diff}}: {{story.content}} <br /> <br />
                         {% endfor %}
 
 
