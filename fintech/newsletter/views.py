@@ -20,7 +20,16 @@ from django.db import IntegrityError
 def homeView(request):
     user = request.user
     stories = Story.objects.all()
-    return render(request, 'home.html', {'user': user, 'stories':stories})
+    list = []
+
+    #view = Message.objects.filter(message_to="" + request.user.get_username())
+    if len(stories) < 10:
+        return render(request, 'home.html', {'user': user, 'stories': stories})
+    else:
+        for x in range(len(stories) - 10, len(stories)):
+            list.append(stories[x])
+
+    return render(request, 'home.html', {'user': user, 'stories': list})
  #   if request.method == 'POST':
   #      form = 
 
@@ -126,11 +135,11 @@ def newReport (request):
             is_encrypted = request.POST.get('is_encrypted')
             projects = request.POST.get('projects')
             group = request.POST.get('group')
-            #industry = request.POST.get('industry')
+            industry = request.POST.get('industry')
 
             report = Report.objects.create(owner=owner, company_name=company_name, is_private=is_private, company_Phone=company_Phone,
             company_location=company_location, company_country=company_country, sector=sector, is_encrypted=is_encrypted,
-            projects=projects, group=group)
+            projects=projects, group=group,industry=industry)
 
             report.save()
 
