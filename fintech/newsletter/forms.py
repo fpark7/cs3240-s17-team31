@@ -50,6 +50,7 @@ class ReportForm(forms.ModelForm):
 
 
     company_name = forms.CharField(required=True, label="Enter Company Name")
+    industry = forms.CharField(required=True, label="Enter Industry")
     company_Phone = forms.CharField(required=True, label="Enter Company Phone Number")
     company_location = forms.CharField(required=True, label="Enter Company Location")
     company_country = forms.ChoiceField(required=True, choices=COUNTRIES, label="Enter Company Country")
@@ -70,7 +71,7 @@ class ReportForm(forms.ModelForm):
     
     class Meta:
         model = Report
-        fields = ("projects" , "company_name", "sector", "company_Phone", "company_location",
+        fields = ("projects" ,"industry", "company_name", "sector", "company_Phone", "company_location",
                   "company_country", "is_private", "content", "is_encrypted")
 
 #----------------------SignIn/Home-Page----------------------------------

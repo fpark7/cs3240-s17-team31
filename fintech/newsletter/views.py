@@ -128,6 +128,8 @@ def newReport (request):
 
             owner = request.user.username
             company_name = request.POST.get('company_name')
+
+            industry = request.POST.get('industry')
             is_private = request.POST.get('is_private')
             company_Phone = request.POST.get('company_Phone')
             company_location = request.POST.get('company_location')
