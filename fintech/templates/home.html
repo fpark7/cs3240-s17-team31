@@ -45,16 +45,24 @@
         <!-- Main -->
             <article id="main">
                 <header style="background-image: url('{% static "images/banner2.jpg"%}')">
-                    <h2>Welcome, {{ user.get_username }}</h2>
-                    {% if user.siteuser.usertype == "i" %}
-                        <p>Investor User</p>
-                    {% endif %}
-                    {% if user.siteuser.usertype == "c" %}
-                        <p>Company User</p>
-                    {% endif %}
-                    {% if user.is_superuser %}
-                        <p>SITE MANAGER</p>
-                    {% endif %}
+                    <div style="float:left; padding-left:150px;">
+                        <h2>Welcome, {{ user.get_username }}</h2>
+                        {% if user.siteuser.usertype == "i" %}
+                            <p>Investor User</p>
+                        {% endif %}
+                        {% if user.siteuser.usertype == "c" %}
+                            <p>Company User</p>
+                        {% endif %}
+                        {% if user.is_superuser %}
+                            <p>SITE MANAGER</p>
+                        {% endif %}
+                    </div>
+                    <div style="width: 40%; height: 280px; overflow-y: auto; display: inline-block; background-color: rgba(0,0,0,0.4); font-size: 12px;">
+                        <h2>News Feed</h2>
+                        {% for story in stories reversed %}
+                            <p>{{ story.get_time_diff}}: {{story.content}}</p>
+                        {% endfor %}
+                    </div>
                 </header>
                 <!--<section class="wrapper style5">
                     <div class="inner">
@@ -65,10 +73,17 @@
                     </div>
 
                 </section>-->
-            </article>  <br />
-                         {% for story in stories reversed %}
-        <center> {{story.get_time_diff}}: {{story.content}} <br /> <br /> </center>
-                        {% endfor %}
+            </article>
+        <!--<br/><br/>
+                {% for message in messages reversed %}
+                    <center>{{ message.message_from }} sent you a message</center>
+                {% endfor %}
+
+        <br /><br/>
+        <center> <h2>News Feed</h2></center>
+                {% for story in stories reversed %}
+                    <center> {{story.get_time_diff}}: {{story.content}} <br /> <br /> </center>
+                {% endfor %}-->
 
     </div>
     		<!-- Scripts -->

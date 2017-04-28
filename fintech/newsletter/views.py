@@ -7,6 +7,7 @@ from django.contrib.auth.models import Group, Permission
 
 from .forms import ReportForm, GroupForm, FileAddForm
 from search.forms import SearchBarForm
+from messenger.models import Message
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.decorators import user_passes_test
 from .models import *
@@ -22,14 +23,14 @@ def homeView(request):
     stories = Story.objects.all()
     list = []
 
-    #view = Message.objects.filter(message_to="" + request.user.get_username())
+    view = Message.objects.filter(message_to="" + request.user.get_username())
     if len(stories) < 10:
-        return render(request, 'home.html', {'user': user, 'stories': stories})
+        return render(request, 'home.html', {'user': user, 'stories': stories, 'messages':view})
     else:
         for x in range(len(stories) - 10, len(stories)):
             list.append(stories[x])
 
-    return render(request, 'home.html', {'user': user, 'stories': list})
+    return render(request, 'home.html', {'user': user, 'stories': list,'messages':view})
  #   if request.method == 'POST':
   #      form = 
 
