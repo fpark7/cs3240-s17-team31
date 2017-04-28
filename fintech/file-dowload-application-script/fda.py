@@ -6,6 +6,7 @@ from Crypto.Cipher import AES
 
 
 URL = 'http://127.0.0.1:8000/fda/'
+MEDIA = 'http://127.0.0.1:8000/media/'
 
 clear = lambda: os.system('cls' if os.name == 'nt' else 'clear')
 # main method redirected to top of page
@@ -20,7 +21,7 @@ def main():
     # this input is just to delay the user and show the welcome
     print("Enter anything to continue. Type 'exit' to leave")
     starter = input()
-    if starter == 0:
+    if starter == "exit":
         quit()
 
     # the choice variable will dictate which path to take every time.
@@ -30,11 +31,13 @@ def main():
     # -1: quit
     # 0: List Reports, then user can select
     # 1: Detailed Report View.
-    # 2: Download Files + Decrypt if Needed
-    # 3: Upload Files + Encrypt if Needed
+    # 2: Download Files
+    # 3: Decrypt a File
+    # 4: Encrypt a File
     choice = 0 #indicates which 'page' the view is in
     report_choice = -1 #indicates which report we're dealing with (-1 means none)
     reports = [] #indicates reports the user can view.
+
     while True:
     # LIST REPORTS THEN USER CAN SELECT ####################################
         if choice == -1:
@@ -56,7 +59,13 @@ def main():
             while True:
                 print("================================================")
                 print("Select the report you would like to view by entering the number")
-                report_choice = int(input("Enter the number zero (0) to quit: "))
+                print("Enter the number zero (0) to quit")
+                try:
+                    report_choice = int(input())
+                except Exception:
+                    print("Please enter an integer")
+                    report_choice = -1
+
                 if report_choice == 0:
                     choice = -1
                     break
@@ -87,20 +96,100 @@ def main():
                 print("================================================")
                 print("Enter the number one (1) to go back to report views")
                 print("Enter the number two (2) to download files")
-                print("Enter the number three (3) to upload files")
-                nav = int(input())
+                print("Enter the number three (3) to decrypt files")
+                print("Enter the number four (4) to encrypt files")
+                try:
+                    nav = int(input())
+                except Exception:
+                    print("Please enter an integer")
+                    nav = -1
+
                 if nav == 1:
                     choice = 0
                     break
-                #elif nav == 2:
-                    #choice = 2
-                    #break
-                #elif nav ==3:
-                    #choice = 3
-                    #break
+                elif nav == 2:
+                    choice = 2
+                    break
+                elif nav == 3:
+                    choice = 3
+                    break
+                elif nav == 4:
+                    choice = 4
+                    break
+                else:
+                    print("ERROR: Invalid Choice")
+        elif choice == 2:
+            clear()
+            current_report = reports[report_choice - 1]
+            content_list = current_report['content']
+            while True:
+                print("================================================")
+                print("Select a file by entering the corresponding number")
+                for i in range(0, len(content_list)):
+                    print(str(i+1) + ". " + content_list[i])
+                try:
+                    file_choice = int(input())
+                except Exception:
+                    print("Please enter an integer")
+                    file_choice = -1
+
+                if file_choice > 0 and file_choice <= len(content_list):
+                    current_file_name = content_list[file_choice-1]
+                    r = requests.get(MEDIA + current_file_name, stream=True)
+                    with open(current_file_name[8:], 'wb') as f:
+                        for chunk in r.iter_content(chunk_size=1024):
+                            if chunk:
+                                f.write(chunk)
+                    f.close()
+                    print("SUCCESSFULLY DOWNLOADED '" + current_file_name[8:] + "'")
+                    if current_report['is_encrypted'] == 'Y':
+                        print("**Our records indicate that this file may be encrypted**")
+                    input()
+                    choice = 1
+                    break
                 else:
                     print("ERROR: Invalid Choice")
 
+        elif choice == 3:
+            clear()
+            while True:
+                print("================================================")
+                print("FILE DECRYPTION")
+                print("Please enter the name of the file that needs to be decrypted")
+                print("[Enter 'exit' to leave]")
+                to_decrypt = input()
+                if to_decrypt == "exit":
+                    choice = 1
+                    break
+                if decrypt_file(to_decrypt, str.encode("password")):
+                    print("File successfully decrypted!")
+                    input()
+                    choice = 1
+                    break
+                else:
+                    print("ERROR: File Not Found")
+                    print("NOTE: This may be because the file does not seem to be encrypted")
+                    print("     If you would like to force a decryption, add an '.enc' extension")
+                    print("     Make sure you're confident or you may run into data corruption")
+
+        elif choice == 4:
+            clear()
+            while True:
+                print("================================================")
+                print("FILE ENCRYPTION")
+                print("Please enter the name of the file that needs to be encrypted")
+                print("[Enter 'exit' to leave]")
+                to_encrypt = input()
+                if to_encrypt == "exit":
+                    choice = 1
+                    break
+                if encrypt_file(to_encrypt, str.encode("password")):
+                    print("File successfully encrypted!")
+                    input()
+                    choice = 1
+                    break
+                else:
+                    print("ERROR: File Not Found")
 
         else:
             clear()

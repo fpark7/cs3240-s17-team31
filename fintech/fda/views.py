@@ -59,3 +59,7 @@ def getReportsList(request):
     data['reports_list'] = reports_list
 
     return JsonResponse({'reports_list': reports_list})
+
+@csrf_exempt
+def getFile(request):
+    pass
