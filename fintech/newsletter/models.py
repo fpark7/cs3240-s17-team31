@@ -63,7 +63,8 @@ class Report(models.Model):
     sector = models.CharField(max_length=45)
     industry = models.CharField(max_length=45)
 
-    projects = models.CharField(max_length=30, default='project')
+    projects = models.TextField(max_length=300, default='project')
+
     content = models.ManyToManyField(File, default="none")
     is_encrypted=models.CharField(max_length=1, choices=OPTIONS)
 

@@ -137,6 +137,11 @@ def newReport (request):
             sector = request.POST.get('sector')
             is_encrypted = request.POST.get('is_encrypted')
             projects = request.POST.get('projects')
+            print(projects)
+
+            #projects = ""
+            #projects += request.POST.get('project')[0] # request.POST['project'][0]
+            #print(projects[0])
             group = request.POST.get('group')
             industry = request.POST.get('industry')
 
