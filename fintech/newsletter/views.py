@@ -22,15 +22,18 @@ def homeView(request):
     user = request.user
     stories = Story.objects.all()
     list = []
-
+    newCount = 0
     view = Message.objects.filter(message_to="" + request.user.get_username())
+    for message in view:
+        if message.isNew == 'I':
+            newCount += 1
     if len(stories) < 10:
-        return render(request, 'home.html', {'user': user, 'stories': stories, 'messages':view})
+        return render(request, 'home.html', {'user': user, 'stories': stories, 'newCount': newCount})
     else:
         for x in range(len(stories) - 10, len(stories)):
             list.append(stories[x])
 
-    return render(request, 'home.html', {'user': user, 'stories': list,'messages':view})
+    return render(request, 'home.html', {'user': user, 'stories': list, 'newCount': newCount})
  #   if request.method == 'POST':
   #      form = 
 
@@ -136,7 +139,6 @@ def newReport (request):
             company_country = request.POST.get('company_country')
             sector = request.POST.get('sector')
             ceo_name = request.POST.get('ceo_name')
-            is_encrypted = request.POST.get('is_encrypted')
             projects = request.POST.get('projects')
 
             print(projects)
@@ -148,17 +150,31 @@ def newReport (request):
             industry = request.POST.get('industry')
 
             report = Report.objects.create(owner=owner, company_name=company_name, is_private=is_private, company_Phone=company_Phone,
-            company_location=company_location, company_country=company_country, sector=sector, ceo_name=ceo_name,is_encrypted=is_encrypted,
+            company_location=company_location, company_country=company_country, sector=sector, ceo_name=ceo_name,
             projects=projects, group=group, industry=industry,)
 
             report.save()
 
+            out = False
+            number = 0
+            while not out:
+                afile = request.FILES.get('content' +str(number), None)
+                astatus = request.POST.get('fileStatus' + str(number))
+                if afile != None:
+                    fileX = File.objects.create(file=afile, encrypted=astatus)
+                    fileX.save()
+                    report.content.add(fileX)
+                    number += 1
+                else:
+                    out = True
 
-            for afile in request.FILES.getlist('content'):
+
+
+            '''for afile in request.FILES.getlist('content'):
                 fileX = File.objects.create(file=afile)
                 FILENAME = afile.name
                 fileX.save()
-                report.content.add(fileX)
+                report.content.add(fileX)'''
 
             report.save()
 
@@ -268,8 +284,10 @@ def viewReport (request, report_id):
         if request.method == 'POST':
             form = FileAddForm(request.POST, request.FILES)
             if form.is_valid():
-                for afile in request.FILES.getlist('content'):
-                    fileX = File.objects.create(file=afile)
+                afile = request.FILES.get('content', None)
+                astatus = request.POST.get('encrypted')
+                if afile != None:
+                    fileX = File.objects.create(file=afile, encrypted=astatus)
                     fileX.save()
                     report.content.add(fileX)
                 report.save()

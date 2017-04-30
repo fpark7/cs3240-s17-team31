@@ -59,6 +59,7 @@ def groupSettings(request, group_id):
             Story.objects.create(content=request.user.username + " removed "+ user.username +" from the group " + group.name)
             if group.user_set.all().__len__() == 0:
                 group.delete()
+                return HttpResponseRedirect('../../')
         elif user not in group.user_set.all():
             user.groups.add(group)
             Story.objects.create(content=request.user.username + " added " + user.username + " to the group " + group.name )
@@ -78,7 +79,11 @@ def manageReports(request):
 @user_passes_test(lambda u: u.is_superuser)
 def reportSettings(request, report_id):
     report = Report.objects.get(pk=report_id)
+
     if request.method == 'POST':
+        if request.POST.get('submit') == 'del':
+            Report.objects.get(pk=report_id).delete()
+            return HttpResponseRedirect('../../')
         form = ReportForm(request.POST)
         if form.is_valid():
             report.company_name = request.POST.get('company_name')
@@ -89,7 +94,6 @@ def reportSettings(request, report_id):
             report.company_location = request.POST.get('company_location')
             report.company_country = request.POST.get('company_country')
             report.sector = request.POST.get('sector')
-            report.is_encrypted = request.POST.get('is_encrypted')
             report.projects = request.POST.get('projects')
             report.group = request.POST.get('group')
 

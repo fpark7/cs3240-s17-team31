@@ -54,6 +54,11 @@
 
                                 <!--<input name="project[]" type="text">-->
                                 {{ form }}
+                                <div id = "dynamicInput">
+                                    <hr>
+                                    <input type="button" value="Add another file" onClick="addInput('dynamicInput')">
+                                </div>
+
                                 <br>
                                 <br>
                                 <button class="button special" value="submit">Create Report</button>
@@ -87,6 +92,22 @@
             <script>
                 function getName() {
                     $('#file-name').innerHTML = $('#id_content').val(input.files[0].name);
+                }
+
+                var counter = 0;
+                var limit = 20;
+                function addInput(divName){
+                     if (counter == limit)  {
+                          alert("You have reached the limit of adding " + counter + " files!");
+                     }
+                     else {
+                          var newdiv = document.createElement('div');
+                          newdiv.innerHTML = "<br>File " + (counter + 1) + "<br><input class='button' type='file' name='content"+ counter +"'><br>";
+                          newdiv.innerHTML += "Is the file encrypted?" + "<select name='fileStatus" + counter +"'> " +
+                              "<option value='Y'>Yes</option><option value='N'>No</option></select>";
+                          document.getElementById(divName).appendChild(newdiv);
+                          counter++;
+                     }
                 }
             </script>
 

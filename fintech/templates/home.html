@@ -56,6 +56,9 @@
                         {% if user.is_superuser %}
                             <p>SITE MANAGER</p>
                         {% endif %}
+                        {% if newCount > 0 %}
+                            <a href="{% url 'inbox' %}"><font color="red">YOU HAVE {{ newCount }} NEW MESSAGE(S)!</font></a>
+                        {% endif %}
                     </div>
                     <div style="width: 40%; height: 280px; overflow-y: auto; display: inline-block; background-color: rgba(0,0,0,0.4); font-size: 12px;">
                         <h2>News Feed</h2>

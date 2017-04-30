@@ -35,7 +35,11 @@ class SiteUser(models.Model):
 
 
 class File(models.Model):
+    YESNO = (('Y', 'Yes'),
+             ('N', 'No'),)
+
     file = models.FileField(upload_to='reports/')
+    encrypted = models.CharField(max_length=1, choices=YESNO)
 
 #class Project(models.Model):
 #    project_name = models.CharField(max_length=30)

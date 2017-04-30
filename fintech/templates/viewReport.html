@@ -83,8 +83,8 @@
                                             <td>{{ report.sector }}</td>
                                                 <td>
                                                 {% for f in report.content.all %}
-                                                    {% if report.is_encrypted == 'Y'%}
-                                                        <p>[encrypted file]</p>
+                                                    {% if f.encrypted == 'Y'%}
+                                                        [encrypted file]{{ f.file.name }}<br>
                                                     {% else %}
                                                         <a href="{{f.file.url}}" target="_blank">{{f.file.name}}</a>
                                                         <br>

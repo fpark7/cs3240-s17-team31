@@ -54,17 +54,30 @@
                                 <thead>
                                     <tr> <!-- PUT COLUMN NAMES IN ORDER HERE -->
                                         <th>Time Stamp</th>
+                                        <th>Project Names</th>
                                         <th>Company Name</th>
                                         <th>Sector</th>
+                                        <th>Attached Files</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     {% block body_block3 %}
                                         {% for report in reports %}
                                             <tr><!-- PUT EACH FIELD HERE. (refer to spec sheet for required fields -->
-                                            <td>{{ report.timestamp }}</td>
+                                            <td><a href="{% url 'report' report_id=report.id %}">{{ report.timestamp }}</a></td>
+                                            <td>{{ report.projects }}</td>
                                             <td>{{ report.company_name }}</td>
                                             <td>{{ report.sector }}</td>
+                                            <td>
+                                                {% for f in report.content.all %}
+                                                    {% if f.encrypted == 'Y'%}
+                                                        [encrypted file]{{ f.file.name }}<br>
+                                                    {% else %}
+                                                        <a href="{{f.file.url}}" target="_blank">{{f.file.name}}</a>
+                                                        <br>
+                                                    {% endif %}
+                                                {% endfor %}
+                                            </td>
                                             </tr>
                                         {% endfor %}
                                     {% endblock %}

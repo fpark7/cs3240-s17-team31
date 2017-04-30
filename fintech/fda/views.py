@@ -48,12 +48,12 @@ def getReportsList(request):
         # content will be downloaded upon request in the client fda later
         content_list = []
         for file_obj in report.content.all():
-            content_list.append(file_obj.file.name)
+            content_list.append({'file_name': file_obj.file.name, 'file_status': file_obj.encrypted})
         r_dict = {'owner': report.owner, 'group': report.group, 'timestamp': report.timestamp,
                   'is_private': report.is_private, 'company_name': report.company_name, 'company_phone': report.company_Phone,
                   'company_location': report.company_location, 'company_country': report.company_country,
-                  'sector': report.sector, 'projects': report.projects, 'is_encrypted': report.is_encrypted,
-                  'id': report.id, 'content': content_list}
+                  'sector': report.sector, 'projects': report.projects, 'ceo_name': report.ceo_name,
+                  'id': report.id, 'industry': report.industry, 'content': content_list}
 
         reports_list.append(r_dict)
     data['reports_list'] = reports_list

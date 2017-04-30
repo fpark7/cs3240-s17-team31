@@ -54,7 +54,7 @@ class ReportForm(forms.ModelForm):
     company_location = forms.CharField(required=True, label="Enter Company Location")
     company_country = forms.ChoiceField(required=True, choices=COUNTRIES, label="Enter Company Country")
     sector = forms.CharField(required=True, label="Enter Company Sector")
-    ceo_name = forms.CharField(required=True, label="Enter CEO name")
+    ceo_name = forms.CharField(required=True, label="Enter CEO Name")
     #group = forms.CharField(required=False, label="What group can view this?")
     group = forms.ChoiceField(label="Which Group Should This Report Be Associated With?", required=True,
                               choices=GROUPS_CHOICE)
@@ -63,16 +63,16 @@ class ReportForm(forms.ModelForm):
 
     is_private = forms.ChoiceField(label="Is This Private?", required=True, choices=OPTIONS)
     projects = forms.CharField(required=True, label="Enter Project Name(s) Separated by Commas")
-    is_encrypted = forms.ChoiceField(label="Is The File Encrypted?",required=True, choices=OPTIONS)
-    content = forms.FileField(label="Upload a file here",
-                              widget=forms.FileInput(attrs={'multiple': True, 'type': 'file', 'class' : 'button'}), required=False) #'onchange':'getName'
+    #is_encrypted = forms.ChoiceField(label="Is The File Encrypted?",required=True, choices=OPTIONS)
+    #content = forms.FileField(label="Upload a file here",
+                              #widget=forms.FileInput(attrs={'multiple': True, 'type': 'file', 'class' : 'button'}), required=False) #'onchange':'getName'
 
 
     
     class Meta:
         model = Report
         fields = ("projects" ,"industry", "company_name", "sector", "ceo_name", "company_Phone", "company_location",
-                  "company_country", "is_private", "content", "is_encrypted")
+                  "company_country", "is_private")#, #"content", "is_encrypted")
 
 #----------------------SignIn/Home-Page----------------------------------
 
@@ -88,9 +88,12 @@ class GroupForm(forms.Form):
         fields = ('name',)
 #------------------------FILE ADD FORM -----------------------------------
 class FileAddForm(forms.Form):
+    YESNO = (('Y', 'Yes'),
+               ('N', 'No'))
     content = forms.FileField(label="Upload a file here",
-                              widget=forms.FileInput(attrs={'multiple': True, 'type': 'file', 'class': 'button'}),
+                              widget=forms.FileInput(attrs={'multiple': False, 'type': 'file', 'class': 'button'}),
                               required=False)
+    encrypted = forms.ChoiceField(label="Is The File Encrypted?", required=True, choices=YESNO)
     class Meta:
         model = Report
-        fields = ("content",)
+        fields = ("content", "encrypted")

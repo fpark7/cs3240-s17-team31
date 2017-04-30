@@ -46,8 +46,15 @@ def unencrypt (request, message_id):
 @login_required
 def viewMessages (request):
     view = Message.objects.filter(message_to=""+request.user.get_username())
-    #for x in view:
-    #   x.isNew = False
+    for x in view:
+        print(x)
+        print(x.isNew)
+        if x.isNew == 'I':
+            x.isNew = 'U'
+        else:
+            x.isNew = 'R'
+        x.save()
+
     return render(request, 'viewMessages.html', {'messages': view})
 
 @login_required
@@ -61,7 +68,7 @@ def newMessage (request):
             message.message_from = request.user.get_username()
             message.message_title = request.POST.get('message_title')
             message.message_content = request.POST.get('message_content')
-            message.isNew = True
+            message.isNew = 'I'
             if message.is_encrypted == 'Y':
                 #file_path = os.path.join(settings.STATIC_ROOT, 'data/key')
                 PROJECT_PATH = os.path.abspath(os.path.dirname(__name__))

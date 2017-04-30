@@ -13,7 +13,7 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Message',
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, verbose_name='ID', serialize=False)),
+                ('id', models.AutoField(serialize=False, verbose_name='ID', auto_created=True, primary_key=True)),
                 ('timestamp', models.DateTimeField(auto_now_add=True)),
                 ('is_encrypted', models.CharField(max_length=1, choices=[('Y', 'Yes'), ('N', 'No')])),
                 ('message_title', models.CharField(max_length=45)),
@@ -21,7 +21,7 @@ class Migration(migrations.Migration):
                 ('message_from', models.CharField(max_length=100)),
                 ('message_to', models.CharField(max_length=100)),
                 ('message_enc_content', models.BinaryField()),
-                ('isNew', models.BooleanField()),
+                ('isNew', models.CharField(max_length=1)),
             ],
             options={
                 'ordering': ['timestamp'],

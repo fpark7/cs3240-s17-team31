@@ -52,13 +52,15 @@ def main():
 
             for i in range(0, len(reports)):
                 print(str(i+1) + ". " + "REPORT ID: " + str(reports[i]['id']))
-                print("     Project: " + reports[i]['projects'])
+                print("     Projects: " + reports[i]['projects'])
                 print("     Company: " + reports[i]['company_name'])
                 print("     Sector: " + reports[i]['sector'])
 
             while True:
                 print("================================================")
                 print("Select the report you would like to view by entering the number")
+                if len(reports) == 0:
+                    print("THERE SEEMS TO BE NO REPORTS")
                 print("Enter the number zero (0) to quit")
                 try:
                     report_choice = int(input())
@@ -82,16 +84,22 @@ def main():
             current_report = reports[report_choice-1]
             print("REPORT ID: " + str(current_report['id']))
             print("Timestamp: " + current_report['timestamp'])
-            print("Project: " + current_report['projects'])
+            print("Projects: " + current_report['projects'])
             print("Company Name: " + current_report['company_name'])
+            print("Industry: " + current_report['industry'])
+            print("CEO Name: " + current_report['ceo_name'])
             print("Company Phone: " + current_report['company_phone'])
             print("Company Location: " + current_report['company_location'])
             print("Company Country: " + current_report['company_country'])
             print("Sector: " + current_report['sector'])
             content_list = current_report['content']
             print("Attached Files: ")
-            for file_name in content_list:
-                print("     " + file_name)
+            for file in content_list:
+                print("     " + file['file_name'], end="")
+                if file['file_status'] == 'Y':
+                    print("[ENCRYPTED]")
+                else:
+                    print("")
             while True:
                 print("================================================")
                 print("Enter the number one (1) to go back to report views")
@@ -126,7 +134,11 @@ def main():
                 print("================================================")
                 print("Select a file by entering the corresponding number")
                 for i in range(0, len(content_list)):
-                    print(str(i+1) + ". " + content_list[i])
+                    print(str(i+1) + ". " + content_list[i]['file_name'], end="")
+                    if content_list[i]['file_status'] == 'Y':
+                        print("[ENCRYPTED]")
+                    else:
+                        print("")
                 try:
                     file_choice = int(input())
                 except Exception:
@@ -134,7 +146,7 @@ def main():
                     file_choice = -1
 
                 if file_choice > 0 and file_choice <= len(content_list):
-                    current_file_name = content_list[file_choice-1]
+                    current_file_name = content_list[file_choice-1]['file_name']
                     r = requests.get(MEDIA + current_file_name, stream=True)
                     with open(current_file_name[8:], 'wb') as f:
                         for chunk in r.iter_content(chunk_size=1024):
@@ -142,7 +154,7 @@ def main():
                                 f.write(chunk)
                     f.close()
                     print("SUCCESSFULLY DOWNLOADED '" + current_file_name[8:] + "'")
-                    if current_report['is_encrypted'] == 'Y':
+                    if content_list[file_choice-1]['file_status'] == 'Y':
                         print("**Our records indicate that this file may be encrypted**")
                     input()
                     choice = 1

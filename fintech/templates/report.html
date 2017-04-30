@@ -86,8 +86,8 @@
 
                         <h4>Files Attached to Report</h4>
                         {% for f in report.content.all %}
-                            {% if report.is_encrypted == 'Y'%}
-                                <p>[encrypted file]</p>
+                            {% if f.encrypted == 'Y'%}
+                                [encrypted file]{{ f.file.name }}<br>
                             {% else %}
                                 <a href="{{f.file.url}}" target="_blank">{{f.file.name}}</a>
                                 <br>
@@ -95,12 +95,12 @@
                         {% endfor %}
                         <br>
                         <br>
-                        <h5> Add Additional Files to Report</h5>
+                        <h5> Add An Additional File to Report</h5>
                         <form method="post" enctype="multipart/form-data">
                             {% csrf_token %}
                             {{ form }}
                             <br>
-                            <button name="submit" class="button special" value="submit">Add Files</button>
+                            <button name="submit" class="button special" value="submit">Add File</button>
                         </form>
                         <br>
                         <a href="{% url 'viewReport' %}" class="button">Back to Reports</a>
