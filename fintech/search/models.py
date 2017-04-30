@@ -21,6 +21,8 @@ class Search(models.Model):
     company_country = models.CharField(max_length=2, choices=COUNTRIES)
     sector = models.CharField(max_length=45)
     projects = models.CharField(max_length=30)
+    ceo_name = models.CharField(max_length=30)
+    industry = models.CharField(max_length=45)
 
 class SearchBar(models.Model):
 
@@ -28,7 +30,9 @@ class SearchBar(models.Model):
                 ('Lo', 'Company Location'),
                 ('Co', 'Company Country'),
                 ('Se', 'Company Sector'),
-                ('Pr', 'Current Project(s)'))
+                ('Pr', 'Current Project(s)'),
+                ('Cn', 'CEO Name'),
+                ('In', 'Industry'),)
                 # ('Sa', 'Search All'),)
 
     search = models.CharField(max_length=200)
