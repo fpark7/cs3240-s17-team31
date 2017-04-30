@@ -21,7 +21,7 @@ class ReportForm(forms.ModelForm):
         self.fields['group'].choices = self.GROUPS_CHOICE
 
     company_name = forms.CharField(required=True, label="Enter Company Name")
-    ceo_name = forms.CharField(required=True, label="Enter CEO name")
+    ceo_name = forms.CharField(required=True, label="Enter CEO Name")
     industry = forms.CharField(required=True, label="Enter Industry")
     company_Phone = forms.CharField(required=True, label="Enter Company Phone Number")
     company_location = forms.CharField(required=True, label="Enter Company Location")
