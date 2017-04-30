@@ -12,6 +12,12 @@ class SearchForm(forms.Form):
     OPTIONS = (('Y', 'Yes'),
                ('N', 'No'))
 
+    TIMES = (('0', 'Any Time'),
+             ('1', 'Less Than 1 Day Ago'),
+             ('2', 'Less Than 1 Week Ago'),
+             ('3', 'Less Than 1 Month Ago'),
+             ('4', 'More Than 1 Month Ago'))
+
     # owner = models.CharField(required=False, label="Enter Owner")
     # match = forms.ChoiceField(required=False, choices=OPTIONS)
     # is_private = forms.ChoiceField(required=False, choices=OPTIONS, label="Is Private")
@@ -22,6 +28,7 @@ class SearchForm(forms.Form):
     projects = forms.CharField(required=False, label="Current Projects")
     ceo_name = forms.CharField(required=False, label="CEO Name")
     industry = forms.CharField(required=False, label="Industry")
+    time_created = forms.ChoiceField(required=False, choices=TIMES, label="Time Created")
 
     class Meta:
         model = Search

@@ -3,6 +3,9 @@ from django.contrib.auth.decorators import login_required
 from .forms import SearchForm
 from .models import *
 from newsletter.models import Report
+from django.dispatch import receiver
+from django.utils.timezone import utc
+import datetime
 
 from django.contrib.auth.models import User
 from django.http import HttpResponseRedirect
@@ -68,12 +71,15 @@ def viewSearch (request):
     super_view = []
     public_view = []
     for v in view:
+        time = s.time_created.lower() == '0' or (int(s.time_created.lower()) != 4 and v.get_time_diff() < 4) or (v.get_time_diff() == 4 and int(s.time_created.lower() == 4))
         if (s.company_name.lower() in v.company_name.lower() or s.company_name == "") and (s.company_location.lower()
            in v.company_location.lower() or s.company_location == "") and (s.company_country == v.company_country or
            s.company_country == "AN") and (s.sector.lower() in v.sector.lower() or s.sector == "") and \
-           (s.projects.lower() in v.projects.lower() or s.projects == "") and (s.ceo_name.lower() in v.ceo_name.lower() or s.ceo_name == "") \
-                and (s.industry.lower() in v.industry.lower() or s.industry == "") and (v not in super_view):
+           (s.projects.lower() in v.projects.lower() or s.projects == "") and (s.ceo_name.lower() in v.ceo_name.lower() or s.ceo_name == "")\
+            and (s.industry.lower() in v.industry.lower() or s.industry == "") and (v not in super_view) and time:
             super_view.append(v)
+
+        # Check if Time Created Matches
 
     if request.user.is_superuser:
         return render(request, 'viewSearch.html', {'reports': super_view})
@@ -102,6 +108,10 @@ def newSearch(request):
             s.company_country = request.POST.get('company_country')
             s.sector = request.POST.get('sector')
             s.projects = request.POST.get('projects')
+            s.time_created = request.POST.get('time_created')
+            s.ceo_name = request.POST.get('ceo_name')
+            s.industry = request.POST.get('industry')
+            print(s.time_created)
 
             s.save()
             return HttpResponseRedirect('/search/view_search/')
