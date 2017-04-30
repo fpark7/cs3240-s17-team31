@@ -82,6 +82,8 @@ def reportSettings(request, report_id):
         form = ReportForm(request.POST)
         if form.is_valid():
             report.company_name = request.POST.get('company_name')
+            report.ceo_name = request.POST.get('ceo_name')
+            report.industry = request.POST.get('industry')
             report.is_private = request.POST.get('is_private')
             report.company_Phone = request.POST.get('company_Phone')
             report.company_location = request.POST.get('company_location')
@@ -97,7 +99,8 @@ def reportSettings(request, report_id):
     form = ReportForm(initial={'company_name':report.company_name, 'is_private': report.is_private,
                                'company_Phone':report.company_Phone, 'company_location': report.company_location,
                                'company_country': report.company_country, 'sector': report.sector,
-                               'is_encrypted':report.is_encrypted, 'projects': report.projects, 'group': report.group})
+                               'is_encrypted':report.is_encrypted, 'projects': report.projects, 'group': report.group,
+                                'ceo_name': report.ceo_name, 'industry': report.industry})
     return render(request, 'reportSettings.html', {'report': report, 'form': form})
 
 @user_passes_test(lambda u: u.is_superuser)

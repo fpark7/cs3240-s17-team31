@@ -149,7 +149,7 @@ def newReport (request):
 
             report = Report.objects.create(owner=owner, company_name=company_name, is_private=is_private, company_Phone=company_Phone,
             company_location=company_location, company_country=company_country, sector=sector, ceo_name=ceo_name,is_encrypted=is_encrypted,
-            projects=projects, group=group,industry=industry,)
+            projects=projects, group=group, industry=industry,)
 
             report.save()
 
@@ -255,36 +255,8 @@ def viewGroups (request):
     return render(request, 'groups.html', {'groups': groups})
 
 #---------------SITE MANAGER CONTROL PANEL-----------------
-'''@user_passes_test(lambda u: u.is_superuser)
-def viewSiteManager(request):
-    userlist = User.objects.all()
-    list = []
-    for x in userlist:
-        if x.username != request.user.username and not x.is_superuser:
-            list.append(x)
-    if request.method == 'POST':
-        code = request.POST.get('submit')[0]
-        username = request.POST.get('submit')[1:]
-        user = User.objects.get(username=username)
-        if code == "S":
-            user.is_superuser = True
-        if code == "T":
-            user.is_active = not user.is_active
-        user.save()
-        return HttpResponseRedirect('/sm_confirm/')
-    return render(request, 'sitemanager.html', {'list': list})
 
-@user_passes_test(lambda u: u.is_superuser)
-def smConfirm(request):
-    return render(request, 'smConfirm.html')
-
-@user_passes_test(lambda u: u.is_superuser)
-def manageGroups(request):
-    userlist = User.objects.all()
-    grouplist = Group.objects.all()
-    return render(request, 'manageGroups.html', {'grouplist': grouplist, 'userlist': userlist})
-'''
-
+'''Located in sitemanager app'''
 
 #--------------------REPORT----VIEW--------------------------
 @login_required

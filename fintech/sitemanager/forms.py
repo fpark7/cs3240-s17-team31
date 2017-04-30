@@ -21,6 +21,8 @@ class ReportForm(forms.ModelForm):
         self.fields['group'].choices = self.GROUPS_CHOICE
 
     company_name = forms.CharField(required=True, label="Enter Company Name")
+    ceo_name = forms.CharField(required=True, label="Enter CEO name")
+    industry = forms.CharField(required=True, label="Enter Industry")
     company_Phone = forms.CharField(required=True, label="Enter Company Phone Number")
     company_location = forms.CharField(required=True, label="Enter Company Location")
     company_country = forms.ChoiceField(required=True, choices=COUNTRIES, label="Enter Company Country")
@@ -34,7 +36,7 @@ class ReportForm(forms.ModelForm):
 
     class Meta:
         model = Report
-        fields = ("projects", "company_name", "sector", "company_Phone", "company_location",
+        fields = ("projects", "industry", "company_name", "sector", "ceo_name", "company_Phone", "company_location",
                   "company_country", "is_private", "is_encrypted")
 
 class FileAddForm(forms.Form):
