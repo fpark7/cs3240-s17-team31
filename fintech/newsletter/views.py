@@ -80,6 +80,7 @@ def viewReports (request):
     }
     view = Report.objects.all()
     public_view = []
+    print (User.objects.get(username=request.user).groups.all())
     if request.user.is_superuser:
         all_models_dict["view"] = view
         if request.method == 'POST':
@@ -103,8 +104,11 @@ def viewReports (request):
             print(v.group)
             print(User.objects.get(username=request.user.username).groups.all())
             print(v.group in User.objects.get(username=request.user.username).groups.all())
-            if v.is_private == 'N' or v.group in User.objects.get(username=request.user).groups.all() or v.owner == request.user.username:
+            if v.is_private == 'N' or v.owner == request.user.username:
                 public_view.append(v)
+            for g in User.objects.get(username=request.user).groups.all():
+                if v.group == g.name and v not in public_view:
+                    public_view.append(v)
         all_models_dict["view"] = public_view
         if request.method == 'POST':
             form = SearchBarForm(request.POST)
@@ -152,6 +156,7 @@ def newReport (request):
             #print(projects[0])
             group = request.POST.get('group')
             industry = request.POST.get('industry')
+            print(group)
 
             report = Report.objects.create(owner=owner, company_name=company_name, is_private=is_private, company_Phone=company_Phone,
             company_location=company_location, company_country=company_country, sector=sector, ceo_name=ceo_name,

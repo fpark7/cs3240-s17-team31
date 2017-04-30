@@ -82,7 +82,10 @@
                                                     {% if message.isNew == 'U' %}
                                                         <font color="red">NEW MESSAGE</font><br>
                                                     {% endif %}
-                                                    {{  message.timestamp }}<a href="{% url 'del' message_id=message.id %}" class="button special1">Delete Message</a><a href="{% url 'une' message_id=message.id %}" class="button special1">Unencrypt Message</a></td>
+                                                    {{  message.timestamp }}<a href="{% url 'del' message_id=message.id %}" class="button special1">Delete Message</a>
+                                                    {% if message.is_encrypted == 'Y' %}
+                                                        <a href="{% url 'une' message_id=message.id %}" class="button special1">Unencrypt Message</a></td>
+                                                    {% endif %}
                                                 <td>
                                                     {{ message.message_from }}</td>
                                                 <td>{{ message.message_title }}</td>
