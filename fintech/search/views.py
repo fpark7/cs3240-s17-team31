@@ -60,8 +60,8 @@ def viewSearchBar (request):
             if vi.is_private == 'N' or vi.owner == request.user.username:
                 public_view.append(vi)
             for g in User.objects.get(username=request.user).groups.all():
-                if v.group == g.name and v not in public_view:
-                    public_view.append(v)
+                if vi.group == g.name and vi not in public_view:
+                    public_view.append(vi)
     return render(request, 'viewSearch.html', {'reports': public_view})
 
 @login_required
@@ -87,9 +87,9 @@ def viewSearch (request):
         for vi in super_view:
             if vi.is_private == 'N' or vi.owner == request.user.username:
                 public_view.append(vi)
-        for g in User.objects.get(username=request.user).groups.all():
-            if vi.group == g.name and vi not in public_view:
-                public_view.append(vi)
+            for g in User.objects.get(username=request.user).groups.all():
+                if vi.group == g.name and vi not in public_view:
+                    public_view.append(vi)
     return render(request, 'viewSearch.html', {'reports': public_view})
 
 @login_required
