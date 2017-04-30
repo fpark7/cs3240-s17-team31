@@ -53,6 +53,7 @@ class Report(models.Model):
              ('N', 'No'),)
 
     owner = models.CharField(max_length=50)
+    ceo_name = models.CharField(max_length=30)
     group = models.CharField(max_length=30, blank=True)
     timestamp = models.DateTimeField(auto_now_add=True, blank=True)
     is_private = models.CharField(max_length=1, choices=OPTIONS)

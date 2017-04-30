@@ -14,6 +14,7 @@ class Message(models.Model):
     message_from = models.CharField(max_length=100)
     message_to = models.CharField(max_length=100)
     message_enc_content = models.BinaryField()
+    isNew = models.BooleanField()
 
 
     class Meta:

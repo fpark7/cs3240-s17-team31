@@ -135,8 +135,10 @@ def newReport (request):
             company_location = request.POST.get('company_location')
             company_country = request.POST.get('company_country')
             sector = request.POST.get('sector')
+            ceo_name = request.POST.get('ceo_name')
             is_encrypted = request.POST.get('is_encrypted')
             projects = request.POST.get('projects')
+
             print(projects)
 
             #projects = ""
@@ -146,8 +148,8 @@ def newReport (request):
             industry = request.POST.get('industry')
 
             report = Report.objects.create(owner=owner, company_name=company_name, is_private=is_private, company_Phone=company_Phone,
-            company_location=company_location, company_country=company_country, sector=sector, is_encrypted=is_encrypted,
-            projects=projects, group=group,industry=industry)
+            company_location=company_location, company_country=company_country, sector=sector, ceo_name=ceo_name,is_encrypted=is_encrypted,
+            projects=projects, group=group,industry=industry,)
 
             report.save()
 
