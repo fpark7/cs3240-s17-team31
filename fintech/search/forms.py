@@ -29,10 +29,11 @@ class SearchForm(forms.Form):
     ceo_name = forms.CharField(required=False, label="CEO Name")
     industry = forms.CharField(required=False, label="Industry")
     time_created = forms.ChoiceField(required=False, choices=TIMES, label="Time Created")
+    company_email = forms.CharField(required=False, label="Company Email")
 
     class Meta:
         model = Search
-        fields = ("company_name", "company_location", "company_country", "sector", "projects","ceo_name","industry")
+        fields = ("company_name", "company_location", "company_country", "sector", "projects","ceo_name","industry","company_email")
 
 class SearchBarForm(forms.Form):
 
@@ -42,7 +43,8 @@ class SearchBarForm(forms.Form):
                 ('Se', 'Company Sector'),
                 ('Pr', 'Current Project(s)'),
                 ('Cn', 'CEO Name'),
-                ('In', 'Industry'),)
+                ('In', 'Industry'),
+                ('Em', 'Company Email'),)
                 # ('Sa', 'Search All'),)
 
     search = forms.CharField(required=True, label="", widget=forms.TextInput(attrs={'placeholder': 'Search for...'}))

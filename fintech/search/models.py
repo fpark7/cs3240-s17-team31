@@ -24,6 +24,7 @@ class Search(models.Model):
     ceo_name = models.CharField(max_length=30)
     industry = models.CharField(max_length=45)
     time_created = models.CharField(max_length=1)
+    company_email = models.CharField(max_length=30)
 
 
 class SearchBar(models.Model):
@@ -35,7 +36,8 @@ class SearchBar(models.Model):
                 ('Pr', 'Current Project(s)'),
                 ('Cn', 'CEO Name'),
                 ('In', 'Industry'),
-                ('Cp', 'Current Projects'))
+                ('Cp', 'Current Projects'),
+                ('Em', 'Company Email'))
                 # ('Sa', 'Search All'),)
 
     search = models.CharField(max_length=200)

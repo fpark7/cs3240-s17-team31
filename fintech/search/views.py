@@ -52,6 +52,10 @@ def viewSearchBar (request):
         for v in view:
             if s.search.lower() in v.industry.lower():
                 super_view.append(v)
+    elif s.search_type == "Em":
+        for v in view:
+            if s.search.lower() in v.company_email.lower():
+                super_view.append(v)
 
     if request.user.is_superuser:
         return render(request, 'viewSearch.html', {'reports': super_view})
@@ -76,7 +80,8 @@ def viewSearch (request):
            in v.company_location.lower() or s.company_location == "") and (s.company_country == v.company_country or
            s.company_country == "AN") and (s.sector.lower() in v.sector.lower() or s.sector == "") and \
            (s.projects.lower() in v.projects.lower() or s.projects == "") and (s.ceo_name.lower() in v.ceo_name.lower() or s.ceo_name == "")\
-            and (s.industry.lower() in v.industry.lower() or s.industry == "") and (v not in super_view) and time:
+            and (s.industry.lower() in v.industry.lower() or s.industry == "") and (s.company_email.lower() in v.company_email.lower() or s.company_email == "")\
+                    and (v not in super_view) and time:
             super_view.append(v)
 
         # Check if Time Created Matches
@@ -111,7 +116,7 @@ def newSearch(request):
             s.time_created = request.POST.get('time_created')
             s.ceo_name = request.POST.get('ceo_name')
             s.industry = request.POST.get('industry')
-            print(s.time_created)
+            s.company_email = request.POST.get('company_email')
 
             s.save()
             return HttpResponseRedirect('/search/view_search/')
