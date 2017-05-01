@@ -5,13 +5,15 @@ from django.shortcuts import render
 # from .forms import SignupForm
 # from django.db import models
 from fintech import settings
-from messenger.forms import MessageForm
+from messenger.forms import *
 from django.contrib.auth.decorators import login_required
 # from django.contrib.auth.decorators import user_passes_test
 from messenger.models import Message
 from django.http import HttpResponseRedirect
 from django.utils import encoding
 from Crypto.PublicKey import RSA
+from newsletter.models import *
+from django.core.mail import send_mail
 
 
 # Create your views here.
@@ -88,4 +90,36 @@ def newMessage (request):
 
 @login_required
 def groupEmail(request):
-    pass
+    groups = []
+    for g in Group.objects.all():
+        if request.user.is_superuser:
+            groups.append(g)
+        elif request.user in g.user_set.all():
+            groups.append(g)
+
+    if request.method == 'POST':
+        form = EmailForm(request.POST)
+        if form.is_valid():
+            group_id = request.POST.get('group')
+            group = Group.objects.get(id=group_id)
+            message_subject = request.POST.get('message_subject')
+            message_content = request.POST.get('message_content')
+            for user in group.user_set.all():
+                send_mail(
+                    'Lokahi: '+message_subject,
+                    'User "' + request.user.username +'" from Lokahi sent group "' + group.name +
+                    '" this message:      \n\n' + message_content,
+                    'lokahi.fintech@gmail.com',
+                    [user.email],
+                    fail_silently=False,
+                )
+            return HttpResponseRedirect('/inbox/emailSuccess/')
+        else:
+            print(form.errors)
+    else:
+        form = EmailForm()
+    return render(request, 'groupEmail.html', {'form': form, 'groups': groups})
+
+@login_required
+def emailSuccess(request):
+    return render(request, 'emailSuccess.html')
