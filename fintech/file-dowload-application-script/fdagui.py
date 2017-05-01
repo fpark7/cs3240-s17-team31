@@ -91,7 +91,7 @@ class Enc(Frame):
     def encbut(self):
         to_encrypt = self.entry_1.get()
         if encrypt_file(to_encrypt, str.encode("password")):
-            print("File successfully encrypted!")
+            tm.showinfo("Encrypting", "File successfully encrypted!")
         else:
             tm.showinfo("Encrypt Attempt", "ERROR: File Not Found")
 
@@ -121,7 +121,7 @@ class Dec(Frame):
     def decbut(self):
         to_decrypt = self.entry_1.get()
         if decrypt_file(to_decrypt, str.encode("password")):
-            print("File successfully decrypted!")
+            tm.showinfo("Decrypting", "File successfully decrypted!")
         else:
             tm.showinfo("Decrypt Attempt", "ERROR: File Not Found")
 
@@ -150,20 +150,21 @@ class dlReports(Frame):
         self.pack()
 
         global t
-        t = Text(root, height=15+len(content_list), width=80)
-        t.insert(INSERT, "REPORT ID: " + str(report['id']) + "\n")
-        t.insert(INSERT, "Timestamp: " + report['timestamp'] + "\n")
-        t.insert(INSERT, "Is Private: " + report['is_private'] + "\n")
-        t.insert(INSERT, "Project: " + report['projects'] + "\n")
-        t.insert(INSERT, "Group: " + report['group'] + "\n")
-        t.insert(INSERT, "Company Name: " + report['company_name'] + "\n")
-        t.insert(INSERT, "Industry: " + report['industry'] + "\n")
-        t.insert(INSERT, "CEO Name: " + report['ceo_name'] + "\n")
-        t.insert(INSERT, "Company Phone: " + report['company_phone'] + "\n")
-        t.insert(INSERT, "Company Location: " + report['company_location'] + "\n")
-        t.insert(INSERT, "Company Country: " + report['company_country'] + "\n")
-        t.insert(INSERT, "Sector: " + report['sector'] + "\n")
-        t.insert(INSERT, "Attached Files: " + "\n")
+        t = Text(root, height=14+len(content_list), width=70, font='Helvetica')
+        t.insert(INSERT, "REPORT ID: \t\t\t" + str(report['id']) + "\n")
+        t.insert(INSERT, "Timestamp: \t\t\t" + report['timestamp'] + "\n")
+        t.insert(INSERT, "Is Private: \t\t\t" + report['is_private'] + "\n")
+        t.insert(INSERT, "Project: \t\t\t" + report['projects'] + "\n")
+        t.insert(INSERT, "Group: \t\t\t" + report['group'] + "\n")
+        t.insert(INSERT, "Company Name: \t\t\t" + report['company_name'] + "\n")
+        t.insert(INSERT, "Industry: \t\t\t" + report['industry'] + "\n")
+        t.insert(INSERT, "CEO Name: \t\t\t" + report['ceo_name'] + "\n")
+        t.insert(INSERT, "Company Phone: \t\t\t" + report['company_phone'] + "\n")
+        # t.insert(INSERT, "Company Email: \t\t\t" + report['company_email'] + "\n")
+        t.insert(INSERT, "Company Location: \t\t\t" + report['company_location'] + "\n")
+        t.insert(INSERT, "Company Country: \t\t\t" + report['company_country'] + "\n")
+        t.insert(INSERT, "Sector: \t\t\t" + report['sector'] + "\n")
+        t.insert(INSERT, "Attached Files: \t" + "\n")
         for file in content_list:
             if file['file_status'] == 'N':
                 t.insert(INSERT, "     " + file['file_name'] + "\n")
@@ -182,7 +183,7 @@ class dlReports(Frame):
                 if chunk:
                     f.write(chunk)
         f.close()
-        print("SUCCESSFULLY DOWNLOADED '" + current_file_name[8:] + "'")
+        tm.showinfo("Download", "SUCCESSFULLY DOWNLOADED '" + current_file_name[8:] + "'")
         if content_list[i]['file_status'] == 'Y':
             tm.showinfo("Encrypted File", "**Our records indicate that this file may be encrypted**")
 
@@ -277,8 +278,8 @@ class LoginFrame(Frame):
         self.entry_1.grid(row=0, column=1)
         self.entry_2.grid(row=1, column=1)
 
-        self.checkbox = Checkbutton(self, text="Keep me logged in")
-        self.checkbox.grid(columnspan=2)
+        # self.checkbox = Checkbutton(self, text="Keep me logged in")
+        # self.checkbox.grid(columnspan=2)
 
         self.logbtn = Button(self, text="Login", command = self._login_btn_clickked)
         self.logbtn.grid(columnspan=2)
@@ -301,7 +302,7 @@ class LoginFrame(Frame):
 
             success = r.json().get('verification')
             if success:
-                print("You have successfully logged in")
+                # print("You have successfully logged in")
                 global user
                 user = username
                 tm.showinfo("Login info", "Welcome " + user)
@@ -310,7 +311,7 @@ class LoginFrame(Frame):
                 break
             else:
                 tm.showerror("Login error", "Incorrect username")
-                print("ERROR: Invalid Login")
+                # print("ERROR: Invalid Login")
                 break
 
 root = Tk()
