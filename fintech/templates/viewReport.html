@@ -79,8 +79,8 @@
                                             <tr><!-- PUT EACH FIELD HERE. (refer to spec sheet for required fields -->
                                                 <td style="width:200px;"><a href="{% url 'report' report_id=report.id %}">{{ report.timestamp }}</a></td>
                                             <td style="width:600px; word-wrap:break-word;">{{ report.projects }}</td>
-                                            <td>{{ report.company_name }}</td>
-                                            <td>{{ report.sector }}</td>
+                                            <td style="width:600px; word-wrap:break-word;">{{ report.company_name }}</td>
+                                            <td style="width:600px; word-wrap:break-word;">{{ report.sector }}</td>
                                                 <td style="width:600px; word-wrap:break-word;">
                                                 {% for f in report.content.all %}
                                                     {% if f.encrypted == 'Y'%}

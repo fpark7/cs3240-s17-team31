@@ -50,7 +50,7 @@
                             <h2>Search Results</h2>
                             <a href="{% url 'viewReport' %}" class="button special">Back to Reports</a>
                             <a href="{% url 'search' %}" class="button special">Advanced Search</a>
-                            <table>
+                            <table style="table-layout: fixed">
                                 <thead>
                                     <tr> <!-- PUT COLUMN NAMES IN ORDER HERE -->
                                         <th>Time Stamp</th>
@@ -65,16 +65,16 @@
                                         {% for report in reports reversed%}
                                             <tr><!-- PUT EACH FIELD HERE. (refer to spec sheet for required fields -->
                                             <td><a href="{% url 'report' report_id=report.id %}">{{ report.timestamp }}</a></td>
-                                            <td>{{ report.projects }}</td>
-                                            <td>{{ report.company_name }}</td>
-                                            <td>{{ report.sector }}</td>
-                                            <td>
+                                            <td style="width:600px; word-wrap:break-word;">{{ report.projects }}</td>
+                                            <td style="width:600px; word-wrap:break-word;">{{ report.company_name }}</td>
+                                            <td style="width:600px; word-wrap:break-word;">{{ report.sector }}</td>
+                                            <td style="width:600px; word-wrap:break-word;">
                                                 {% for f in report.content.all %}
                                                     {% if f.encrypted == 'Y'%}
-                                                        [encrypted file]{{ f.file.name }}<br>
+                                                        [encrypted file]{{ f.file.name }}<br><br>
                                                     {% else %}
                                                         <a href="{{f.file.url}}" target="_blank">{{f.file.name}}</a>
-                                                        <br>
+                                                        <br><br>
                                                     {% endif %}
                                                 {% endfor %}
                                             </td>
