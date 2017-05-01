@@ -19,9 +19,9 @@ class SearchForm(forms.Form):
     company_location = forms.CharField(required=False, label="Enter Company Location")
     company_country = forms.ChoiceField(required=False, choices=COUNTRIES, label="Company Country")
     sector = forms.CharField(required=False, label="Company Sector")
-    projects = forms.CharField(required=False, label="Project Name")
+    projects = forms.CharField(required=False, label="Current Projects")
     ceo_name = forms.CharField(required=False, label="CEO Name")
-    indudstry = forms.CharField(required=False, label="Industry")
+    industry = forms.CharField(required=False, label="Industry")
 
     class Meta:
         model = Search

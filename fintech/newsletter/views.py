@@ -287,9 +287,11 @@ def viewGroups (request):
 @login_required
 def viewReport (request, report_id):
     report = Report.objects.get(pk=report_id)
-
+    group_names = []
+    for g in User.objects.get(username=request.user.username).groups.all():
+        group_names.append(g.name)
     #security check
-    if report.is_private == 'N' or report.group in User.objects.get(username=request.user).groups.all() or report.owner == request.user.username:
+    if report.is_private == 'N' or report.group in group_names or report.owner == request.user.username:
         if request.method == 'POST':
             form = FileAddForm(request.POST, request.FILES)
             if form.is_valid():

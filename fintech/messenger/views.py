@@ -87,5 +87,5 @@ def newMessage (request):
     return render(request, 'newMessage.html', {'form': form})
 
 @login_required
-def viewDetails(request):
+def groupEmail(request):
     pass
