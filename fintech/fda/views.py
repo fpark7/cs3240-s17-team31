@@ -32,12 +32,16 @@ def getReportsList(request):
     user = User.objects.get(username=username)
     reports = Report.objects.all()
     viewable_reports = []
+    group_names = []
+    for g in user.groups.all():
+        group_names.append(g.name)
+
     if user.is_superuser:
         for report in reports:
             viewable_reports.append(report)
     else:
         for report in reports:
-            if report.is_private == 'N' or report.group in user.groups.all() or report.owner == user.username:
+            if report.is_private == 'N' or report.group in group_names or report.owner == user.username:
                 viewable_reports.append(report)
 
     data = {}

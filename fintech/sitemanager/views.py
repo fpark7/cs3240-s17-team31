@@ -103,7 +103,7 @@ def reportSettings(request, report_id):
     form = ReportForm(initial={'company_name':report.company_name, 'is_private': report.is_private,
                                'company_Phone':report.company_Phone, 'company_location': report.company_location,
                                'company_country': report.company_country, 'sector': report.sector,
-                               'is_encrypted':report.is_encrypted, 'projects': report.projects, 'group': report.group,
+                               'projects': report.projects, 'group': report.group,
                                 'ceo_name': report.ceo_name, 'industry': report.industry})
     return render(request, 'reportSettings.html', {'report': report, 'form': form})
 
@@ -118,8 +118,10 @@ def fileSettings(request, report_id):
             return HttpResponseRedirect('../' + report_id)
         form = FileAddForm(request.POST, request.FILES)
         if form.is_valid():
-            for afile in request.FILES.getlist('content'):
-                fileX = File.objects.create(file=afile)
+            afile = request.FILES.get('content', None)
+            astatus = request.POST.get('encrypted')
+            if afile != None:
+                fileX = File.objects.create(file=afile, encrypted=astatus)
                 fileX.save()
                 report.content.add(fileX)
             report.save()

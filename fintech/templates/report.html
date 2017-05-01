@@ -44,7 +44,7 @@
             <article id="main">
                 <section class="wrapper style5">
                     <div class="inner">
-                        <h2>"{{report.projects}}"</h2>
+                        <h2>Lokahi Fintech Crowdfunding Report</h2>
                         <table>
                             <tr>
                                 <th>Owner:</th>
@@ -53,6 +53,10 @@
                             <tr>
                                 <th>Company Name:</th>
                                 <td>{{ report.company_name }}</td>
+                            </tr>
+                            <tr>
+                                <th>CEO Name:</th>
+                                <td>{{  report.ceo_name }}</td>
                             </tr>
                             <tr>
                                 <th>Company Phone:</th>
@@ -71,12 +75,28 @@
                                 <td>{{  report.sector }}</td>
                             </tr>
                             <tr>
-                                <th>CEO Name:</th>
-                                <td>{{  report.ceo_name }}</td>
-                            </tr>
-                            <tr>
                                 <th>Industry:</th>
                                 <td>{{  report.industry }}</td>
+                            </tr>
+                            <tr>
+                                <th>Current Project(s): </th>
+                                <td>
+                                    {% for proj in proj_list %}
+                                        {{ proj }}<br>
+                                    {% endfor %}
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>Private:</th>
+                                {% if report.is_private == 'Y' %}
+                                    <td>YES</td>
+                                {% else %}
+                                    <td>NO</td>
+                                {% endif %}
+                            </tr>
+                            <tr>
+                                <th>Group: </th>
+                                <td>{{ report.group }}</td>
                             </tr>
                             <tr>
                                 <th>Created At:</th>
@@ -85,6 +105,9 @@
                         </table>
 
                         <h4>Files Attached to Report</h4>
+                        {% if report.content.all|length == 0 %}
+                            NONE
+                        {% endif %}
                         {% for f in report.content.all %}
                             {% if f.encrypted == 'Y'%}
                                 [encrypted file]{{ f.file.name }}<br>
@@ -93,8 +116,7 @@
                                 <br>
                             {% endif %}
                         {% endfor %}
-                        <br>
-                        <br>
+                        <hr>
                         <h5> Add An Additional File to Report</h5>
                         <form method="post" enctype="multipart/form-data">
                             {% csrf_token %}

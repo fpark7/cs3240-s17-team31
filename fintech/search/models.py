@@ -23,6 +23,7 @@ class Search(models.Model):
     projects = models.CharField(max_length=30)
     ceo_name = models.CharField(max_length=30)
     industry = models.CharField(max_length=45)
+    time_created = models.CharField(max_length=1)
 
 
 class SearchBar(models.Model):

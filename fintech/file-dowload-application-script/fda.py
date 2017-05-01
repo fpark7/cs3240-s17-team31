@@ -53,6 +53,7 @@ def main():
             for i in range(0, len(reports)):
                 print(str(i+1) + ". " + "REPORT ID: " + str(reports[i]['id']))
                 print("     Projects: " + reports[i]['projects'])
+                print("~~~~~")
                 print("     Company: " + reports[i]['company_name'])
                 print("     Sector: " + reports[i]['sector'])
 
@@ -92,6 +93,12 @@ def main():
             print("Company Location: " + current_report['company_location'])
             print("Company Country: " + current_report['company_country'])
             print("Sector: " + current_report['sector'])
+            print("Group: " + current_report['group'])
+            print("Private: ", end="")
+            if current_report['is_private'] == "Y":
+                print("YES")
+            else:
+                print("NO")
             content_list = current_report['content']
             print("Attached Files: ")
             for file in content_list:

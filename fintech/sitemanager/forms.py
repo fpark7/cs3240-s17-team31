@@ -31,7 +31,7 @@ class ReportForm(forms.ModelForm):
                               choices=GROUPS_CHOICE)
 
     is_private = forms.ChoiceField(label="Is This Private?", required=True, choices=OPTIONS)
-    projects = forms.CharField(required=True, label="Enter Project Name")
+    projects = forms.CharField(required=True, label="Enter Project Name(s) Separate by Commas")
     #is_encrypted = forms.ChoiceField(label="Is The File Encrypted?", required=True, choices=OPTIONS)
 
     class Meta:
@@ -40,9 +40,13 @@ class ReportForm(forms.ModelForm):
                   "company_country", "is_private")#, "is_encrypted")
 
 class FileAddForm(forms.Form):
+    YESNO = (('Y', 'Yes'),
+             ('N', 'No'))
     content = forms.FileField(label="Upload a file here",
                               widget=forms.FileInput(attrs={'multiple': False, 'type': 'file', 'class': 'button'}),
                               required=False)
+    encrypted = forms.ChoiceField(label="Is The File Encrypted?", required=True, choices=YESNO)
+
     class Meta:
         model = Report
-        fields = ("content",)
+        fields = ("content", "encrypted")

@@ -140,7 +140,7 @@ def newReport (request):
             owner = request.user.username
             company_name = request.POST.get('company_name')
 
-            industry = request.POST.get('industry')
+
             is_private = request.POST.get('is_private')
             company_Phone = request.POST.get('company_Phone')
             company_location = request.POST.get('company_location')
@@ -291,7 +291,8 @@ def viewReport (request, report_id):
     for g in User.objects.get(username=request.user.username).groups.all():
         group_names.append(g.name)
     #security check
-    if report.is_private == 'N' or report.group in group_names or report.owner == request.user.username:
+    if report.is_private == 'N' or report.group in group_names or report.owner == request.user.username or \
+            request.user.is_superuser:
         if request.method == 'POST':
             form = FileAddForm(request.POST, request.FILES)
             if form.is_valid():
@@ -304,7 +305,9 @@ def viewReport (request, report_id):
                 report.save()
             return HttpResponseRedirect('../' + report_id)
         form = FileAddForm()
-        return render(request, 'report.html', {'report': report, 'form': form})
+        projects = report.projects
+        proj_list = projects.split(",")
+        return render(request, 'report.html', {'report': report, 'form': form, 'proj_list': proj_list})
     else:
         # user is trying to access report that he/she does not have rights to
         return HttpResponseRedirect('/newsletter/reports/')

@@ -59,11 +59,14 @@
                             <form method=post>
                                 {% csrf_token %}
                                 <h4>Current Files</h4>
-                                {% if report.is_encrypted == 'Y' %}
-                                    <p>Warning: is encrypted</p>
+                                {% if report.content.all|length == 0 %}
+                                    NONE
                                 {% endif %}
 
                                 {% for f in report.content.all %}
+                                    {% if f.encrypted == 'Y' %}
+                                        [Warning: encrypted]
+                                    {% endif %}
                                     <a href="{{f.file.url}}" target="_blank">{{f.file.name}}</a>
                                     <button name="submit" value="r{{f.id}}">Remove File</button>
                                     <br>

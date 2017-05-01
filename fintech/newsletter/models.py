@@ -3,6 +3,8 @@ from django.contrib.auth.models import User
 from django.db.models.signals import post_save
 from django.contrib.auth.models import Group, Permission
 from django.dispatch import receiver
+from django.utils.timezone import utc
+import datetime
 
 # Create your models here.
 class SiteUser(models.Model):
@@ -51,7 +53,7 @@ class Report(models.Model):
 
     COUNTRIES= (('US', 'United States'),
                 ('CA', 'Canada'),
-                ('GB', 'Great Britain'),                ('MX', 'Mexico'),)
+                ('GB', 'Great Britain'), ('MX', 'Mexico'),)
 
     OPTIONS=(('Y', 'Yes'),
              ('N', 'No'),)
@@ -67,18 +69,28 @@ class Report(models.Model):
     company_country = models.CharField(max_length=2, choices=COUNTRIES)
     sector = models.CharField(max_length=45)
     industry = models.CharField(max_length=45)
-
+    time = models.DateTimeField(auto_now_add=True, blank=True)
     projects = models.TextField(max_length=300, default='project')
 
     content = models.ManyToManyField(File, default="none")
-    is_encrypted=models.CharField(max_length=1, choices=OPTIONS)
 
 
-    #class Meta:
-     #   order_with_respect_to = 'company_name'
-
-    # def setOwner(self, name):
-    #     self.owner = name
+    def get_time_diff(self):
+        if self.time:
+            now = datetime.datetime.utcnow().replace(tzinfo=utc)
+            timediff = now - self.time
+            seconds = timediff.total_seconds()
+            minutes = int(seconds/60)
+            hours = int(minutes / 60)
+            days = int(hours / 60)
+            if hours < 24:
+                return 1
+            elif days < 7:
+                return 2
+            elif days < 31:
+                return 3
+            else:
+                return 4
 
     
 #--------------------------------Group---Model----------------------------

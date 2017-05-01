@@ -16,7 +16,7 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='File',
             fields=[
-                ('id', models.AutoField(primary_key=True, auto_created=True, verbose_name='ID', serialize=False)),
+                ('id', models.AutoField(serialize=False, primary_key=True, verbose_name='ID', auto_created=True)),
                 ('file', models.FileField(upload_to='reports/')),
                 ('encrypted', models.CharField(choices=[('Y', 'Yes'), ('N', 'No')], max_length=1)),
             ],
@@ -24,7 +24,7 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Report',
             fields=[
-                ('id', models.AutoField(primary_key=True, auto_created=True, verbose_name='ID', serialize=False)),
+                ('id', models.AutoField(serialize=False, primary_key=True, verbose_name='ID', auto_created=True)),
                 ('owner', models.CharField(max_length=50)),
                 ('ceo_name', models.CharField(max_length=30)),
                 ('group', models.CharField(blank=True, max_length=30)),
@@ -36,15 +36,15 @@ class Migration(migrations.Migration):
                 ('company_country', models.CharField(choices=[('US', 'United States'), ('CA', 'Canada'), ('GB', 'Great Britain'), ('MX', 'Mexico')], max_length=2)),
                 ('sector', models.CharField(max_length=45)),
                 ('industry', models.CharField(max_length=45)),
+                ('time', models.DateTimeField(auto_now_add=True)),
                 ('projects', models.TextField(max_length=300, default='project')),
-                ('is_encrypted', models.CharField(choices=[('Y', 'Yes'), ('N', 'No')], max_length=1)),
                 ('content', models.ManyToManyField(to='newsletter.File', default='none')),
             ],
         ),
         migrations.CreateModel(
             name='SiteUser',
             fields=[
-                ('id', models.AutoField(primary_key=True, auto_created=True, verbose_name='ID', serialize=False)),
+                ('id', models.AutoField(serialize=False, primary_key=True, verbose_name='ID', auto_created=True)),
                 ('usertype', models.CharField(choices=[('c', 'Company User'), ('i', 'Investor User')], max_length=1)),
                 ('groups', models.ManyToManyField(to='auth.Group')),
                 ('user', models.OneToOneField(to=settings.AUTH_USER_MODEL)),
