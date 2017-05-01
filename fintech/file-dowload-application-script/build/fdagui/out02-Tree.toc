@@ -1,7 +1,7 @@
 ('c:\\Users\\student\\Documents\\UVA\\6th\\CS '
  '3240\\Fintech\\cs3240-s17-team31\\fintech\\file-dowload-application-script\\build\\fdagui\\setuptools-27.2.0-py3.5.egg',
  None,
- {'EGG-INFO', '*.py', '*.pyc', '*.pyd', '*.so', '*.pyo'},
+ {'EGG-INFO', '*.py', '*.pyd', '*.pyo', '*.pyc', '*.so'},
  'DATA',
  [('setuptools\\cli-32.exe',
    'c:\\Users\\student\\Documents\\UVA\\6th\\CS '
