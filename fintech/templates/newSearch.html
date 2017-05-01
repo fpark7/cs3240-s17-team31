@@ -5,7 +5,7 @@
 -->
 <html>
 <head>
-    <title>Search | Lokahi</title>
+    <title>Adv Search | Lokahi</title>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <!--[if lte IE 8]><script src="static/js/ie/html5shiv.js"></script><![endif]-->
@@ -48,6 +48,7 @@
 
                         <section>
                             <h2>ADVANCED SEARCH</h2>
+                            <p>Search by AND logic. Blank fields will be ignored.</p>
                             <form method="post">
                                 {% csrf_token %}
                                 {{ form }}
