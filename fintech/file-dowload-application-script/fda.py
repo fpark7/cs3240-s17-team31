@@ -53,7 +53,6 @@ def main():
             for i in range(0, len(reports)):
                 print(str(i+1) + ". " + "REPORT ID: " + str(reports[i]['id']))
                 print("     Projects: " + reports[i]['projects'])
-                print("~~~~~")
                 print("     Company: " + reports[i]['company_name'])
                 print("     Sector: " + reports[i]['sector'])
 
@@ -89,6 +88,7 @@ def main():
             print("Company Name: " + current_report['company_name'])
             print("Industry: " + current_report['industry'])
             print("CEO Name: " + current_report['ceo_name'])
+            print("Company Email: " + current_report['company_email'])
             print("Company Phone: " + current_report['company_phone'])
             print("Company Location: " + current_report['company_location'])
             print("Company Country: " + current_report['company_country'])

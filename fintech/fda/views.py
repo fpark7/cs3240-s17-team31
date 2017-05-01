@@ -57,7 +57,7 @@ def getReportsList(request):
                   'is_private': report.is_private, 'company_name': report.company_name, 'company_phone': report.company_Phone,
                   'company_location': report.company_location, 'company_country': report.company_country,
                   'sector': report.sector, 'projects': report.projects, 'ceo_name': report.ceo_name,
-                  'id': report.id, 'industry': report.industry, 'content': content_list}
+                  'id': report.id, 'industry': report.industry, 'company_email': report.company_email, 'content': content_list}
 
         reports_list.append(r_dict)
     data['reports_list'] = reports_list

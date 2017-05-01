@@ -96,6 +96,7 @@ def reportSettings(request, report_id):
             report.sector = request.POST.get('sector')
             report.projects = request.POST.get('projects')
             report.group = request.POST.get('group')
+            report.company_email = request.POST.get('company_email')
 
             report.save()
         return HttpResponseRedirect('../'+report_id)
@@ -103,8 +104,8 @@ def reportSettings(request, report_id):
     form = ReportForm(initial={'company_name':report.company_name, 'is_private': report.is_private,
                                'company_Phone':report.company_Phone, 'company_location': report.company_location,
                                'company_country': report.company_country, 'sector': report.sector,
-                               'projects': report.projects, 'group': report.group,
-                                'ceo_name': report.ceo_name, 'industry': report.industry})
+                               'projects': report.projects, 'group': report.group, 'ceo_name': report.ceo_name,
+                               'company_email': report.company_email, 'industry': report.industry})
     return render(request, 'reportSettings.html', {'report': report, 'form': form})
 
 @user_passes_test(lambda u: u.is_superuser)

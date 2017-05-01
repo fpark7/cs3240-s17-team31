@@ -68,6 +68,7 @@ class Report(models.Model):
     company_location = models.CharField(max_length=45)
     company_country = models.CharField(max_length=2, choices=COUNTRIES)
     sector = models.CharField(max_length=45)
+    company_email = models.EmailField(max_length=45)
     industry = models.CharField(max_length=45)
     time = models.DateTimeField(auto_now_add=True, blank=True)
     projects = models.TextField(max_length=300, default='project')

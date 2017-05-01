@@ -148,6 +148,7 @@ def newReport (request):
             sector = request.POST.get('sector')
             ceo_name = request.POST.get('ceo_name')
             projects = request.POST.get('projects')
+            company_email = request.POST.get('company_email')
 
             print(projects)
 
@@ -160,7 +161,7 @@ def newReport (request):
 
             report = Report.objects.create(owner=owner, company_name=company_name, is_private=is_private, company_Phone=company_Phone,
             company_location=company_location, company_country=company_country, sector=sector, ceo_name=ceo_name,
-            projects=projects, group=group, industry=industry,)
+            projects=projects, group=group, industry=industry,company_email=company_email)
 
             report.save()
 

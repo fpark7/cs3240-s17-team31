@@ -54,6 +54,7 @@ class ReportForm(forms.ModelForm):
     company_location = forms.CharField(required=True, label="Enter Company Location")
     company_country = forms.ChoiceField(required=True, choices=COUNTRIES, label="Enter Company Country")
     sector = forms.CharField(required=True, label="Enter Company Sector")
+    company_email = forms.EmailField(required=True, label="Enter Company Email")
     ceo_name = forms.CharField(required=True, label="Enter CEO Name")
     #group = forms.CharField(required=False, label="What group can view this?")
     group = forms.ChoiceField(label="Which Group Should This Report Be Associated With?", required=True,
@@ -71,8 +72,8 @@ class ReportForm(forms.ModelForm):
     
     class Meta:
         model = Report
-        fields = ("projects" ,"industry", "company_name", "sector", "ceo_name", "company_Phone", "company_location",
-                  "company_country", "is_private")#, #"content", "is_encrypted")
+        fields = ("projects" ,"industry", "company_name", "sector", "ceo_name", "company_Phone", "company_email",
+                  "company_location", "company_country", "is_private")#, #"content", "is_encrypted")
 
 #----------------------SignIn/Home-Page----------------------------------
 
