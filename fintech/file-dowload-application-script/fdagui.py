@@ -160,7 +160,7 @@ class dlReports(Frame):
         t.insert(INSERT, "Industry: \t\t\t" + report['industry'] + "\n")
         t.insert(INSERT, "CEO Name: \t\t\t" + report['ceo_name'] + "\n")
         t.insert(INSERT, "Company Phone: \t\t\t" + report['company_phone'] + "\n")
-        # t.insert(INSERT, "Company Email: \t\t\t" + report['company_email'] + "\n")
+        t.insert(INSERT, "Company Email: \t\t\t" + report['company_email'] + "\n")
         t.insert(INSERT, "Company Location: \t\t\t" + report['company_location'] + "\n")
         t.insert(INSERT, "Company Country: \t\t\t" + report['company_country'] + "\n")
         t.insert(INSERT, "Sector: \t\t\t" + report['sector'] + "\n")
@@ -305,7 +305,7 @@ class LoginFrame(Frame):
                 # print("You have successfully logged in")
                 global user
                 user = username
-                tm.showinfo("Login info", "Welcome " + user)
+                tm.showinfo("Welcome!", "Welcome to Lokahi Fintech Crowdfunding\n" + "User, " + user)
                 self.destroy()
                 LoggedIn(root)
                 break
@@ -316,5 +316,6 @@ class LoginFrame(Frame):
 
 root = Tk()
 lf = LoginFrame(root)
+root.wm_title("Lokahi FDA")
 t = Text(root)
 root.mainloop()

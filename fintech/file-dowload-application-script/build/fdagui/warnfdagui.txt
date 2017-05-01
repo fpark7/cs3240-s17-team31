@@ -1,11 +1,11 @@
 missing module named 'win32com.gen_py' - imported by win32com, c:\users\student\anaconda3\lib\site-packages\PyInstaller\loader\rthooks\pyi_rth_win32comgenpy.py
 missing module named pyimod03_importers - imported by PyInstaller.loader.pyimod02_archive, c:\users\student\anaconda3\lib\site-packages\PyInstaller\loader\rthooks\pyi_rth_pkgres.py
+missing module named 'pkg_resources.extern.pyparsing' - imported by pkg_resources._vendor.packaging.markers, pkg_resources._vendor.packaging.requirements
 missing module named StringIO - imported by requests.packages.urllib3.packages.six, six, PyInstaller.lib.modulegraph.util, PyInstaller.lib.modulegraph.zipio, PyInstaller.lib.modulegraph.modulegraph, requests.compat, pkg_resources._vendor.six
-missing module named 'com.sun' - imported by pkg_resources._vendor.appdirs
-missing module named com - imported by pkg_resources._vendor.appdirs
 missing module named __builtin__ - imported by future.builtins.misc, future.utils, past.types, past.builtins.noniterators, past.builtins, past.builtins.misc, pkg_resources._vendor.pyparsing
 missing module named ordereddict - imported by pkg_resources._vendor.pyparsing
-missing module named 'pkg_resources.extern.pyparsing' - imported by pkg_resources._vendor.packaging.requirements, pkg_resources._vendor.packaging.markers
+missing module named 'com.sun' - imported by pkg_resources._vendor.appdirs
+missing module named com - imported by pkg_resources._vendor.appdirs
 missing module named _dbm - imported by dbm.ndbm
 missing module named gdbm - imported by anydbm, future.moves.dbm.gnu
 missing module named _gdbm - imported by dbm.gnu
@@ -41,6 +41,7 @@ missing module named resource - imported by posix, test.support, c:\Users\studen
 missing module named posix - imported by os, c:\Users\student\Documents\UVA\6th\CS 3240\Fintech\cs3240-s17-team31\fintech\file-dowload-application-script\fdagui.py
 missing module named _posixsubprocess - imported by subprocess, multiprocessing.util, c:\Users\student\Documents\UVA\6th\CS 3240\Fintech\cs3240-s17-team31\fintech\file-dowload-application-script\fdagui.py
 missing module named 'org.python' - imported by pickle, xml.sax, c:\Users\student\Documents\UVA\6th\CS 3240\Fintech\cs3240-s17-team31\fintech\file-dowload-application-script\fdagui.py
+missing module named ce - imported by os, c:\Users\student\Documents\UVA\6th\CS 3240\Fintech\cs3240-s17-team31\fintech\file-dowload-application-script\fdagui.py
 missing module named readline - imported by cmd, code, pdb, c:\Users\student\Documents\UVA\6th\CS 3240\Fintech\cs3240-s17-team31\fintech\file-dowload-application-script\fdagui.py
 excluded module named _frozen_importlib - imported by importlib, importlib.abc, PyInstaller.loader.pyimod02_archive, c:\Users\student\Documents\UVA\6th\CS 3240\Fintech\cs3240-s17-team31\fintech\file-dowload-application-script\fdagui.py
 missing module named _frozen_importlib_external - imported by importlib._bootstrap, importlib, importlib.abc, c:\Users\student\Documents\UVA\6th\CS 3240\Fintech\cs3240-s17-team31\fintech\file-dowload-application-script\fdagui.py
@@ -49,18 +50,17 @@ missing module named java - imported by platform, c:\Users\student\Documents\UVA
 missing module named 'java.lang' - imported by platform, xml.sax._exceptions, c:\Users\student\Documents\UVA\6th\CS 3240\Fintech\cs3240-s17-team31\fintech\file-dowload-application-script\fdagui.py
 missing module named vms_lib - imported by platform, c:\Users\student\Documents\UVA\6th\CS 3240\Fintech\cs3240-s17-team31\fintech\file-dowload-application-script\fdagui.py
 missing module named termios - imported by tty, getpass, c:\Users\student\Documents\UVA\6th\CS 3240\Fintech\cs3240-s17-team31\fintech\file-dowload-application-script\fdagui.py
-missing module named urllib.unquote_plus - imported by urllib, requests.compat
 missing module named urllib.quote_plus - imported by urllib, requests.compat
-missing module named urllib.quote - imported by urllib, requests.compat
-missing module named urllib.urlencode - imported by urllib, requests.compat
-missing module named urllib.proxy_bypass - imported by urllib, requests.compat
 missing module named urllib.unquote - imported by urllib, requests.compat
+missing module named urllib.urlencode - imported by urllib, requests.compat
+missing module named urllib.unquote_plus - imported by urllib, requests.compat
 missing module named urllib.getproxies - imported by urllib, requests.compat
+missing module named urllib.quote - imported by urllib, requests.compat
+missing module named urllib.proxy_bypass - imported by urllib, requests.compat
 missing module named grp - imported by tarfile, shutil, c:\Users\student\Documents\UVA\6th\CS 3240\Fintech\cs3240-s17-team31\fintech\file-dowload-application-script\fdagui.py
-missing module named pwd - imported by posixpath, tarfile, shutil, http.server, webbrowser, distutils.util, netrc, getpass, c:\Users\student\Documents\UVA\6th\CS 3240\Fintech\cs3240-s17-team31\fintech\file-dowload-application-script\fdagui.py
-missing module named ce - imported by os, c:\Users\student\Documents\UVA\6th\CS 3240\Fintech\cs3240-s17-team31\fintech\file-dowload-application-script\fdagui.py
 missing module named _dummy_threading - imported by dummy_threading, c:\Users\student\Documents\UVA\6th\CS 3240\Fintech\cs3240-s17-team31\fintech\file-dowload-application-script\fdagui.py
 missing module named org - imported by copy, c:\Users\student\Documents\UVA\6th\CS 3240\Fintech\cs3240-s17-team31\fintech\file-dowload-application-script\fdagui.py
+missing module named pwd - imported by posixpath, tarfile, shutil, http.server, webbrowser, distutils.util, netrc, getpass, c:\Users\student\Documents\UVA\6th\CS 3240\Fintech\cs3240-s17-team31\fintech\file-dowload-application-script\fdagui.py
 missing module named 'requests.packages.urllib3.packages.six.moves' - imported by requests.packages.urllib3.exceptions, requests.packages.urllib3.connectionpool, requests.packages.urllib3.connection, requests.packages.urllib3.util.response, requests.packages.urllib3.request, requests.packages.urllib3.response, requests.packages.urllib3.poolmanager
 missing module named Queue - imported by requests.packages.urllib3.connectionpool
 missing module named 'backports.ssl_match_hostname' - imported by requests.packages.urllib3.packages.ssl_match_hostname
