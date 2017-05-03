@@ -75,7 +75,7 @@ def viewSearch (request):
     super_view = []
     public_view = []
     for v in view:
-        time = s.time_created.lower() == '0' or (int(s.time_created.lower()) != 4 and v.get_time_diff() < 4) or (v.get_time_diff() == 4 and int(s.time_created.lower() == 4))
+        time = s.time_created.lower() == '0' or (int(s.time_created.lower()) != 4 and v.get_time_diff() <= int(s.time_created.lower())) or (v.get_time_diff() == 4 and int(s.time_created.lower() == 4))
         if (s.company_name.lower() in v.company_name.lower() or s.company_name == "") and (s.company_location.lower()
            in v.company_location.lower() or s.company_location == "") and (s.company_country == v.company_country or
            s.company_country == "AN") and (s.sector.lower() in v.sector.lower() or s.sector == "") and \
