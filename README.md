@@ -3,14 +3,17 @@ A web application designed for 'FinTech' companies. The application was a semest
 
 ## Spring '17 - Team 31
 ### Features
-- -Site Manager
-- -Newsfeed
-- -Messenger
-- -Email
-- -Password Reset/Account Management
-- -Search/Advanced Search
-- -File Upload, Sorting, and Management
-- -File Download Application (CLI and GUI)
+- Site Manager
+- Newsfeed
+- Groups
+- Messenger
+- Email
+- Password Reset/Account Management
+- User Permissions
+- Search/Advanced Search
+- File Upload, Sorting, and Management
+- File Download Application (CLI and GUI)
+- File Encryption/Decryption
 
 ### Herkou Deployment
 [Check it out!](https://protected-headland-67508.herokuapp.com/)
